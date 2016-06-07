@@ -17,7 +17,7 @@ module.exports = function(config) {
             NODE_MODULES_ROOT_PATH + 'angular-resource/angular-resource.min.js',
             NODE_MODULES_ROOT_PATH + 'angular-mocks/angular-mocks.js',
             /* Application files */
-            'app/otus-client-module.js',
+            'app/rest-resource-module.js',
             'app/**/*.js', {
                 pattern: 'tests/unit/**/*-spec.js',
                 included: true
