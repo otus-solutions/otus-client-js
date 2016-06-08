@@ -12,19 +12,25 @@
         .module('otus.client')
         .service('OtusRestResourceService', OtusRestResourceService);
 
-    OtusRestResourceService.$inject = ['OtusInstallerResourceFactory'];
+    OtusRestResourceService.$inject = ['OtusInstallerResourceFactory', 'OtusAuthenticatorResourceFactory', '$window'];
 
-    function OtusRestResourceService(OtusInstallerResourceFactory) {
-        var HOSTNAME = 'http://' + window.location.hostname;
+    function OtusRestResourceService(OtusInstallerResourceFactory, OtusAuthenticatorResourceFactory, $window) {
+        var HOSTNAME = 'http://' + $window.location.hostname;
         var CONTEXT = '/otus-rest';
         var VERSION = '/v01';
 
 
         var self = this;
         self.getOtusInstallerResource = getOtusInstallerResource;
+        self.getOtusAuthenticatorResource = getOtusAuthenticatorResource;
+        self.setSecurityToken = setSecurityToken;
 
         function getRestPrefix() {
             return HOSTNAME + CONTEXT + VERSION;
+        }
+
+        function setSecurityToken(securityToken) {
+            $window.sessionStorage.setItem('token', securityToken);
         }
 
         function getHostName() {
@@ -42,6 +48,11 @@
         function getOtusInstallerResource() {
             var prefix = getRestPrefix();
             return OtusInstallerResourceFactory.create(prefix);
+        }
+
+        function getOtusAuthenticatorResource() {
+            var prefix = getRestPrefix();
+            return OtusAuthenticatorResourceFactory.create(prefix);
         }
     }
 
@@ -76,6 +87,47 @@
         }
 
         return self;
+    }
+
+}());
+
+(function() {
+    'use strict';
+
+    angular
+        .module('otus.client')
+        .factory('OtusAuthenticatorResourceFactory', OtusAuthenticatorResourceFactory);
+
+    OtusAuthenticatorResourceFactory.$inject = ['$resource', '$window'];
+
+    function OtusAuthenticatorResourceFactory($resource, $window) {
+        var SUFFIX = '/authentication';
+
+        var self = this;
+        self.create = create;
+
+        function create(restPrefix) {
+            return $resource({}, {}, {
+                authenticate: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX,
+                    headers: {
+                        'Authorization': 'Bearer ' + $window.sessionStorage.getItem('token')
+                    }
+                },
+                invalidate: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX + '/invalidate',
+                    headers: {
+                        'Authorization': 'Bearer ' + $window.sessionStorage.getItem('token')
+                    }
+                }
+            });
+
+        }
+
+        return self;
+
     }
 
 }());
