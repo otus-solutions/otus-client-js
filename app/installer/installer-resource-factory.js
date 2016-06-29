@@ -5,23 +5,23 @@
         .module('otus.client')
         .factory('OtusInstallerResourceFactory', OtusInstallerResourceFactory);
 
-    OtusInstallerResourceFactory.$inject = ['$resource'];
+    OtusInstallerResourceFactory.$inject = ['$resource', 'OtusRestResourceContext'];
 
-    function OtusInstallerResourceFactory($resource) {
+    function OtusInstallerResourceFactory($resource, OtusRestResourceContext) {
         var SUFFIX = '/installer';
 
         var self = this;
         self.create = create;
 
-        function create(restPrefix) {
+        function create() {
             return $resource({}, {}, {
                 ready: {
                     method: 'GET',
-                    url: restPrefix + SUFFIX + '/ready'
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/ready'
                 },
                 config: {
                     method: 'POST',
-                    url: restPrefix + SUFFIX + '/config'
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/config'
                 }
             });
         }

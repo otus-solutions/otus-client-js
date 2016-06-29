@@ -5,67 +5,38 @@
         .module('otus.client')
         .service('OtusRestResourceService', OtusRestResourceService);
 
-    OtusRestResourceService.$inject = ['OtusInstallerResourceFactory', 'OtusAuthenticatorResourceFactory', '$window', 'UrlParser'];
+    OtusRestResourceService.$inject = ['OtusInstallerResourceFactory', 'OtusAuthenticatorResourceFactory', 'OtusFieldCenterResourceFactory', 'OtusRestResourceContext'];
 
-    function OtusRestResourceService(OtusInstallerResourceFactory, OtusAuthenticatorResourceFactory, $window, UrlParser) {
-        var HOSTNAME = 'http://' + $window.location.hostname;
-        var CONTEXT = '/otus-rest';
-        var VERSION = '/v01';
-
+    function OtusRestResourceService(OtusInstallerResourceFactory, OtusAuthenticatorResourceFactory, OtusFieldCenterResourceFactory, OtusRestResourceContext) {
         var self = this;
         self.getOtusInstallerResource = getOtusInstallerResource;
         self.getOtusAuthenticatorResource = getOtusAuthenticatorResource;
-        self.setSecurityToken = setSecurityToken;
+        self.getOtusFieldCenterResource = getOtusFieldCenterResource;
         self.setUrl = setUrl;
-        self.setHostname = setHostname;
-        self.setContext = setContext;
-        self.setVersion = setVersion;
+	self.setSecurityProjectToken = setSecurityProjectToken;
 
         function setUrl(url) {
-            var parser = UrlParser.parser(url);
-            HOSTNAME = parser.origin;
+            OtusRestResourceContext.setUrl(url);
         }
 
-        function setHostname(hostname) {
-            HOSTNAME = hostname;
+        function setSecurityProjectToken(token) {
+            OtusRestResourceContext.setSecurityProjectToken(token);
         }
 
-        function setContext(context) {
-            CONTEXT = '/' + context;
-        }
-
-        function setVersion(version) {
-            VERSION = '/' + version;
-        }
-
-        function getRestPrefix() {
-            return HOSTNAME + CONTEXT + VERSION;
-        }
-
-        function setSecurityToken(securityToken) {
-            $window.sessionStorage.setItem('token', securityToken);
-        }
-
-        function getHostName() {
-            return HOSTNAME;
-        }
-
-        function getContext() {
-            return CONTEXT;
-        }
-
-        function getVersion() {
-            return VERSION;
+        function setSecurityToken(token) {
+            OtusRestResourceContext.setSecurityToken(token);
         }
 
         function getOtusInstallerResource() {
-            var prefix = getRestPrefix();
-            return OtusInstallerResourceFactory.create(prefix);
+            return OtusInstallerResourceFactory.create();
         }
 
         function getOtusAuthenticatorResource() {
-            var prefix = getRestPrefix();
-            return OtusAuthenticatorResourceFactory.create(prefix);
+            return OtusAuthenticatorResourceFactory.create();
+        }
+
+        function getOtusFieldCenterResource() {
+            return OtusFieldCenterResourceFactory.create();
         }
     }
 
