@@ -14,6 +14,7 @@
         self.getOtusFieldCenterResource = getOtusFieldCenterResource;
         self.setUrl = setUrl;
 	self.setSecurityProjectToken = setSecurityProjectToken;
+	self.setSecurityToken = setSecurityToken;
 
         function setUrl(url) {
             OtusRestResourceContext.setUrl(url);
