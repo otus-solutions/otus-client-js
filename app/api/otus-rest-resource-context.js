@@ -8,13 +8,13 @@
     OtusRestResourceContext.$inject = ['$window', 'UrlParser'];
 
     function OtusRestResourceContext($window, UrlParser) {
-        var HOSTNAME = 'http://' + $window.location.hostname;
-        var CONTEXT = '/otus-rest';
-        var VERSION = '/v01';
-        var TOKEN = '';
-        var PROJECT_TOKEN = '';
-
         var self = this;
+        var TOKEN_USER_NAME = 'outk';
+        var TOKEN_PROJECT_NAME = 'optk';
+        var HOSTNAME;
+        var CONTEXT;
+        var VERSION;
+
         self.setUrl = setUrl;
         self.setHostname = setHostname;
         self.setContext = setContext;
@@ -23,7 +23,31 @@
         self.setSecurityProjectToken = setSecurityProjectToken;
         self.getRestPrefix = getRestPrefix;
         self.getSecurityToken = getSecurityToken;
-	self.getSecurityProjectToken = getSecurityProjectToken;
+        self.getSecurityProjectToken = getSecurityProjectToken;
+        self.removeSecurityProjectToken = removeSecurityProjectToken;
+        self.removeSecurityToken = removeSecurityToken;
+        self.init = init;
+        self.reset = reset;
+
+        self.init();
+
+        function init() {
+            HOSTNAME = 'http://' + $window.location.hostname;
+            CONTEXT = '/otus-rest';
+            VERSION = '/v01';
+        }
+
+        function reset() {
+            HOSTNAME = '';
+        }
+
+        function removeSecurityToken() {
+            delete $window.sessionStorage[TOKEN_USER_NAME];
+        }
+
+        function removeSecurityProjectToken() {
+            delete $window.sessionStorage[TOKEN_PROJECT_NAME];
+        }
 
         function setUrl(url) {
             var parser = UrlParser.parser(url);
@@ -59,19 +83,19 @@
         }
 
         function setSecurityToken(securityToken) {
-            TOKEN = securityToken;
+            $window.sessionStorage[TOKEN_USER_NAME] = securityToken;
         }
 
         function setSecurityProjectToken(securityProjectToken) {
-            PROJECT_TOKEN = securityProjectToken;
+            $window.sessionStorage[TOKEN_PROJECT_NAME] = securityProjectToken;
         }
 
         function getSecurityProjectToken() {
-            return PROJECT_TOKEN;
+            return $window.sessionStorage[TOKEN_PROJECT_NAME];
         }
 
         function getSecurityToken() {
-            return TOKEN;
+            return $window.sessionStorage[TOKEN_USER_NAME];
         }
     }
 
