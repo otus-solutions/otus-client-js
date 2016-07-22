@@ -33,7 +33,7 @@
                     method: 'POST',
                     url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/project',
                     headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityProjectToken()
                     }
                 }
             });

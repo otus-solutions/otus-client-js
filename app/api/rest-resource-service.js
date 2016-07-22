@@ -13,8 +13,28 @@
         self.getOtusAuthenticatorResource = getOtusAuthenticatorResource;
         self.getOtusFieldCenterResource = getOtusFieldCenterResource;
         self.setUrl = setUrl;
-	self.setSecurityProjectToken = setSecurityProjectToken;
-	self.setSecurityToken = setSecurityToken;
+        self.setSecurityProjectToken = setSecurityProjectToken;
+        self.setSecurityToken = setSecurityToken;
+        self.removeSecurityProjectToken = removeSecurityProjectToken;
+        self.removeSecurityToken = removeSecurityToken;
+        self.resetConnectionData = resetConnectionData;
+        self.initDefaultConnectionData = initDefaultConnectionData;
+
+        function resetConnectionData() {
+            OtusRestResourceContext.reset();
+        }
+
+        function initDefaultConnectionData() {
+            OtusRestResourceContext.init();
+        }
+
+        function removeSecurityProjectToken() {
+            OtusRestResourceContext.removeSecurityProjectToken();
+        }
+
+        function removeSecurityToken() {
+            OtusRestResourceContext.removeSecurityToken();
+        }
 
         function setUrl(url) {
             OtusRestResourceContext.setUrl(url);
