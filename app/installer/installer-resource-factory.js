@@ -22,7 +22,12 @@
                 config: {
                     method: 'POST',
                     url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/config'
+                },
+                validation: {
+                    method: 'POST',
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/validation'
                 }
+
             });
         }
 
