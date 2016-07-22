@@ -38,6 +38,7 @@
 
     function OtusRestResourceContext($window, UrlParser) {
         var self = this;
+        
         var TOKEN_USER_NAME = 'outk';
         var TOKEN_PROJECT_NAME = 'optk';
         var HOSTNAME;
@@ -137,20 +138,28 @@
         .module('otus.client')
         .service('OtusRestResourceService', OtusRestResourceService);
 
-    OtusRestResourceService.$inject = ['OtusInstallerResourceFactory', 'OtusAuthenticatorResourceFactory', 'OtusFieldCenterResourceFactory', 'OtusRestResourceContext'];
+    OtusRestResourceService.$inject = [
+        'OtusInstallerResourceFactory',
+        'OtusAuthenticatorResourceFactory',
+        'OtusFieldCenterResourceFactory',
+        'OtusRestResourceContext',
+        'otus.client.UserResourceFactory'
+    ];
 
-    function OtusRestResourceService(OtusInstallerResourceFactory, OtusAuthenticatorResourceFactory, OtusFieldCenterResourceFactory, OtusRestResourceContext) {
+    function OtusRestResourceService(OtusInstallerResourceFactory, OtusAuthenticatorResourceFactory, OtusFieldCenterResourceFactory, OtusRestResourceContext, UserResourceFactory) {
         var self = this;
-        self.getOtusInstallerResource = getOtusInstallerResource;
-        self.getOtusAuthenticatorResource = getOtusAuthenticatorResource;
-        self.getOtusFieldCenterResource = getOtusFieldCenterResource;
+
+        self.resetConnectionData = resetConnectionData;
+        self.initDefaultConnectionData = initDefaultConnectionData;
+        self.removeSecurityProjectToken = removeSecurityProjectToken;
+        self.removeSecurityToken = removeSecurityToken;
         self.setUrl = setUrl;
         self.setSecurityProjectToken = setSecurityProjectToken;
         self.setSecurityToken = setSecurityToken;
-        self.removeSecurityProjectToken = removeSecurityProjectToken;
-        self.removeSecurityToken = removeSecurityToken;
-        self.resetConnectionData = resetConnectionData;
-        self.initDefaultConnectionData = initDefaultConnectionData;
+        self.getOtusInstallerResource = getOtusInstallerResource;
+        self.getOtusAuthenticatorResource = getOtusAuthenticatorResource;
+        self.getOtusFieldCenterResource = getOtusFieldCenterResource;
+        self.getUserResource = getUserResource;
 
         function resetConnectionData() {
             OtusRestResourceContext.reset();
@@ -190,6 +199,10 @@
 
         function getOtusFieldCenterResource() {
             return OtusFieldCenterResourceFactory.create();
+        }
+
+        function getUserResource() {
+            return UserResourceFactory.create();
         }
     }
 
@@ -248,6 +261,39 @@
 
     angular
         .module('otus.client')
+        .factory('OtusInstallerResourceFactory', OtusInstallerResourceFactory);
+
+    OtusInstallerResourceFactory.$inject = ['$resource', 'OtusRestResourceContext'];
+
+    function OtusInstallerResourceFactory($resource, OtusRestResourceContext) {
+        var SUFFIX = '/installer';
+
+        var self = this;
+        self.create = create;
+
+        function create() {
+            return $resource({}, {}, {
+                ready: {
+                    method: 'GET',
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/ready'
+                },
+                config: {
+                    method: 'POST',
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/config'
+                }
+            });
+        }
+
+        return self;
+    }
+
+}());
+
+(function() {
+    'use strict';
+
+    angular
+        .module('otus.client')
         .factory('OtusFieldCenterResourceFactory', OtusFieldCenterResourceFactory);
 
     OtusFieldCenterResourceFactory.$inject = ['$resource', 'OtusRestResourceContext'];
@@ -296,25 +342,29 @@
 
     angular
         .module('otus.client')
-        .factory('OtusInstallerResourceFactory', OtusInstallerResourceFactory);
+        .factory('otus.client.UserResourceFactory', UserResourceFactory);
 
-    OtusInstallerResourceFactory.$inject = ['$resource', 'OtusRestResourceContext'];
+    UserResourceFactory.$inject = [
+        '$resource',
+        'OtusRestResourceContext'
+    ];
 
-    function OtusInstallerResourceFactory($resource, OtusRestResourceContext) {
-        var SUFFIX = '/installer';
+    function UserResourceFactory($resource, OtusRestResourceContext) {
+        var SUFFIX = '/user';
 
         var self = this;
+
+        /* Public methods */
         self.create = create;
 
         function create() {
             return $resource({}, {}, {
-                ready: {
-                    method: 'GET',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/ready'
-                },
-                config: {
+                create: {
                     method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/config'
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX,
+                    headers: {
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
+                    }
                 }
             });
         }
