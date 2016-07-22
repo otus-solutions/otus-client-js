@@ -9,6 +9,7 @@
 
     function OtusRestResourceContext($window, UrlParser) {
         var self = this;
+        
         var TOKEN_USER_NAME = 'outk';
         var TOKEN_PROJECT_NAME = 'optk';
         var HOSTNAME;
