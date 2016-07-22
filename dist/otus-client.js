@@ -261,39 +261,6 @@
 
     angular
         .module('otus.client')
-        .factory('OtusInstallerResourceFactory', OtusInstallerResourceFactory);
-
-    OtusInstallerResourceFactory.$inject = ['$resource', 'OtusRestResourceContext'];
-
-    function OtusInstallerResourceFactory($resource, OtusRestResourceContext) {
-        var SUFFIX = '/installer';
-
-        var self = this;
-        self.create = create;
-
-        function create() {
-            return $resource({}, {}, {
-                ready: {
-                    method: 'GET',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/ready'
-                },
-                config: {
-                    method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/config'
-                }
-            });
-        }
-
-        return self;
-    }
-
-}());
-
-(function() {
-    'use strict';
-
-    angular
-        .module('otus.client')
         .factory('OtusFieldCenterResourceFactory', OtusFieldCenterResourceFactory);
 
     OtusFieldCenterResourceFactory.$inject = ['$resource', 'OtusRestResourceContext'];
@@ -342,29 +309,25 @@
 
     angular
         .module('otus.client')
-        .factory('otus.client.UserResourceFactory', UserResourceFactory);
+        .factory('OtusInstallerResourceFactory', OtusInstallerResourceFactory);
 
-    UserResourceFactory.$inject = [
-        '$resource',
-        'OtusRestResourceContext'
-    ];
+    OtusInstallerResourceFactory.$inject = ['$resource', 'OtusRestResourceContext'];
 
-    function UserResourceFactory($resource, OtusRestResourceContext) {
-        var SUFFIX = '/user';
+    function OtusInstallerResourceFactory($resource, OtusRestResourceContext) {
+        var SUFFIX = '/installer';
 
         var self = this;
-
-        /* Public methods */
         self.create = create;
 
         function create() {
             return $resource({}, {}, {
-                create: {
+                ready: {
+                    method: 'GET',
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/ready'
+                },
+                config: {
                     method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX,
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
-                    }
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/config'
                 }
             });
         }
