@@ -38,7 +38,7 @@
 
     function OtusRestResourceContext($window, UrlParser) {
         var self = this;
-        
+
         var TOKEN_USER_NAME = 'outk';
         var TOKEN_PROJECT_NAME = 'optk';
         var HOSTNAME;
@@ -58,6 +58,7 @@
         self.removeSecurityToken = removeSecurityToken;
         self.init = init;
         self.reset = reset;
+        self.hasToken = hasToken;
 
         self.init();
 
@@ -65,6 +66,14 @@
             HOSTNAME = 'http://' + $window.location.hostname;
             CONTEXT = '/otus-rest';
             VERSION = '/v01';
+        }
+
+        function hasToken() {
+            if ($window.sessionStorage[TOKEN_USER_NAME]) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         function reset() {
@@ -160,6 +169,11 @@
         self.getOtusAuthenticatorResource = getOtusAuthenticatorResource;
         self.getOtusFieldCenterResource = getOtusFieldCenterResource;
         self.getUserResource = getUserResource;
+	self.isLogged = isLogged;
+
+        function isLogged() {
+            return OtusRestResourceContext.hasToken();
+        }
 
         function resetConnectionData() {
             OtusRestResourceContext.reset();
@@ -213,45 +227,34 @@
 
     angular
         .module('otus.client')
-        .factory('OtusAuthenticatorResourceFactory', OtusAuthenticatorResourceFactory);
+        .factory('otus.client.UserResourceFactory', UserResourceFactory);
 
-    OtusAuthenticatorResourceFactory.$inject = ['$resource', 'OtusRestResourceContext'];
+    UserResourceFactory.$inject = [
+        '$resource',
+        'OtusRestResourceContext'
+    ];
 
-    function OtusAuthenticatorResourceFactory($resource, OtusRestResourceContext) {
-        var SUFFIX = '/authentication';
+    function UserResourceFactory($resource, OtusRestResourceContext) {
+        var SUFFIX = '/user';
 
         var self = this;
+
+        /* Public methods */
         self.create = create;
 
         function create() {
             return $resource({}, {}, {
-                authenticate: {
+                create: {
                     method: 'POST',
                     url: OtusRestResourceContext.getRestPrefix() + SUFFIX,
                     headers: {
                         'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
                     }
-                },
-                invalidate: {
-                    method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/invalidate',
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
-                    }
-                },
-                authenticateProject: {
-                    method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/project',
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityProjectToken()
-                    }
                 }
             });
-
         }
 
         return self;
-
     }
 
 }());
@@ -309,6 +312,54 @@
 
     angular
         .module('otus.client')
+        .factory('OtusAuthenticatorResourceFactory', OtusAuthenticatorResourceFactory);
+
+    OtusAuthenticatorResourceFactory.$inject = ['$resource', 'OtusRestResourceContext'];
+
+    function OtusAuthenticatorResourceFactory($resource, OtusRestResourceContext) {
+        var SUFFIX = '/authentication';
+
+        var self = this;
+        self.create = create;
+
+        function create() {
+            return $resource({}, {}, {
+                authenticate: {
+                    method: 'POST',
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX,
+                    headers: {
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
+                    }
+                },
+                invalidate: {
+                    method: 'POST',
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/invalidate',
+                    headers: {
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
+                    }
+                },
+                authenticateProject: {
+                    method: 'POST',
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/project',
+                    headers: {
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityProjectToken()
+                    }
+                }
+            });
+
+        }
+
+        return self;
+
+    }
+
+}());
+
+(function() {
+    'use strict';
+
+    angular
+        .module('otus.client')
         .factory('OtusInstallerResourceFactory', OtusInstallerResourceFactory);
 
     OtusInstallerResourceFactory.$inject = ['$resource', 'OtusRestResourceContext'];
@@ -328,43 +379,6 @@
                 config: {
                     method: 'POST',
                     url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/config'
-                }
-            });
-        }
-
-        return self;
-    }
-
-}());
-
-(function() {
-    'use strict';
-
-    angular
-        .module('otus.client')
-        .factory('otus.client.UserResourceFactory', UserResourceFactory);
-
-    UserResourceFactory.$inject = [
-        '$resource',
-        'OtusRestResourceContext'
-    ];
-
-    function UserResourceFactory($resource, OtusRestResourceContext) {
-        var SUFFIX = '/user';
-
-        var self = this;
-
-        /* Public methods */
-        self.create = create;
-
-        function create() {
-            return $resource({}, {}, {
-                create: {
-                    method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX,
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
-                    }
                 }
             });
         }
