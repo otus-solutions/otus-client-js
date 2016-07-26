@@ -361,7 +361,7 @@
             return $resource({}, {}, {
                 create: {
                     method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX,
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/signup',
                     headers: {
                         'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
                     }
