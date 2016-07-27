@@ -49,7 +49,6 @@
         }
 
         function getOtusInstallerResource() {
-            console.log("getOtusInstallerResource chamado!");
             return OtusInstallerResourceFactory.create();
         }
 

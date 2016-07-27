@@ -32,7 +32,6 @@
         self.init();
 
         function init() {
-            console.log("OtusRestResourceContext foi chamado!");
             HOSTNAME = 'http://' + $window.location.hostname;
             CONTEXT = '/otus-rest';
             VERSION = '/v01';
