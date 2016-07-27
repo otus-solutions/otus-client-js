@@ -14,6 +14,7 @@
         self.create = create;
 
         function create() {
+            console.log("create chamado!");
             return $resource({}, {}, {
                 ready: {
                     method: 'GET',
