@@ -9,7 +9,7 @@
 
     function OtusRestResourceContext($window, UrlParser) {
         var self = this;
-        
+
         var TOKEN_USER_NAME = 'outk';
         var TOKEN_PROJECT_NAME = 'optk';
         var HOSTNAME;
@@ -29,6 +29,7 @@
         self.removeSecurityToken = removeSecurityToken;
         self.init = init;
         self.reset = reset;
+        self.hasToken = hasToken;
 
         self.init();
 
@@ -36,6 +37,14 @@
             HOSTNAME = 'http://' + $window.location.hostname;
             CONTEXT = '/otus-rest';
             VERSION = '/v01';
+        }
+
+        function hasToken() {
+            if ($window.sessionStorage[TOKEN_USER_NAME]) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         function reset() {
