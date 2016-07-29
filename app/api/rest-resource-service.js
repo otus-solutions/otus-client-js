@@ -27,6 +27,11 @@
         self.getOtusAuthenticatorResource = getOtusAuthenticatorResource;
         self.getOtusFieldCenterResource = getOtusFieldCenterResource;
         self.getUserResource = getUserResource;
+	self.isLogged = isLogged;
+
+        function isLogged() {
+            return OtusRestResourceContext.hasToken();
+        }
 
         function resetConnectionData() {
             OtusRestResourceContext.reset();
