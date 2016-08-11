@@ -26,6 +26,41 @@
                     headers: {
                         'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
                     }
+                },
+                exists: {
+                    method: 'GET',
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/exists',
+                    headers: {
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
+                    }
+                },
+                logged: {
+                    method: 'GET',
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX,
+                    headers: {
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
+                    }
+                },
+                fetch: {
+                    method: 'GET',
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/fetch',
+                    headers: {
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
+                    }
+                },
+                enable: {
+                    method: 'POST',
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/enable',
+                    headers: {
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
+                    }
+                },
+                disable: {
+                    method: 'POST',
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/disable',
+                    headers: {
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
+                    }
                 }
             });
         }
