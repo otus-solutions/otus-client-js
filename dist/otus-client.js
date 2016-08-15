@@ -337,15 +337,27 @@
             return $resource({}, {}, {
                 ready: {
                     method: 'GET',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/ready'
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/ready',
+                    headers: {
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
+                    }
+
                 },
                 config: {
                     method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/config'
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/config',
+                    headers: {
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
+                    }
+
                 },
                 validation: {
                     method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/validation'
+                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/validation',
+                    headers: {
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
+                    }
+
                 }
 
             });
