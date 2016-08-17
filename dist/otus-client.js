@@ -415,21 +415,21 @@
                     method: 'GET',
                     url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/fetch',
                     headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityProjectToken()
                     }
                 },
                 enable: {
                     method: 'POST',
                     url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/enable',
                     headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityProjectToken()
                     }
                 },
                 disable: {
                     method: 'POST',
                     url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/disable',
                     headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
+                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityProjectToken()
                     }
                 }
             });
