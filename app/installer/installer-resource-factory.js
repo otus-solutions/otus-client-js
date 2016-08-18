@@ -5,39 +5,39 @@
         .module('otus.client')
         .factory('OtusInstallerResourceFactory', OtusInstallerResourceFactory);
 
-    OtusInstallerResourceFactory.$inject = ['$resource', 'OtusRestResourceContext'];
+    OtusInstallerResourceFactory.$inject = [
+        '$resource',
+        'OtusRestResourceContext',
+        'otus.client.HeaderBuilderFactory'
+    ];
 
-    function OtusInstallerResourceFactory($resource, OtusRestResourceContext) {
+    function OtusInstallerResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
         var SUFFIX = '/installer';
 
         var self = this;
         self.create = create;
 
         function create() {
+            var restPrefix = OtusRestResourceContext.getRestPrefix();
+            var token = OtusRestResourceContext.getSecurityToken();
+            var headers = HeaderBuilderFactory.create(token);
+
             return $resource({}, {}, {
                 ready: {
                     method: 'GET',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/ready',
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
-                    }
-
+                    url: restPrefix + SUFFIX + '/ready',
+                    headers: headers.json
                 },
                 config: {
                     method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/config',
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
-                    }
+                    url: restPrefix + SUFFIX + '/config',
+                    headers: headers.json
 
                 },
                 validation: {
                     method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/validation',
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
-                    }
-
+                    url: restPrefix + SUFFIX + '/validation',
+                    headers: headers.json
                 }
 
             });

@@ -5,36 +5,38 @@
         .module('otus.client')
         .factory('OtusFieldCenterResourceFactory', OtusFieldCenterResourceFactory);
 
-    OtusFieldCenterResourceFactory.$inject = ['$resource', 'OtusRestResourceContext'];
+    OtusFieldCenterResourceFactory.$inject = [
+        '$resource',
+        'OtusRestResourceContext',
+        'otus.client.HeaderBuilderFactory'
+    ];
 
-    function OtusFieldCenterResourceFactory($resource, OtusRestResourceContext) {
+    function OtusFieldCenterResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
         var SUFFIX = '/center';
 
         var self = this;
         self.create = create;
 
         function create() {
+            var restPrefix = OtusRestResourceContext.getRestPrefix();
+            var token = OtusRestResourceContext.getSecurityToken();
+            var headers = HeaderBuilderFactory.create(token);
+
             return $resource({}, {}, {
                 getAll: {
                     method: 'GET',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX,
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityProjectToken()
-                    }
+                    url: restPrefix + SUFFIX,
+                    headers: headers.json
                 },
                 create: {
                     method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX,
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityProjectToken()
-                    }
+                    url: restPrefix + SUFFIX,
+                    headers: headers.json
                 },
                 update: {
                     method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/update',
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityProjectToken()
-                    }
+                    url: restPrefix + SUFFIX + '/update',
+                    headers: headers.json
                 }
 
             });

@@ -18,10 +18,8 @@
 
         self.resetConnectionData = resetConnectionData;
         self.initDefaultConnectionData = initDefaultConnectionData;
-        self.removeSecurityProjectToken = removeSecurityProjectToken;
         self.removeSecurityToken = removeSecurityToken;
         self.setUrl = setUrl;
-        self.setSecurityProjectToken = setSecurityProjectToken;
         self.setSecurityToken = setSecurityToken;
         self.getOtusInstallerResource = getOtusInstallerResource;
         self.getOtusAuthenticatorResource = getOtusAuthenticatorResource;
@@ -41,20 +39,12 @@
             OtusRestResourceContext.init();
         }
 
-        function removeSecurityProjectToken() {
-            OtusRestResourceContext.removeSecurityProjectToken();
-        }
-
         function removeSecurityToken() {
             OtusRestResourceContext.removeSecurityToken();
         }
 
         function setUrl(url) {
             OtusRestResourceContext.setUrl(url);
-        }
-
-        function setSecurityProjectToken(token) {
-            OtusRestResourceContext.setSecurityProjectToken(token);
         }
 
         function setSecurityToken(token) {

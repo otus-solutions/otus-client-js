@@ -7,10 +7,11 @@
 
     UserResourceFactory.$inject = [
         '$resource',
-        'OtusRestResourceContext'
+        'OtusRestResourceContext',
+        'otus.client.HeaderBuilderFactory'
     ];
 
-    function UserResourceFactory($resource, OtusRestResourceContext) {
+    function UserResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
         var SUFFIX = '/user';
 
         var self = this;
@@ -19,48 +20,40 @@
         self.create = create;
 
         function create() {
+            var restPrefix = OtusRestResourceContext.getRestPrefix();
+            var token = OtusRestResourceContext.getSecurityToken();
+            var headers = HeaderBuilderFactory.create(token);
+
             return $resource({}, {}, {
                 create: {
                     method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/signup',
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
-                    }
+                    url: restPrefix + SUFFIX + '/signup',
+                    headers: headers.json
                 },
                 exists: {
                     method: 'GET',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/exists',
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
-                    }
+                    url: restPrefix + SUFFIX + '/exists',
+                    headers: headers.json
                 },
                 logged: {
                     method: 'GET',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX,
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
-                    }
+                    url: restPrefix + SUFFIX,
+                    headers: headers.json
                 },
                 fetch: {
                     method: 'GET',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/fetch',
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityProjectToken()
-                    }
+                    url: restPrefix + SUFFIX + '/fetch',
+                    headers: headers.json
                 },
                 enable: {
                     method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/enable',
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityProjectToken()
-                    }
+                    url: restPrefix + SUFFIX + '/enable',
+                    headers: headers.json
                 },
                 disable: {
                     method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/disable',
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityProjectToken()
-                    }
+                    url: restPrefix + SUFFIX + '/disable',
+                    headers: headers.json
                 }
             });
         }

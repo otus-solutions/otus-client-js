@@ -21,11 +21,8 @@
         self.setContext = setContext;
         self.setVersion = setVersion;
         self.setSecurityToken = setSecurityToken;
-        self.setSecurityProjectToken = setSecurityProjectToken;
         self.getRestPrefix = getRestPrefix;
         self.getSecurityToken = getSecurityToken;
-        self.getSecurityProjectToken = getSecurityProjectToken;
-        self.removeSecurityProjectToken = removeSecurityProjectToken;
         self.removeSecurityToken = removeSecurityToken;
         self.init = init;
         self.reset = reset;
@@ -53,10 +50,6 @@
 
         function removeSecurityToken() {
             delete $window.sessionStorage[TOKEN_USER_NAME];
-        }
-
-        function removeSecurityProjectToken() {
-            delete $window.sessionStorage[TOKEN_PROJECT_NAME];
         }
 
         function setUrl(url) {
@@ -94,14 +87,6 @@
 
         function setSecurityToken(securityToken) {
             $window.sessionStorage[TOKEN_USER_NAME] = securityToken;
-        }
-
-        function setSecurityProjectToken(securityProjectToken) {
-            $window.sessionStorage[TOKEN_PROJECT_NAME] = securityProjectToken;
-        }
-
-        function getSecurityProjectToken() {
-            return $window.sessionStorage[TOKEN_PROJECT_NAME];
         }
 
         function getSecurityToken() {

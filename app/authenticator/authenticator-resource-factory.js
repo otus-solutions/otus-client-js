@@ -5,36 +5,38 @@
         .module('otus.client')
         .factory('OtusAuthenticatorResourceFactory', OtusAuthenticatorResourceFactory);
 
-    OtusAuthenticatorResourceFactory.$inject = ['$resource', 'OtusRestResourceContext'];
+    OtusAuthenticatorResourceFactory.$inject = [
+        '$resource',
+        'OtusRestResourceContext',
+        'otus.client.HeaderBuilderFactory'
+    ];
 
-    function OtusAuthenticatorResourceFactory($resource, OtusRestResourceContext) {
+    function OtusAuthenticatorResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
         var SUFFIX = '/authentication';
 
         var self = this;
         self.create = create;
 
         function create() {
+            var restPrefix = OtusRestResourceContext.getRestPrefix();
+            var token = OtusRestResourceContext.getSecurityToken();
+            var headers = HeaderBuilderFactory.create(token);
+
             return $resource({}, {}, {
                 authenticate: {
                     method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX,
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
-                    }
+                    url: restPrefix + SUFFIX,
+                    headers: headers.json
                 },
                 invalidate: {
                     method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/invalidate',
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityToken()
-                    }
+                    url: restPrefix + SUFFIX + '/invalidate',
+                    headers: headers.json
                 },
                 authenticateProject: {
                     method: 'POST',
-                    url: OtusRestResourceContext.getRestPrefix() + SUFFIX + '/project',
-                    headers: {
-                        'Authorization': 'Bearer ' + OtusRestResourceContext.getSecurityProjectToken()
-                    }
+                    url: restPrefix + SUFFIX + '/project',
+                    headers: headers.json
                 }
             });
 
