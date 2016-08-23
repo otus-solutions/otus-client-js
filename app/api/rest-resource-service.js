@@ -10,10 +10,11 @@
         'OtusAuthenticatorResourceFactory',
         'OtusFieldCenterResourceFactory',
         'OtusRestResourceContext',
-        'otus.client.UserResourceFactory'
+        'otus.client.UserResourceFactory',
+        'otusjs.otus.client.OtusProjectConfigurationResourceFactory'
     ];
 
-    function OtusRestResourceService(OtusInstallerResourceFactory, OtusAuthenticatorResourceFactory, OtusFieldCenterResourceFactory, OtusRestResourceContext, UserResourceFactory) {
+    function OtusRestResourceService(OtusInstallerResourceFactory, OtusAuthenticatorResourceFactory, OtusFieldCenterResourceFactory, OtusRestResourceContext, UserResourceFactory, OtusProjectConfigurationResourceFactory) {
         var self = this;
 
         self.resetConnectionData = resetConnectionData;
@@ -25,6 +26,7 @@
         self.getOtusAuthenticatorResource = getOtusAuthenticatorResource;
         self.getOtusFieldCenterResource = getOtusFieldCenterResource;
         self.getUserResource = getUserResource;
+        self.getProjectConfigurationResource = getProjectConfigurationResource;
         self.isLogged = isLogged;
 
         function isLogged() {
@@ -65,6 +67,10 @@
 
         function getUserResource() {
             return UserResourceFactory.create();
+        }
+
+        function getProjectConfigurationResource() {
+            return OtusProjectConfigurationResourceFactory.create();
         }
     }
 
