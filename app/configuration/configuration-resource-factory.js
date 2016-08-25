@@ -21,11 +21,21 @@
             var restPrefix = OtusRestResourceContext.getRestPrefix();
             var token = OtusRestResourceContext.getSecurityToken();
             var headers = HeaderBuilderFactory.create(token);
-
-            return $resource({}, {}, {
+            var config = {
                 getParticipantRegister: {
                     method: 'GET',
                     url: restPrefix + SUFFIX + '/participant-register',
+                    interceptor: {
+                        response: function(response) {
+                          console.log('certooou');
+                            console.log(response);
+                            return response;
+                        },
+                        responseError: function(error){
+                          console.log('errrrroooou');
+                          console.log(error);
+                        }
+                    },
                     headers: headers.json
                 },
                 updateParticipantRegister: {
@@ -43,7 +53,8 @@
                     url: restPrefix + SUFFIX + '/visual-identity',
                     headers: headers.json
                 }
-            });
+            };
+            return $resource({}, {}, config);
         }
         return self;
 
