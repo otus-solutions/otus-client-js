@@ -42,7 +42,7 @@
                 },
                 fetch: {
                     method: 'GET',
-                    url: restPrefix + SUFFIX + '/fetch',
+                    url: restPrefix + SUFFIX + '/list',
                     headers: headers.json
                 },
                 enable: {
