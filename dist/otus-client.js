@@ -32,6 +32,56 @@
 
     angular
         .module('otus.client')
+        .factory('OtusAuthenticatorResourceFactory', OtusAuthenticatorResourceFactory);
+
+    OtusAuthenticatorResourceFactory.$inject = [
+        '$resource',
+        'OtusRestResourceContext',
+        'otus.client.HeaderBuilderFactory'
+    ];
+
+    function OtusAuthenticatorResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+        var SUFFIX = '/authentication';
+
+        var self = this;
+        self.create = create;
+
+        function create() {
+            var restPrefix = OtusRestResourceContext.getRestPrefix();
+            var token = OtusRestResourceContext.getSecurityToken();
+            var headers = HeaderBuilderFactory.create(token);
+
+            return $resource({}, {}, {
+                authenticate: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX,
+                    headers: headers.json
+                },
+                invalidate: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX + '/invalidate',
+                    headers: headers.json
+                },
+                authenticateProject: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX + '/project',
+                    headers: headers.json
+                }
+            });
+
+        }
+
+        return self;
+
+    }
+
+}());
+
+(function() {
+    'use strict';
+
+    angular
+        .module('otus.client')
         .factory('otus.client.HeaderBuilderFactory', factory);
 
     function factory() {
@@ -230,18 +280,20 @@
 
     angular
         .module('otus.client')
-        .factory('OtusAuthenticatorResourceFactory', OtusAuthenticatorResourceFactory);
+        .factory('otus.client.UserResourceFactory', UserResourceFactory);
 
-    OtusAuthenticatorResourceFactory.$inject = [
+    UserResourceFactory.$inject = [
         '$resource',
         'OtusRestResourceContext',
         'otus.client.HeaderBuilderFactory'
     ];
 
-    function OtusAuthenticatorResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-        var SUFFIX = '/authentication';
+    function UserResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+        var SUFFIX = '/user';
 
         var self = this;
+
+        /* Public methods */
         self.create = create;
 
         function create() {
@@ -250,27 +302,35 @@
             var headers = HeaderBuilderFactory.create(token);
 
             return $resource({}, {}, {
-                authenticate: {
+                create: {
                     method: 'POST',
+                    url: restPrefix + SUFFIX + '/signup',
+                    headers: headers.json
+                },
+                logged: {
+                    method: 'GET',
                     url: restPrefix + SUFFIX,
                     headers: headers.json
                 },
-                invalidate: {
-                    method: 'POST',
-                    url: restPrefix + SUFFIX + '/invalidate',
+                list: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + '/list',
                     headers: headers.json
                 },
-                authenticateProject: {
+                enable: {
                     method: 'POST',
-                    url: restPrefix + SUFFIX + '/project',
+                    url: restPrefix + SUFFIX + '/enable',
+                    headers: headers.json
+                },
+                disable: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX + '/disable',
                     headers: headers.json
                 }
             });
-
         }
 
         return self;
-
     }
 
 }());
@@ -302,7 +362,7 @@
             return $resource({}, {}, {
                 getAll: {
                     method: 'GET',
-                    url: restPrefix + SUFFIX,
+                    url: restPrefix + SUFFIX + '/list',
                     headers: headers.json
                 },
                 create: {
@@ -357,81 +417,16 @@
                 },
                 config: {
                     method: 'POST',
-                    url: restPrefix + SUFFIX + '/config',
-                    headers: headers.json
-
-                },
-                validation: {
-                    method: 'POST',
-                    url: restPrefix + SUFFIX + '/validation',
-                    headers: headers.json
-                }
-
-            });
-        }
-
-        return self;
-    }
-
-}());
-
-(function() {
-    'use strict';
-
-    angular
-        .module('otus.client')
-        .factory('otus.client.UserResourceFactory', UserResourceFactory);
-
-    UserResourceFactory.$inject = [
-        '$resource',
-        'OtusRestResourceContext',
-        'otus.client.HeaderBuilderFactory'
-    ];
-
-    function UserResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-        var SUFFIX = '/user';
-
-        var self = this;
-
-        /* Public methods */
-        self.create = create;
-
-        function create() {
-            var restPrefix = OtusRestResourceContext.getRestPrefix();
-            var token = OtusRestResourceContext.getSecurityToken();
-            var headers = HeaderBuilderFactory.create(token);
-
-            return $resource({}, {}, {
-                create: {
-                    method: 'POST',
-                    url: restPrefix + SUFFIX + '/signup',
-                    headers: headers.json
-                },
-                exists: {
-                    method: 'GET',
-                    url: restPrefix + SUFFIX + '/exists',
-                    headers: headers.json
-                },
-                logged: {
-                    method: 'GET',
                     url: restPrefix + SUFFIX,
                     headers: headers.json
+
                 },
-                fetch: {
-                    method: 'GET',
-                    url: restPrefix + SUFFIX + '/fetch',
-                    headers: headers.json
-                },
-                enable: {
+                validationEmail: {
                     method: 'POST',
-                    url: restPrefix + SUFFIX + '/enable',
-                    headers: headers.json
-                },
-                disable: {
-                    method: 'POST',
-                    url: restPrefix + SUFFIX + '/disable',
+                    url: restPrefix + SUFFIX + '/validation/email',
                     headers: headers.json
                 }
+
             });
         }
 
