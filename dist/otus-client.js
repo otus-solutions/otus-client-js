@@ -32,56 +32,6 @@
 
     angular
         .module('otus.client')
-        .factory('OtusAuthenticatorResourceFactory', OtusAuthenticatorResourceFactory);
-
-    OtusAuthenticatorResourceFactory.$inject = [
-        '$resource',
-        'OtusRestResourceContext',
-        'otus.client.HeaderBuilderFactory'
-    ];
-
-    function OtusAuthenticatorResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-        var SUFFIX = '/authentication';
-
-        var self = this;
-        self.create = create;
-
-        function create() {
-            var restPrefix = OtusRestResourceContext.getRestPrefix();
-            var token = OtusRestResourceContext.getSecurityToken();
-            var headers = HeaderBuilderFactory.create(token);
-
-            return $resource({}, {}, {
-                authenticate: {
-                    method: 'POST',
-                    url: restPrefix + SUFFIX,
-                    headers: headers.json
-                },
-                invalidate: {
-                    method: 'POST',
-                    url: restPrefix + SUFFIX + '/invalidate',
-                    headers: headers.json
-                },
-                authenticateProject: {
-                    method: 'POST',
-                    url: restPrefix + SUFFIX + '/project',
-                    headers: headers.json
-                }
-            });
-
-        }
-
-        return self;
-
-    }
-
-}());
-
-(function() {
-    'use strict';
-
-    angular
-        .module('otus.client')
         .factory('otus.client.HeaderBuilderFactory', factory);
 
     function factory() {
@@ -280,20 +230,18 @@
 
     angular
         .module('otus.client')
-        .factory('otus.client.UserResourceFactory', UserResourceFactory);
+        .factory('OtusAuthenticatorResourceFactory', OtusAuthenticatorResourceFactory);
 
-    UserResourceFactory.$inject = [
+    OtusAuthenticatorResourceFactory.$inject = [
         '$resource',
         'OtusRestResourceContext',
         'otus.client.HeaderBuilderFactory'
     ];
 
-    function UserResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-        var SUFFIX = '/user';
+    function OtusAuthenticatorResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+        var SUFFIX = '/authentication';
 
         var self = this;
-
-        /* Public methods */
         self.create = create;
 
         function create() {
@@ -302,35 +250,27 @@
             var headers = HeaderBuilderFactory.create(token);
 
             return $resource({}, {}, {
-                create: {
+                authenticate: {
                     method: 'POST',
-                    url: restPrefix + SUFFIX + '/signup',
-                    headers: headers.json
-                },
-                logged: {
-                    method: 'GET',
                     url: restPrefix + SUFFIX,
                     headers: headers.json
                 },
-                list: {
-                    method: 'GET',
-                    url: restPrefix + SUFFIX + '/list',
+                invalidate: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX + '/invalidate',
                     headers: headers.json
                 },
-                enable: {
+                authenticateProject: {
                     method: 'POST',
-                    url: restPrefix + SUFFIX + '/enable',
-                    headers: headers.json
-                },
-                disable: {
-                    method: 'POST',
-                    url: restPrefix + SUFFIX + '/disable',
+                    url: restPrefix + SUFFIX + '/project',
                     headers: headers.json
                 }
             });
+
         }
 
         return self;
+
     }
 
 }());
@@ -434,7 +374,6 @@
     }
 
 }());
-<<<<<<< HEAD
 
 (function() {
     'use strict';
@@ -468,17 +407,12 @@
                     url: restPrefix + SUFFIX + '/signup',
                     headers: headers.json
                 },
-                exists: {
-                    method: 'GET',
-                    url: restPrefix + SUFFIX + '/exists',
-                    headers: headers.json
-                },
                 logged: {
                     method: 'GET',
                     url: restPrefix + SUFFIX,
                     headers: headers.json
                 },
-                fetch: {
+                list: {
                     method: 'GET',
                     url: restPrefix + SUFFIX + '/list',
                     headers: headers.json
@@ -500,5 +434,3 @@
     }
 
 }());
-=======
->>>>>>> response-refact
