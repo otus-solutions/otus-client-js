@@ -24,23 +24,12 @@
             var config = {
                 getSurveyTemplates: {
                     method: 'GET',
-                    url: restPrefix + '/surveys/templates',
-                    interceptor: {
-                        response: function(response) {
-                          console.log('certooou');
-                            console.log(response);
-                            return response;
-                        },
-                        responseError: function(error){
-                          console.log('errrrroooou');
-                          console.log(error);
-                        }
-                    },
+                    url: restPrefix + SUFFIX + '/surveys',
                     headers: headers.json
                 },
                 insertTemplate: {
                     method: 'POST',
-                    url: restPrefix + '/surveys/templates',
+                    url: restPrefix + SUFFIX + '/publish/template',
                     headers: headers.json
                 },
                 getVisualIdentity: {
