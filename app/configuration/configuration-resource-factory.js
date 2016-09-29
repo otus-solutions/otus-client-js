@@ -22,25 +22,14 @@
             var token = OtusRestResourceContext.getSecurityToken();
             var headers = HeaderBuilderFactory.create(token);
             var config = {
-                getParticipantRegister: {
+                getSurveyTemplates: {
                     method: 'GET',
-                    url: restPrefix + SUFFIX + '/participant-register',
-                    interceptor: {
-                        response: function(response) {
-                          console.log('certooou');
-                            console.log(response);
-                            return response;
-                        },
-                        responseError: function(error){
-                          console.log('errrrroooou');
-                          console.log(error);
-                        }
-                    },
+                    url: restPrefix + SUFFIX + '/surveys',
                     headers: headers.json
                 },
-                updateParticipantRegister: {
+                insertTemplate: {
                     method: 'POST',
-                    url: restPrefix + SUFFIX + '/participant-register',
+                    url: restPrefix + SUFFIX + '/publish/template',
                     headers: headers.json
                 },
                 getVisualIdentity: {
