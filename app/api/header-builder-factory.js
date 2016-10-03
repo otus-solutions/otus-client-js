@@ -20,7 +20,8 @@
     function Headers(token) {
         var self = this;
         self.json = {
-            'Authorization': 'Bearer ' + token
+            'Authorization': 'Bearer ' + token,
+            'Content-type': 'application/json; charset=utf-8'
         };
     }
 

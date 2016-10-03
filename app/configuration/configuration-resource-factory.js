@@ -22,12 +22,17 @@
             var token = OtusRestResourceContext.getSecurityToken();
             var headers = HeaderBuilderFactory.create(token);
             var config = {
-                getSurveyTemplates: {
+                getSurveys: {
                     method: 'GET',
                     url: restPrefix + SUFFIX + '/surveys',
                     headers: headers.json
                 },
-                insertTemplate: {
+                updateSurveyTemplate: {
+                    method: 'PUT',
+                    url: restPrefix + SUFFIX + '/surveys',
+                    headers: headers.json
+                },
+                publishTemplate: {
                     method: 'POST',
                     url: restPrefix + SUFFIX + '/publish/template',
                     headers: headers.json
