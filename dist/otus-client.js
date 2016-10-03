@@ -311,6 +311,12 @@
                     url: restPrefix + SUFFIX + '/surveys',
                     headers: headers.json
                 },
+                updateSurveyTemplateType: {
+                    method: 'PUT',
+                    url: restPrefix + SUFFIX + '/surveys/:acronym/type',
+                    headers: headers.json,
+                    params: {'acronym':'@acronym', 'data':'@type'}
+                },
                 publishTemplate: {
                     method: 'POST',
                     url: restPrefix + SUFFIX + '/publish/template',

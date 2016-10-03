@@ -27,10 +27,11 @@
                     url: restPrefix + SUFFIX + '/surveys',
                     headers: headers.json
                 },
-                updateSurveyTemplate: {
+                updateSurveyTemplateType: {
                     method: 'PUT',
-                    url: restPrefix + SUFFIX + '/surveys',
-                    headers: headers.json
+                    url: restPrefix + SUFFIX + '/surveys/:acronym/type',
+                    headers: headers.json,
+                    params: {'acronym':'@acronym', 'data':'@type'}
                 },
                 publishTemplate: {
                     method: 'POST',
