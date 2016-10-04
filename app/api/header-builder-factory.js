@@ -21,7 +21,6 @@
         var self = this;
         self.json = {
             'Authorization': 'Bearer ' + token,
-            'Content-type': 'application/json; charset=utf-8'
         };
     }
 

@@ -30,8 +30,9 @@
                 updateSurveyTemplateType: {
                     method: 'PUT',
                     url: restPrefix + SUFFIX + '/surveys/:acronym/type',
+                    data: {'newSurveyFormType': '@newSurveyFormType'},
                     headers: headers.json,
-                    params: {'acronym':'@acronym', 'data':'@type'}
+                    params: {'acronym':'@acronym'}
                 },
                 publishTemplate: {
                     method: 'POST',
