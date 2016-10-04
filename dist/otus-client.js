@@ -49,7 +49,8 @@
     function Headers(token) {
         var self = this;
         self.json = {
-            'Authorization': 'Bearer ' + token
+            'Authorization': 'Bearer ' + token,
+            'Content-type': 'application/json; charset=utf-8'
         };
     }
 
@@ -305,25 +306,20 @@
             var token = OtusRestResourceContext.getSecurityToken();
             var headers = HeaderBuilderFactory.create(token);
             var config = {
-                getParticipantRegister: {
+                getSurveys: {
                     method: 'GET',
-                    url: restPrefix + SUFFIX + '/participant-register',
-                    interceptor: {
-                        response: function(response) {
-                          console.log('certooou');
-                            console.log(response);
-                            return response;
-                        },
-                        responseError: function(error){
-                          console.log('errrrroooou');
-                          console.log(error);
-                        }
-                    },
+                    url: restPrefix + SUFFIX + '/surveys',
                     headers: headers.json
                 },
-                updateParticipantRegister: {
+                updateSurveyTemplateType: {
+                    method: 'PUT',
+                    url: restPrefix + SUFFIX + '/surveys/:acronym/type',
+                    headers: headers.json,
+                    params: {'acronym':'@acronym', 'data':'@type'}
+                },
+                publishTemplate: {
                     method: 'POST',
-                    url: restPrefix + SUFFIX + '/participant-register',
+                    url: restPrefix + SUFFIX + '/publish/template',
                     headers: headers.json
                 },
                 getVisualIdentity: {

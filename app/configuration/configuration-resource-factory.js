@@ -21,16 +21,26 @@
             var restPrefix = OtusRestResourceContext.getRestPrefix();
             var token = OtusRestResourceContext.getSecurityToken();
             var headers = HeaderBuilderFactory.create(token);
+            var headersPublishTemplate = HeaderBuilderFactory.create(token);
+            headersPublishTemplate.setContentType('application/json');
+
             var config = {
-                getSurveyTemplates: {
+                getSurveys: {
                     method: 'GET',
                     url: restPrefix + SUFFIX + '/surveys',
                     headers: headers.json
                 },
-                insertTemplate: {
+                updateSurveyTemplateType: {
+                    method: 'PUT',
+                    url: restPrefix + SUFFIX + '/surveys/:acronym/type',
+                    data: {'newSurveyFormType': '@newSurveyFormType'},
+                    headers: headers.json,
+                    params: {'acronym':'@acronym'}
+                },
+                publishTemplate: {
                     method: 'POST',
                     url: restPrefix + SUFFIX + '/publish/template',
-                    headers: headers.json
+                    headers: headersPublishTemplate.json
                 },
                 getVisualIdentity: {
                     method: 'GET',
