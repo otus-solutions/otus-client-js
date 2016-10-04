@@ -30,15 +30,20 @@
                 updateSurveyTemplateType: {
                     method: 'PUT',
                     url: restPrefix + SUFFIX + '/surveys/:acronym/type',
-                    data: {'newSurveyFormType': '@newSurveyFormType'},
+                    data: {
+                        'newSurveyFormType': '@newSurveyFormType'
+                    },
                     headers: headers.json,
-                    params: {'acronym':'@acronym'}
+                    params: {
+                        'acronym': '@acronym'
+                    }
                 },
                 publishTemplate: {
                     method: 'POST',
                     url: restPrefix + SUFFIX + '/publish/template',
                     headers: headers.json
                 },
+                //DELETE -> /configuration/surveys/:acronym
                 getVisualIdentity: {
                     method: 'GET',
                     url: restPrefix + SUFFIX + '/visual-identity',
