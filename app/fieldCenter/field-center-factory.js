@@ -25,7 +25,7 @@
             return $resource({}, {}, {
                 getAll: {
                     method: 'GET',
-                    url: restPrefix + SUFFIX,
+                    url: restPrefix + SUFFIX + '/list',
                     headers: headers.json
                 },
                 create: {
