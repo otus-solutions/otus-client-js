@@ -19,9 +19,15 @@
 
     function Headers(token) {
         var self = this;
+        self.setContentType = setContentType;
+
         self.json = {
-            'Authorization': 'Bearer ' + token,
+            'Authorization': 'Bearer ' + token
         };
+
+        function setContentType(contentType) {
+          self.json['Content-type'] = contentType;
+        }
     }
 
 }());

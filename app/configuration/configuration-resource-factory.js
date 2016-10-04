@@ -21,6 +21,9 @@
             var restPrefix = OtusRestResourceContext.getRestPrefix();
             var token = OtusRestResourceContext.getSecurityToken();
             var headers = HeaderBuilderFactory.create(token);
+            var headersPublishTemplate = HeaderBuilderFactory.create(token);
+            headersPublishTemplate.setContentType('application/json');
+
             var config = {
                 getSurveys: {
                     method: 'GET',
@@ -37,7 +40,7 @@
                 publishTemplate: {
                     method: 'POST',
                     url: restPrefix + SUFFIX + '/publish/template',
-                    headers: headers.json
+                    headers: headersPublishTemplate.json
                 },
                 getVisualIdentity: {
                     method: 'GET',
