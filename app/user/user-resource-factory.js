@@ -30,19 +30,14 @@
                     url: restPrefix + SUFFIX + '/signup',
                     headers: headers.json
                 },
-                exists: {
-                    method: 'GET',
-                    url: restPrefix + SUFFIX + '/exists',
-                    headers: headers.json
-                },
                 logged: {
                     method: 'GET',
                     url: restPrefix + SUFFIX,
                     headers: headers.json
                 },
-                fetch: {
+                list: {
                     method: 'GET',
-                    url: restPrefix + SUFFIX + '/fetch',
+                    url: restPrefix + SUFFIX + '/list',
                     headers: headers.json
                 },
                 enable: {

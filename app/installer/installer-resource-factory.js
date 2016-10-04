@@ -30,13 +30,13 @@
                 },
                 config: {
                     method: 'POST',
-                    url: restPrefix + SUFFIX + '/config',
+                    url: restPrefix + SUFFIX,
                     headers: headers.json
 
                 },
-                validation: {
+                validationEmail: {
                     method: 'POST',
-                    url: restPrefix + SUFFIX + '/validation',
+                    url: restPrefix + SUFFIX + '/validation/email',
                     headers: headers.json
                 }
 
