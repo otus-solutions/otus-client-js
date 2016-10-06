@@ -48,10 +48,15 @@
 
     function Headers(token) {
         var self = this;
+        self.setContentType = setContentType;
+
         self.json = {
-            'Authorization': 'Bearer ' + token,
-            'Content-type': 'application/json; charset=utf-8'
+            'Authorization': 'Bearer ' + token
         };
+
+        function setContentType(contentType) {
+          self.json['Content-type'] = contentType;
+        }
     }
 
 }());
@@ -283,61 +288,80 @@
 }());
 
 (function() {
-    'use strict';
+   'use strict';
 
-    angular
-        .module('otus.client')
-        .factory('otusjs.otus.client.OtusProjectConfigurationResourceFactory', Factory);
+   angular
+      .module('otus.client')
+      .factory('otusjs.otus.client.OtusProjectConfigurationResourceFactory', Factory);
 
-    Factory.$inject = [
+   Factory.$inject = [
         '$resource',
         'OtusRestResourceContext',
         'otus.client.HeaderBuilderFactory'
     ];
 
-    function Factory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-        var SUFFIX = '/configuration';
+   function Factory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+      var SUFFIX = '/configuration';
 
-        var self = this;
-        self.create = create;
+      var self = this;
+      self.create = create;
 
-        function create() {
-            var restPrefix = OtusRestResourceContext.getRestPrefix();
-            var token = OtusRestResourceContext.getSecurityToken();
-            var headers = HeaderBuilderFactory.create(token);
-            var config = {
-                getSurveys: {
-                    method: 'GET',
-                    url: restPrefix + SUFFIX + '/surveys',
-                    headers: headers.json
-                },
-                updateSurveyTemplateType: {
-                    method: 'PUT',
-                    url: restPrefix + SUFFIX + '/surveys/:acronym/type',
-                    headers: headers.json,
-                    params: {'acronym':'@acronym', 'data':'@type'}
-                },
-                publishTemplate: {
-                    method: 'POST',
-                    url: restPrefix + SUFFIX + '/publish/template',
-                    headers: headers.json
-                },
-                getVisualIdentity: {
-                    method: 'GET',
-                    url: restPrefix + SUFFIX + '/visual-identity',
-                    headers: headers.json
-                },
-                updateVisualIdentity: {
-                    method: 'POST',
-                    url: restPrefix + SUFFIX + '/visual-identity',
-                    headers: headers.json
-                }
-            };
-            return $resource({}, {}, config);
-        }
-        return self;
+      function create() {
+         var restPrefix = OtusRestResourceContext.getRestPrefix();
+         var token = OtusRestResourceContext.getSecurityToken();
+         var headers = HeaderBuilderFactory.create(token);
+         var headersPublishTemplate = HeaderBuilderFactory.create(token);
+         headersPublishTemplate.setContentType('application/json; charset=utf-8');
 
-    }
+         var config = {
+            getSurveys: {
+               method: 'GET',
+               url: restPrefix + SUFFIX + '/surveys',
+               headers: headers.json
+            },
+            updateSurveyTemplateType: {
+               method: 'PUT',
+               url: restPrefix + SUFFIX + '/surveys/:acronym/type',
+               data: {
+                  'newSurveyFormType': '@newSurveyFormType'
+               },
+               headers: headers.json,
+               params: {
+                  'acronym': '@acronym'
+               }
+            },
+            publishTemplate: {
+               method: 'POST',
+               url: restPrefix + SUFFIX + '/publish/template',
+              //  interceptor: {
+              //     'response': function (response) {console.log(response);}
+              //  },
+              //  data: {
+              //     'template': '@template'
+              //  },
+               headers: headersPublishTemplate.json
+            },
+            deleteSurveyTemplate: {
+               method: 'DELETE',
+               url: restPrefix + SUFFIX + '/surveys/:acronym',
+               headers: headers.json
+            },
+            getVisualIdentity: {
+               method: 'GET',
+               url: restPrefix + SUFFIX + '/visual-identity',
+               headers: headers.json
+            },
+            updateVisualIdentity: {
+               method: 'POST',
+               url: restPrefix + SUFFIX + '/visual-identity',
+               headers: headers.json
+            }
+         };
+         return $resource({}, {}, config);
+      }
+      return self;
+
+   }
 }());
 
 (function() {
@@ -367,7 +391,7 @@
             return $resource({}, {}, {
                 getAll: {
                     method: 'GET',
-                    url: restPrefix + SUFFIX,
+                    url: restPrefix + SUFFIX + '/list',
                     headers: headers.json
                 },
                 create: {
@@ -422,13 +446,13 @@
                 },
                 config: {
                     method: 'POST',
-                    url: restPrefix + SUFFIX + '/config',
+                    url: restPrefix + SUFFIX,
                     headers: headers.json
 
                 },
-                validation: {
+                validationEmail: {
                     method: 'POST',
-                    url: restPrefix + SUFFIX + '/validation',
+                    url: restPrefix + SUFFIX + '/validation/email',
                     headers: headers.json
                 }
 
@@ -472,19 +496,14 @@
                     url: restPrefix + SUFFIX + '/signup',
                     headers: headers.json
                 },
-                exists: {
-                    method: 'GET',
-                    url: restPrefix + SUFFIX + '/exists',
-                    headers: headers.json
-                },
                 logged: {
                     method: 'GET',
                     url: restPrefix + SUFFIX,
                     headers: headers.json
                 },
-                fetch: {
+                list: {
                     method: 'GET',
-                    url: restPrefix + SUFFIX + '/fetch',
+                    url: restPrefix + SUFFIX + '/list',
                     headers: headers.json
                 },
                 enable: {
