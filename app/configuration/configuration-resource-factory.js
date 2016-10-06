@@ -22,7 +22,7 @@
          var token = OtusRestResourceContext.getSecurityToken();
          var headers = HeaderBuilderFactory.create(token);
          var headersPublishTemplate = HeaderBuilderFactory.create(token);
-         headersPublishTemplate.setContentType('application/json');
+         headersPublishTemplate.setContentType('application/json; charset=utf-8');
 
          var config = {
             getSurveys: {
