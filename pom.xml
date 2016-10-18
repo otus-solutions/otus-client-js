@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>otus-client-js</artifactId>
 	<groupId>org.ccem.otus</groupId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Otus Client Js</name>
 
@@ -75,14 +75,6 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-scm-plugin</artifactId>
-				<version>1.9.4</version>
-				<configuration>
-					<tag>${version}</tag>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.5.0</version>
@@ -103,6 +95,33 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<!--
+			     * Maven Plugin : Control Workflow Development Team
+			     * 		- Start Feature : mvn jgitflow:feature-start
+			     * 		- Finish Feature : mvn jgitflow:feature-finish
+			     * 		- Start Hotfix : mvn jgitflow:hotfix-start
+			     * 		- Finish Hotfix : mvn jgitflow:hotfix-finish
+			     * 		- Start Release : mvn jgitflow:release-start
+			     * 		- Finish Release : mvn jgitflow:release-finish
+			     -->
+			<plugin>
+				<groupId>external.atlassian.jgitflow</groupId>
+				<artifactId>jgitflow-maven-plugin</artifactId>
+				<version>1.0-m5.1</version>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<flowInitContext>
+						<masterBranchName>master</masterBranchName>
+						<developBranchName>dev</developBranchName>
+						<featureBranchPrefix>feature-</featureBranchPrefix>
+						<releaseBranchPrefix>release-</releaseBranchPrefix>
+						<hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
+						<versionTagPrefix>v</versionTagPrefix>
+					</flowInitContext>
+					<squash>true</squash>
+					<scmCommentPrefix>[RELEASE]</scmCommentPrefix>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
