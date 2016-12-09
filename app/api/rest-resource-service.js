@@ -11,10 +11,21 @@
         'OtusFieldCenterResourceFactory',
         'OtusRestResourceContext',
         'otus.client.UserResourceFactory',
-        'otusjs.otus.client.OtusProjectConfigurationResourceFactory'
+        'otusjs.otus.client.OtusProjectConfigurationResourceFactory',
+        'otus.client.SurveyResourceFactory',
+        'otus.client.ActivityResourceFactory'
     ];
 
-    function OtusRestResourceService(OtusInstallerResourceFactory, OtusAuthenticatorResourceFactory, OtusFieldCenterResourceFactory, OtusRestResourceContext, UserResourceFactory, OtusProjectConfigurationResourceFactory) {
+    function OtusRestResourceService(
+        OtusInstallerResourceFactory,
+        OtusAuthenticatorResourceFactory,
+        OtusFieldCenterResourceFactory,
+        OtusRestResourceContext,
+        UserResourceFactory,
+        OtusProjectConfigurationResourceFactory,
+        SurveyResourceFactory,
+        ActivityResourceFactory
+    ) {
         var self = this;
 
         self.resetConnectionData = resetConnectionData;
@@ -27,6 +38,8 @@
         self.getOtusFieldCenterResource = getOtusFieldCenterResource;
         self.getUserResource = getUserResource;
         self.getProjectConfigurationResource = getProjectConfigurationResource;
+        self.getSurveyResource = getSurveyResource;
+        self.getActivityResource = getActivityResource;
         self.isLogged = isLogged;
 
         function isLogged() {
@@ -71,6 +84,14 @@
 
         function getProjectConfigurationResource() {
             return OtusProjectConfigurationResourceFactory.create();
+        }
+
+        function getSurveyResource() {
+            return SurveyResourceFactory.create();
+        }
+
+        function getActivityResource() {
+            return ActivityResourceFactory.create();
         }
     }
 
