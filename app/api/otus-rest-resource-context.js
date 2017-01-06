@@ -31,7 +31,7 @@
         self.init();
 
         function init() {
-            HOSTNAME = 'http://' + $window.location.hostname;
+            HOSTNAME = 'http://' + $window.location.hostname + ':8080';
             CONTEXT = '/otus-rest';
             VERSION = '/v01';
         }

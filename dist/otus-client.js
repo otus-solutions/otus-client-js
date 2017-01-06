@@ -144,7 +144,7 @@
         self.init();
 
         function init() {
-            HOSTNAME = 'http://' + $window.location.hostname;
+            HOSTNAME = 'http://' + $window.location.hostname + ':8080';
             CONTEXT = '/otus-rest';
             VERSION = '/v01';
         }
@@ -224,7 +224,8 @@
         'otus.client.UserResourceFactory',
         'otusjs.otus.client.OtusProjectConfigurationResourceFactory',
         'otus.client.SurveyResourceFactory',
-        'otus.client.ActivityResourceFactory'
+        'otus.client.ActivityResourceFactory',
+        'otus.client.ParticipantResourceFactory'
     ];
 
     function OtusRestResourceService(
@@ -235,7 +236,8 @@
         UserResourceFactory,
         OtusProjectConfigurationResourceFactory,
         SurveyResourceFactory,
-        ActivityResourceFactory
+        ActivityResourceFactory,
+        ParticipantResourceFactory
     ) {
         var self = this;
 
@@ -251,6 +253,7 @@
         self.getProjectConfigurationResource = getProjectConfigurationResource;
         self.getSurveyResource = getSurveyResource;
         self.getActivityResource = getActivityResource;
+        self.getParticipantResource = getParticipantResource;
         self.isLogged = isLogged;
 
         function isLogged() {
@@ -303,6 +306,10 @@
 
         function getActivityResource() {
             return ActivityResourceFactory.create();
+        }
+
+        function getParticipantResource() {
+            return ParticipantResourceFactory.create();
         }
     }
 
@@ -527,6 +534,52 @@
                     headers: headers.json
                 }
 
+            });
+        }
+
+        return self;
+    }
+
+}());
+
+(function() {
+    'use strict';
+
+    angular
+        .module('otus.client')
+        .factory('otus.client.ParticipantResourceFactory', ParticipantResourceFactory);
+
+    ParticipantResourceFactory.$inject = [
+        '$resource',
+        'OtusRestResourceContext',
+        'otus.client.HeaderBuilderFactory'
+    ];
+
+    function ParticipantResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+        var SUFFIX = '';
+
+        var self = this;
+
+        /* Public methods */
+        self.create = create;
+
+        function create() {
+            var restPrefix = OtusRestResourceContext.getRestPrefix();
+            var token = OtusRestResourceContext.getSecurityToken();
+            var headers = HeaderBuilderFactory.create(token);
+
+            return $resource({}, {}, {
+                list: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + '/participants',
+                    isArray: true,
+                    headers: headers.json
+                },
+                listIndexers: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + '/list-indexers',
+                    headers: headers.json
+                }
             });
         }
 
