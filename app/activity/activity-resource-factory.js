@@ -12,7 +12,7 @@
     ];
 
     function ActivityResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-        var SUFFIX = '/survey';
+        var SUFFIX = '/participants/:rn/activities';
 
         var self = this;
 
@@ -25,21 +25,56 @@
             var headers = HeaderBuilderFactory.create(token);
 
             return $resource({}, {}, {
-                update: {
-                    method: 'POST',
-                    url: restPrefix + SUFFIX + '/update',
-                    headers: headers.json
-                },
-                list: {
-                    method: 'GET',
-                    url: restPrefix + SUFFIX + '/list',
-                    headers: headers.json
-                },
-                remove: {
-                    method: 'GET',
-                    url: restPrefix + SUFFIX + '/remove',
-                    headers: headers.json
+              create: {
+                method: 'POST',
+                url: restPrefix + SUFFIX,
+                headers: headers.json,
+                params: {
+                  'id': '@id',
+                  'rn': '@rn',
                 }
+              },
+              update: {
+                method: 'PUT',
+                url: restPrefix + SUFFIX + '/:id',
+                headers: headers.json,
+                data: {
+                  'activity': '@activity'
+                },
+                params: {
+                  'id': '@id',
+                  'rn': '@rn',
+                }
+              },
+              listAll: {
+                method: 'GET',
+                url: restPrefix + SUFFIX,
+                headers: headers.json,
+                params: {
+                  'rn': '@rn',
+                }
+              },
+              getById: {
+                method: 'GET',
+                url: restPrefix + SUFFIX + '/:id',
+                headers: headers.json,
+                params: {
+                  'id': '@id',
+                  'rn': '@rn',
+                }
+              },
+              deleteById: {
+                method: 'PUT',
+                url: restPrefix + SUFFIX + '/:id',
+                headers: headers.json,
+                data: {
+                  'activity': '@activity'
+                },
+                params: {
+                  'id': '@id',
+                  'rn': '@rn',
+                }
+              }
             });
         }
 
