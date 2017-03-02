@@ -260,7 +260,9 @@
         'otusjs.otus.client.OtusProjectConfigurationResourceFactory',
         'otus.client.SurveyResourceFactory',
         'otus.client.ActivityResourceFactory',
-        'otus.client.ParticipantResourceFactory'
+        'otus.client.ParticipantResourceFactory',
+        'otus.client.LaboratoryConfigurationResourceFactory',
+        'otus.client.LaboratoryParticipantResourceFactory'
     ];
 
     function OtusRestResourceService(
@@ -272,7 +274,9 @@
         OtusProjectConfigurationResourceFactory,
         SurveyResourceFactory,
         ActivityResourceFactory,
-        ParticipantResourceFactory
+        ParticipantResourceFactory,
+        LaboratoryConfigurationResourceFactory,
+        LaboratoryParticipantResourceFactory
     ) {
         var self = this;
 
@@ -289,6 +293,8 @@
         self.getSurveyResource = getSurveyResource;
         self.getActivityResource = getActivityResource;
         self.getParticipantResource = getParticipantResource;
+        self.getLaboratoryConfigurationResource = getLaboratoryConfigurationResource;
+        self.getLaboratoryParticipantResource = getLaboratoryParticipantResource;
         self.isLogged = isLogged;
 
         function isLogged() {
@@ -345,6 +351,14 @@
 
         function getParticipantResource() {
             return ParticipantResourceFactory.create();
+        }
+
+        function getLaboratoryConfigurationResource() {
+            return LaboratoryConfigurationResourceFactory.create();
+        }
+
+        function getLaboratoryParticipantResource() {
+            return LaboratoryParticipantResourceFactory.create();
         }
     }
 
@@ -572,6 +586,121 @@
             });
         }
 
+        return self;
+    }
+
+}());
+
+(function() {
+    'use strict';
+
+    angular
+        .module('otus.client')
+        .factory('otus.client.LaboratoryConfigurationResourceFactory', LaboratoryConfigurationResourceFactory);
+
+    LaboratoryConfigurationResourceFactory.$inject = [
+        '$resource',
+        'OtusRestResourceContext',
+        'otus.client.HeaderBuilderFactory'
+    ];
+
+    function LaboratoryConfigurationResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+        var SUFFIX = '/laboratoryConfiguration';
+
+        var self = this;
+
+        /* Public methods */
+        self.create = create;
+
+        function create() {
+          var restPrefix = OtusRestResourceContext.getRestPrefix();
+          var token = OtusRestResourceContext.getSecurityToken();
+          var headers = HeaderBuilderFactory.create(token);
+
+          return $resource({}, {}, {
+              getListTubes: {
+                  method: 'GET',
+                  url: restPrefix + SUFFIX + '/listTubes',
+                  isArray: true,
+                  headers: headers.json
+              },
+
+              getAllCodes: {
+                method: 'GET',
+                url: restPrefix + SUFFIX + '/listCodes',
+                isArray: true,
+                headers: headers.json
+              }
+
+          });
+        }
+
+        return self;
+    }
+
+}());
+
+(function() {
+    'use strict';
+
+    angular
+        .module('otus.client')
+        .factory('otus.client.LaboratoryParticipantResourceFactory', LaboratoryParticipanResourceFactory);
+
+    LaboratoryParticipanResourceFactory.$inject = [
+        '$resource',
+        'OtusRestResourceContext',
+        'otus.client.HeaderBuilderFactory'
+    ];
+
+    function LaboratoryParticipanResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+        var SUFFIX = '/laboratory-participant';
+
+        var self = this;
+
+        /* Public methods */
+        self.create = create;
+
+        function create() {
+            var restPrefix = OtusRestResourceContext.getRestPrefix();
+            var token = OtusRestResourceContext.getSecurityToken();
+            var headers = HeaderBuilderFactory.create(token);
+
+            return $resource({}, {}, {
+                create: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX + '/generate/:rn',
+                    headers: headers.json,
+                    params: {
+                        'rn': '@rn'
+                    }
+                },
+                createEmpty: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX + '/generate-empty/:rn',
+                    headers: headers.json,
+                    params: {
+                        'rn': '@rn'
+                    }
+                },
+                generateTubes: {
+                    method: 'PUT',
+                    url: restPrefix + SUFFIX + '/generate-tubes/:rn',
+                    headers: headers.json,
+                    params: {
+                        'rn': '@rn'
+                    }
+                },
+                getLaboratory: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + '/:rn',
+                    headers: headers.json,
+                    params: {
+                        'rn': '@rn'
+                    }
+                }
+            });
+        }
         return self;
     }
 

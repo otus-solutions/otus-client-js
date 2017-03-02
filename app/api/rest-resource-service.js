@@ -14,7 +14,9 @@
         'otusjs.otus.client.OtusProjectConfigurationResourceFactory',
         'otus.client.SurveyResourceFactory',
         'otus.client.ActivityResourceFactory',
-        'otus.client.ParticipantResourceFactory'
+        'otus.client.ParticipantResourceFactory',
+        'otus.client.LaboratoryConfigurationResourceFactory',
+        'otus.client.LaboratoryParticipantResourceFactory'
     ];
 
     function OtusRestResourceService(
@@ -26,7 +28,9 @@
         OtusProjectConfigurationResourceFactory,
         SurveyResourceFactory,
         ActivityResourceFactory,
-        ParticipantResourceFactory
+        ParticipantResourceFactory,
+        LaboratoryConfigurationResourceFactory,
+        LaboratoryParticipantResourceFactory
     ) {
         var self = this;
 
@@ -43,6 +47,8 @@
         self.getSurveyResource = getSurveyResource;
         self.getActivityResource = getActivityResource;
         self.getParticipantResource = getParticipantResource;
+        self.getLaboratoryConfigurationResource = getLaboratoryConfigurationResource;
+        self.getLaboratoryParticipantResource = getLaboratoryParticipantResource;
         self.isLogged = isLogged;
 
         function isLogged() {
@@ -99,6 +105,14 @@
 
         function getParticipantResource() {
             return ParticipantResourceFactory.create();
+        }
+
+        function getLaboratoryConfigurationResource() {
+            return LaboratoryConfigurationResourceFactory.create();
+        }
+
+        function getLaboratoryParticipantResource() {
+            return LaboratoryParticipantResourceFactory.create();
         }
     }
 
