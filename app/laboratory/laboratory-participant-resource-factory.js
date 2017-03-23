@@ -25,25 +25,9 @@
             var headers = HeaderBuilderFactory.create(token);
 
             return $resource({}, {}, {
-                create: {
+                initialize: {
                     method: 'POST',
-                    url: restPrefix + SUFFIX + '/generate/:rn',
-                    headers: headers.json,
-                    params: {
-                        'rn': '@rn'
-                    }
-                },
-                createEmpty: {
-                    method: 'POST',
-                    url: restPrefix + SUFFIX + '/generate-empty/:rn',
-                    headers: headers.json,
-                    params: {
-                        'rn': '@rn'
-                    }
-                },
-                generateTubes: {
-                    method: 'PUT',
-                    url: restPrefix + SUFFIX + '/generate-tubes/:rn',
+                    url: restPrefix + SUFFIX + '/initialize/:rn',
                     headers: headers.json,
                     params: {
                         'rn': '@rn'
