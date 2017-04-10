@@ -881,6 +881,11 @@
                     method: 'POST',
                     url: restPrefix + SUFFIX + '/disable',
                     headers: headers.json
+                },
+                updateFieldCenter: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX + '/field-center',
+                    headers: headers.json
                 }
             });
         }
