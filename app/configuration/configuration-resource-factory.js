@@ -44,12 +44,6 @@
             publishTemplate: {
                method: 'POST',
                url: restPrefix + SUFFIX + '/publish/template',
-              //  interceptor: {
-              //     'response': function (response) {console.log(response);}
-              //  },
-              //  data: {
-              //     'template': '@template'
-              //  },
                headers: headersPublishTemplate.json
             },
             deleteSurveyTemplate: {

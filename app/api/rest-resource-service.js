@@ -17,7 +17,8 @@
         'otus.client.ParticipantResourceFactory',
         'otus.client.LaboratoryConfigurationResourceFactory',
         'otus.client.LaboratoryParticipantResourceFactory',
-        'otus.client.DatasourceResourceFactory'
+        'otus.client.DatasourceResourceFactory',
+        'otus.client.UploadResourceFactory'
     ];
 
     function OtusRestResourceService(
@@ -32,7 +33,8 @@
         ParticipantResourceFactory,
         LaboratoryConfigurationResourceFactory,
         LaboratoryParticipantResourceFactory,
-        DatasourceResourceFactory
+        DatasourceResourceFactory,
+        UploadResourceFactory
     ) {
         var self = this;
 
@@ -52,6 +54,7 @@
         self.getLaboratoryConfigurationResource = getLaboratoryConfigurationResource;
         self.getLaboratoryParticipantResource = getLaboratoryParticipantResource;
         self.getDatasourceResourceFactory = getDatasourceResourceFactory;
+        self.getFileUploadResourceFactory = getFileUploadResourceFactory;
         self.isLogged = isLogged;
 
         function isLogged() {
@@ -117,9 +120,15 @@
         function getLaboratoryParticipantResource() {
             return LaboratoryParticipantResourceFactory.create();
         }
+
         function getDatasourceResourceFactory() {
             return DatasourceResourceFactory.create();
         }
+
+        function getFileUploadResourceFactory() {
+          return UploadResourceFactory.create();
+        }
+
     }
 
 }());
