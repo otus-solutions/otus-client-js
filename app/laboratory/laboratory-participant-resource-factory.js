@@ -40,6 +40,22 @@
                     params: {
                         'rn': '@rn'
                     }
+                },
+                update: {
+                  method: 'PUT',
+                  url: restPrefix + SUFFIX + '/:rn',
+                  headers: headers.json,
+                  data: {
+                    'laboratory': '@laboratory'
+                  },
+                  params: {
+                    'rn': '@rn',
+                  }
+                },
+                getDescriptors: {
+                  method: 'GET',
+                  url: restPrefix + SUFFIX + '/descriptor',
+                  headers: headers.json,
                 }
             });
         }
