@@ -54,7 +54,7 @@
         },
         updateAliquots: {
           method: 'PUT',
-          url: restPrefix + SUFFIX + '/:rn',
+          url: restPrefix + SUFFIX + '/:rn/tubes/aliquots',
           headers: headers.json,
           data: {
             'updateAliquotsDTO': '@updateAliquotsDTO'
