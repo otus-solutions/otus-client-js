@@ -118,11 +118,9 @@
 						<hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
 						<versionTagPrefix>v</versionTagPrefix>
 					</flowInitContext>
-					<squash>true</squash>
 					<scmCommentPrefix>[RELEASE]</scmCommentPrefix>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 </project>
-
