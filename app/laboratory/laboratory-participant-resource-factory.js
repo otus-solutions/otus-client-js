@@ -67,6 +67,11 @@
           method: 'GET',
           url: restPrefix + SUFFIX + '/descriptor',
           headers: headers.json,
+        },
+        getAliquotsDescriptors: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/aliquots-descriptors',
+          headers: headers.json,
         }
       });
     }
