@@ -12,7 +12,7 @@
   ];
 
   function SampleTransport($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/sample-transport';
+    var SUFFIX = '/laboratory-project/transportation';
 
     var self = this;
 
@@ -27,6 +27,11 @@
       return $resource({}, {}, {
         getAliquots: {
           method: 'GET',
+          url: restPrefix + SUFFIX + '/aliquots',
+          headers: headers.json
+        },
+        getAliquotsByCenter: {
+          method: 'GET',
           url: restPrefix + SUFFIX + '/aliquots/:center',
           headers: headers.json,
           params: {
@@ -35,11 +40,8 @@
         },
         getLots: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/lots/:center',
-          headers: headers.json,
-          params: {
-            'center': '@center'
-          }
+          url: restPrefix + SUFFIX + '/lots',
+          headers: headers.json
         },
         createLot: {
           method: 'POST',
@@ -51,13 +53,10 @@
         },
         updateLot: {
           method: 'PUT',
-          url: restPrefix + SUFFIX + '/lot/:id',
+          url: restPrefix + SUFFIX + '/lot',
           headers: headers.json,
           data: {
             'sampleLot': '@sampleLot'
-          },
-          params: {
-            'id': '@id',
           }
         },
         deleteLot: {
