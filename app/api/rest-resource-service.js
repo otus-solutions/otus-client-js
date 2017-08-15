@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -15,10 +15,10 @@
         'otus.client.SurveyResourceFactory',
         'otus.client.ActivityResourceFactory',
         'otus.client.ParticipantResourceFactory',
-        'otus.client.LaboratoryConfigurationResourceFactory',
         'otus.client.LaboratoryParticipantResourceFactory',
         'otus.client.DatasourceResourceFactory',
-        'otus.client.UploadResourceFactory'
+        'otus.client.UploadResourceFactory',
+        'otus.client.SampleTransport'
     ];
 
     function OtusRestResourceService(
@@ -31,10 +31,10 @@
         SurveyResourceFactory,
         ActivityResourceFactory,
         ParticipantResourceFactory,
-        LaboratoryConfigurationResourceFactory,
         LaboratoryParticipantResourceFactory,
         DatasourceResourceFactory,
-        UploadResourceFactory
+        UploadResourceFactory,
+        SampleTransport
     ) {
         var self = this;
 
@@ -51,10 +51,10 @@
         self.getSurveyResource = getSurveyResource;
         self.getActivityResource = getActivityResource;
         self.getParticipantResource = getParticipantResource;
-        self.getLaboratoryConfigurationResource = getLaboratoryConfigurationResource;
         self.getLaboratoryParticipantResource = getLaboratoryParticipantResource;
         self.getDatasourceResourceFactory = getDatasourceResourceFactory;
         self.getFileUploadResourceFactory = getFileUploadResourceFactory;
+        self.getSampleTransport = getSampleTransport;
         self.isLogged = isLogged;
 
         function isLogged() {
@@ -113,10 +113,6 @@
             return ParticipantResourceFactory.create();
         }
 
-        function getLaboratoryConfigurationResource() {
-            return LaboratoryConfigurationResourceFactory.create();
-        }
-
         function getLaboratoryParticipantResource() {
             return LaboratoryParticipantResourceFactory.create();
         }
@@ -126,7 +122,11 @@
         }
 
         function getFileUploadResourceFactory() {
-          return UploadResourceFactory.create();
+            return UploadResourceFactory.create();
+        }
+
+        function getSampleTransport() {
+            return SampleTransport.create();
         }
 
     }
