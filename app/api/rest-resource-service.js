@@ -16,6 +16,7 @@
         'otus.client.ActivityResourceFactory',
         'otus.client.ParticipantResourceFactory',
         'otus.client.LaboratoryParticipantResourceFactory',
+        'otus.client.LaboratoryConfigurationResourceFactory',
         'otus.client.DatasourceResourceFactory',
         'otus.client.UploadResourceFactory',
         'otus.client.SampleTransport'
@@ -32,6 +33,7 @@
         ActivityResourceFactory,
         ParticipantResourceFactory,
         LaboratoryParticipantResourceFactory,
+        LaboratoryConfigurationResourceFactory,
         DatasourceResourceFactory,
         UploadResourceFactory,
         SampleTransport
@@ -52,6 +54,7 @@
         self.getActivityResource = getActivityResource;
         self.getParticipantResource = getParticipantResource;
         self.getLaboratoryParticipantResource = getLaboratoryParticipantResource;
+        self.getLaboratoryConfigurationResource = getLaboratoryConfigurationResource;
         self.getDatasourceResourceFactory = getDatasourceResourceFactory;
         self.getFileUploadResourceFactory = getFileUploadResourceFactory;
         self.getSampleTransport = getSampleTransport;
@@ -115,6 +118,10 @@
 
         function getLaboratoryParticipantResource() {
             return LaboratoryParticipantResourceFactory.create();
+        }
+
+        function getLaboratoryConfigurationResource() {
+            return LaboratoryConfigurationResourceFactory.create();
         }
 
         function getDatasourceResourceFactory() {
