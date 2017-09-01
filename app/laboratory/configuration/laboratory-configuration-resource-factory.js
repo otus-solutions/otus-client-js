@@ -3,15 +3,15 @@
 
    angular
       .module('otus.client')
-      .factory('otus.client.LaboratoryParticipantResourceFactory', LaboratoryParticipantResourceFactory);
+      .factory('otus.client.LaboratoryConfigurationResourceFactory', LaboratoryConfigurationResourceFactory);
 
-   LaboratoryParticipantResourceFactory.$inject = [
+   LaboratoryConfigurationResourceFactory.$inject = [
     '$resource',
     'OtusRestResourceContext',
     'otus.client.HeaderBuilderFactory'
   ];
 
-   function LaboratoryParticipantResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+   function LaboratoryConfigurationResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
       var SUFFIX = '/laboratory-configuration';
 
       var self = this;
