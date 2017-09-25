@@ -3,15 +3,15 @@
 
   angular
     .module('otus.client')
-    .factory('otus.client.LaboratoryParticipantResourceFactory', LaboratoryParticipanResourceFactory);
+    .factory('otus.client.LaboratoryParticipantResourceFactory', LaboratoryParticipantResourceFactory);
 
-  LaboratoryParticipanResourceFactory.$inject = [
+  LaboratoryParticipantResourceFactory.$inject = [
     '$resource',
     'OtusRestResourceContext',
     'otus.client.HeaderBuilderFactory'
   ];
 
-  function LaboratoryParticipanResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+  function LaboratoryParticipantResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
     var SUFFIX = '/laboratory-participant';
 
     var self = this;
@@ -62,11 +62,6 @@
           params: {
             'rn': '@rn',
           }
-        },
-        getDescriptors: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/descriptor',
-          headers: headers.json,
         }
       });
     }
