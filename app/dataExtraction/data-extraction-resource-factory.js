@@ -30,12 +30,12 @@
                     url: restPrefix + SUFFIX + '/extraction-token',
                     headers: headers.json
                 },
-                listIps: {
+                listExtractionIps: {
                     method: 'GET',
                     url: restPrefix + SUFFIX + '/list-ips',
                     headers: headers.json
                 },
-                enableIps: {
+                updateExtractionIps: {
                     method: 'POST',
                     url: restPrefix + SUFFIX + '/enable-ips',
                     headers: headers.json
