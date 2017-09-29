@@ -14,6 +14,7 @@
         'otusjs.otus.client.OtusProjectConfigurationResourceFactory',
         'otus.client.SurveyResourceFactory',
         'otus.client.ActivityResourceFactory',
+        'otus.client.DataExtractionResourceFactory',
         'otus.client.ParticipantResourceFactory',
         'otus.client.LaboratoryParticipantResourceFactory',
         'otus.client.LaboratoryConfigurationResourceFactory',
@@ -31,6 +32,7 @@
         OtusProjectConfigurationResourceFactory,
         SurveyResourceFactory,
         ActivityResourceFactory,
+        DataExtractionResourceFactory,
         ParticipantResourceFactory,
         LaboratoryParticipantResourceFactory,
         LaboratoryConfigurationResourceFactory,
@@ -52,6 +54,7 @@
         self.getProjectConfigurationResource = getProjectConfigurationResource;
         self.getSurveyResource = getSurveyResource;
         self.getActivityResource = getActivityResource;
+        self.getExtractionResource = getExtractionResource;
         self.getParticipantResource = getParticipantResource;
         self.getLaboratoryParticipantResource = getLaboratoryParticipantResource;
         self.getLaboratoryConfigurationResource = getLaboratoryConfigurationResource;
@@ -110,6 +113,10 @@
 
         function getActivityResource() {
             return ActivityResourceFactory.create();
+        }
+
+        function getExtractionResource() {
+            return DataExtractionResourceFactory.create();
         }
 
         function getParticipantResource() {
