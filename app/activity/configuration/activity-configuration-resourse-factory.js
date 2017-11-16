@@ -25,39 +25,46 @@
             var headers = HeaderBuilderFactory.create(token);
 
             return $resource({}, {}, {
-              create: {//pronto
-                method: 'POST',
-                url: restPrefix + SUFFIX + '/categories',
-                headers: headers.json,
-                params: {
-                  'name': '@id'
-                }
-              },
-              update: { //pronto
-                method: 'PUT',
-                url: restPrefix + SUFFIX + '/categories',
-                headers: headers.json,
-                data: {
-                  'activity': '@activity'
-                }
-              },
-              listAll: {//pronto
+              listAll: {
                 method: 'GET',
                 url: restPrefix + SUFFIX + '/categories',
                 headers: headers.json
               },
-              getById: {//remover
+              getById: {
                 method: 'GET',
                 url: restPrefix + SUFFIX + '/categories/:id',
                 headers: headers.json,
                 params: {
-                  'id': '@id',
-                  'rn': '@rn',
+                  'id': '@id'
                 }
               },
-              deleteById: {
+              create: {
+                method: 'POST',
+                url: restPrefix + SUFFIX + '/categories',
+                headers: headers.json,
+                data: {
+                  'activityCategory': '@activityCategory'
+                }
+              },
+              delete: {
                 method: 'PUT',
                 url: restPrefix + SUFFIX + '/categories/:id',
+                headers: headers.json,
+                params: {
+                  'id': '@id'
+                }
+              },
+              update: {
+                method: 'PUT',
+                url: restPrefix + SUFFIX + '/categories',
+                headers: headers.json,
+                data: {
+                  'activityCategory': '@activityCategory'
+                }
+              },
+              setDefault: {
+                method: 'PUT',
+                url: restPrefix + SUFFIX + '/categories/default/:id',
                 headers: headers.json,
                 params: {
                   'id': '@id'
