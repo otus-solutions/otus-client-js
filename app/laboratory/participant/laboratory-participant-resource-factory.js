@@ -49,7 +49,18 @@
             'laboratory': '@laboratory'
           },
           params: {
-            'rn': '@rn',
+            'rn': '@rn'
+          }
+        },
+        updateTubeCollectionData: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/tube-collection-data/:rn',
+          headers: headers.json,
+          data: {
+              'tubes': '@tubes'
+          },
+          params: {
+              'rn': '@rn'
           }
         },
         updateAliquots: {
@@ -60,7 +71,7 @@
             'updateAliquotsDTO': '@updateAliquotsDTO'
           },
           params: {
-            'rn': '@rn',
+            'rn': '@rn'
           }
         }
       });
