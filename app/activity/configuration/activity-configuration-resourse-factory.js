@@ -47,7 +47,7 @@
                 }
               },
               delete: {
-                method: 'PUT',
+                method: 'DELETE',
                 url: restPrefix + SUFFIX + '/categories/:id',
                 headers: headers.json,
                 params: {
