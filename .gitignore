@@ -4,7 +4,7 @@
 /*/.classpath
 *.jsfdia
 *.metadata
-**/.idea
+.idea/
 *.iml
 *.swp
 *.swo
