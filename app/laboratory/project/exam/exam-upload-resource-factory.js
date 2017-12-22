@@ -12,7 +12,7 @@
   ];
 
   function ExamUpload($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/laboratory-project/exam-lot';
+    var SUFFIX = '/exam-uploader';
 
     var self = this;
 
@@ -30,24 +30,8 @@
           url: restPrefix + SUFFIX + '/results',
           headers: headers.json
         },
-        getById: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/results/:id',
-          headers: headers.json,
-          params: {
-            'id': '@id'
-          }
-        },
         create: {
           method: 'POST',
-          url: restPrefix + SUFFIX,
-          headers: headers.json,
-          data: {
-            'examUploadJson': '@examUploadJson'
-          }
-        },
-        update: {
-          method: 'PUT',
           url: restPrefix + SUFFIX,
           headers: headers.json,
           data: {
@@ -57,6 +41,14 @@
         delete: {
           method: 'DELETE',
           url: restPrefix + SUFFIX + '/:id',
+          headers: headers.json,
+          params: {
+            'id': '@id'
+          }
+        },
+        getById: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/results/:id',
           headers: headers.json,
           params: {
             'id': '@id'
