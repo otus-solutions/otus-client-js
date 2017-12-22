@@ -22,7 +22,8 @@
         'otus.client.DatasourceResourceFactory',
         'otus.client.UploadResourceFactory',
         'otus.client.SampleTransport',
-        'otus.client.ExamLot'
+        'otus.client.ExamLot',
+        'otus.client.ExamUpload'
     ];
 
     function OtusRestResourceService(
@@ -42,7 +43,8 @@
         DatasourceResourceFactory,
         UploadResourceFactory,
         SampleTransport,
-        ExamLot
+        ExamLot,
+        ExamUpload
     ) {
         var self = this;
 
@@ -67,6 +69,7 @@
         self.getFileUploadResourceFactory = getFileUploadResourceFactory;
         self.getSampleTransport = getSampleTransport;
         self.getExamLotResource = getExamLotResource;
+        self.getExamUploadResource = getExamUploadResource;
         self.isLogged = isLogged;
 
         function isLogged() {
@@ -155,6 +158,10 @@
 
         function getExamLotResource() {
             return ExamLot.create();
+        }
+
+        function getExamUploadResource() {
+            return ExamUpload.create();
         }
 
     }

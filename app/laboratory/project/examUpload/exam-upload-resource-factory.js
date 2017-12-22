@@ -3,16 +3,16 @@
 
   angular
     .module('otus.client')
-    .factory('otus.client.SampleTransport', SampleTransport);
+    .factory('otus.client.ExamUpload', ExamUpload);
 
-  SampleTransport.$inject = [
+  ExamUpload.$inject = [
     '$resource',
     'OtusRestResourceContext',
     'otus.client.HeaderBuilderFactory'
   ];
 
-  function SampleTransport($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/laboratory-project/transportation';
+  function ExamUpload($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+    var SUFFIX = '/laboratory-project/exam-lot';
 
     var self = this;
 
@@ -25,46 +25,41 @@
       var headers = HeaderBuilderFactory.create(token);
 
       return $resource({}, {}, {
-        getAliquots: {
+        listAll: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/aliquots',
+          url: restPrefix + SUFFIX + '/results',
           headers: headers.json
         },
-        getAliquotsByCenter: {
+        getById: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/aliquots/:center',
+          url: restPrefix + SUFFIX + '/results/:id',
           headers: headers.json,
           params: {
-            'center': '@center'
+            'id': '@id'
           }
         },
-        getLots: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/lots',
-          headers: headers.json
-        },
-        createLot: {
+        create: {
           method: 'POST',
-          url: restPrefix + SUFFIX + '/lot',
+          url: restPrefix + SUFFIX,
           headers: headers.json,
           data: {
-            'sampleLot': '@sampleLot'
+            'examUploadJson': '@examUploadJson'
           }
         },
-        updateLot: {
+        update: {
           method: 'PUT',
-          url: restPrefix + SUFFIX + '/lot',
+          url: restPrefix + SUFFIX,
           headers: headers.json,
           data: {
-            'sampleLot': '@sampleLot'
+            'examUploadJson': '@examUploadJson'
           }
         },
-        deleteLot: {
+        delete: {
           method: 'DELETE',
-          url: restPrefix + SUFFIX + '/lot/:id',
+          url: restPrefix + SUFFIX + '/:id',
           headers: headers.json,
           params: {
-            'id': '@id',
+            'id': '@id'
           }
         }
       });
