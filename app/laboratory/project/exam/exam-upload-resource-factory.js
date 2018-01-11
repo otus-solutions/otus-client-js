@@ -12,7 +12,7 @@
   ];
 
   function ExamUpload($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/exam-uploader';
+    var SUFFIX = '/exam-upload';
 
     var self = this;
 
@@ -27,7 +27,7 @@
       return $resource({}, {}, {
         listAll: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/results',
+          url: restPrefix + SUFFIX,
           headers: headers.json
         },
         create: {
