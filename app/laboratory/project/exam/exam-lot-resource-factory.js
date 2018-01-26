@@ -38,6 +38,14 @@
                         'center': '@center'
                     }
                 },
+                getAvailableExams: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + '/available-exams/:center',
+                    headers: headers.json,
+                    params: {
+                        'center': '@center'
+                    }
+                },
                 getLots: {
                     method: 'GET',
                     url: restPrefix + SUFFIX,
