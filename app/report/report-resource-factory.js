@@ -23,25 +23,25 @@
 
       return $resource({}, {}, {
         send: {
-          method: '',
+          method: 'POST',
           url: restPrefix + SUFFIX,
           headers: headers.json
         },
 
         find: {
-          method: '',
-          url: restPrefix + SUFFIX + '/find'
+          method: 'GET',
+          url: restPrefix + SUFFIX
           headers: headers.json
         },
 
         remove: {
-          method: '',
-          url: restPrefix + SUFFIX + '/remove',
+          method: 'DELETE',
+          url: restPrefix + SUFFIX,
           headers: headers.json
         },
 
         findDTO: {
-          method: '',
+          method: 'GET',
           url: restPrefix + SUFFIX + '/findDTO'
           headers: headers.json
         }
