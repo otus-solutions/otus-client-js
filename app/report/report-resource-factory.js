@@ -15,6 +15,7 @@
     var SUFFIX = '/report';
 
     var self = this;
+    self.create = create;
 
     function create() {
       var restPrefix = OtusRestResourceContext.getRestPrefix();
@@ -22,33 +23,47 @@
       var headers = HeaderBuilderFactory.create(token);
 
       return $resource({}, {}, {
-        send: {
+        create: {
           method: 'POST',
-          url: restPrefix + SUFFIX,
-          headers: headers.json
+          url: restPrefix + SUFFIX +'/:center',
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
         },
 
-        find: {
+        listAll: {
           method: 'GET',
-          url: restPrefix + SUFFIX
-          headers: headers.json
+          url: restPrefix + SUFFIXS,
+          headers: headers.json,
         },
 
         remove: {
           method: 'DELETE',
           url: restPrefix + SUFFIX,
-          headers: headers.json
+          headers: headers.json,
         },
 
-        findDTO: {
+        listForCenter: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/findDTO'
-          headers: headers.json
+          url: restPrefix + SUFFIX + '/:center',
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
+        },
+
+        listDatasource: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/listDatasource/:dataSource',
+          headers: headers.json,
+          params: {
+            'dataSource': '@datasource'
+          }
         }
 
       });
     }
-
 
     return self;
   }
