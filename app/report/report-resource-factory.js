@@ -34,7 +34,7 @@
 
         listAll: {
           method: 'GET',
-          url: restPrefix + SUFFIXS,
+          url: restPrefix + SUFFIX,
           headers: headers.json,
         },
 
@@ -44,7 +44,7 @@
           headers: headers.json,
         },
 
-        listForCenter: {
+        listByCenter: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/:center',
           headers: headers.json,
@@ -55,10 +55,10 @@
 
         listDatasource: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/listDatasource/:dataSource',
+          url: restPrefix + SUFFIX + '/listDatasource/:datasource',
           headers: headers.json,
           params: {
-            'dataSource': '@datasource'
+            'datasource': '@datasource'
           }
         }
       });
