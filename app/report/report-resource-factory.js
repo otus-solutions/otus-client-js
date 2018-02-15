@@ -61,10 +61,8 @@
             'dataSource': '@datasource'
           }
         }
-
       });
     }
-
     return self;
   }
 
