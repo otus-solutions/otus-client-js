@@ -95,15 +95,8 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!--
-			     * Maven Plugin : Control Workflow Development Team
-			     * 		- Start Feature : mvn jgitflow:feature-start
-			     * 		- Finish Feature : mvn jgitflow:feature-finish
-			     * 		- Start Hotfix : mvn jgitflow:hotfix-start
-			     * 		- Finish Hotfix : mvn jgitflow:hotfix-finish
-			     * 		- Start Release : mvn jgitflow:release-start
-			     * 		- Finish Release : mvn jgitflow:release-finish
-			     -->
+			<!-- * Maven Plugin : Control Workflow Development Team * - Start Feature : mvn jgitflow:feature-start * - Finish Feature : mvn jgitflow:feature-finish * - Start Hotfix : mvn jgitflow:hotfix-start * - Finish Hotfix : mvn jgitflow:hotfix-finish * -
+			Start Release : mvn jgitflow:release-start * - Finish Release : mvn jgitflow:release-finish -->
 			<plugin>
 				<groupId>external.atlassian.jgitflow</groupId>
 				<artifactId>jgitflow-maven-plugin</artifactId>
@@ -120,6 +113,13 @@
 					</flowInitContext>
 					<scmCommentPrefix>[RELEASE]</scmCommentPrefix>
 				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.wagon</groupId>
+						<artifactId>wagon-ssh</artifactId>
+						<version>2.12</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
