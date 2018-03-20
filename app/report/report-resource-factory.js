@@ -25,40 +25,61 @@
       return $resource({}, {}, {
         create: {
           method: 'POST',
-          url: restPrefix + SUFFIX +'/:center',
+          url: restPrefix + SUFFIX,
           headers: headers.json,
-          params: {
-            'center': '@center'
+          data: {
+              'reportTemplate': '@reportTemplate'
           }
         },
 
         listAll: {
           method: 'GET',
-          url: restPrefix + SUFFIX,
+          url: restPrefix + SUFFIX + '/list',
           headers: headers.json,
         },
 
         remove: {
           method: 'DELETE',
-          url: restPrefix + SUFFIX,
-          headers: headers.json,
-        },
-
-        listByCenter: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/:center',
+          url: restPrefix + SUFFIX + '/:id',
           headers: headers.json,
           params: {
-            'center': '@center'
+            'id' : '@id'
           }
         },
 
-        listDatasource: {
+        list: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/listDatasource/:datasource',
+          url: restPrefix + SUFFIX + '/participant/list/:rn',
           headers: headers.json,
           params: {
-            'datasource': '@datasource'
+            'rn': '@rn'
+          }
+        },
+
+        listById: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/list/:id',
+          headers: headers.json,
+          params: {
+            'id': '@id'
+          }
+        },
+
+        listByRecruitmentNumber: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/participant/:rn/:id',
+          headers: headers.json,
+          params: {
+            'rn': '@rn',
+            'id': '@id'
+          }
+        },
+        update: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX ,
+          headers: headers.json,
+          data: {
+            'reportTemplate': '@reportTemplate'
           }
         }
       });
