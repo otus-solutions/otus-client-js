@@ -1,4 +1,5 @@
 module.exports = function(config) {
+  var APP_ROOT_PATH = 'app/';
   var NODE_MODULES_ROOT_PATH = 'node_modules/';
 
 
@@ -15,16 +16,17 @@ module.exports = function(config) {
       /* External dependencies */
       NODE_MODULES_ROOT_PATH + 'babel-polyfill/dist/polyfill.js',
       NODE_MODULES_ROOT_PATH + 'angular/angular.min.js',
-      NODE_MODULES_ROOT_PATH + 'angular-resource/angular-resource.min.js',
       NODE_MODULES_ROOT_PATH + 'angular-mocks/angular-mocks.js',
       /* Application files */
-      'app/rest-resource-module.js',
-      'app/**/*.js',{
+
+      APP_ROOT_PATH + 'rest-resource-module.js',
+      APP_ROOT_PATH + '**/*.js', {
         // Change /test to /*-spec to execute all tests
         pattern: 'tests/**/*-spec.js',
         included: true
       }
     ],
+
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
