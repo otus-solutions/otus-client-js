@@ -2,34 +2,38 @@ describe('the exam factory', function() {
   var Mock = {};
   var injections;
   var $injector = angular.injector();
-
   beforeEach(function() {
 
     angular.mock.module("otus.client");
-    // angular.mock.inject(function(_$injector_) {
+  });
+
+  beforeEach(function() {
+
+    inject(function(_$injector_) {
       injections = {
-        $resource: $injector.get('$resource'),
-        OtusRestResourceContext: $injector.get('OtusRestResourceContext'),
-        HeaderBuilderFactory: $injector.get('otus.client.HeaderBuilderFactory')
+        $resource: _$injector_.get('$resource'),
+        OtusRestResourceContext: _$injector_.get('OtusRestResourceContext'),
+        HeaderBuilderFactory: _$injector_.get('otus.client.HeaderBuilderFactory')
       }
-      Mock.ReportResourceFactory = $injector.get('otus.client.ReportResourceFactory', injections);
-    // });
+      mockFactory(_$injector_, injections)
+    });
   });
 
 
-  xdescribe("Testing called factory", function() {
+  describe("Testing called factory", function() {
     beforeEach(function() {
-      //spyOn(Mock.ReportResourceFactory, "create");
-      //Mock.ReportResourceFactory.create();
+      spyOn(Mock.ReportResourceFactory, "create");
+      Mock.ReportResourceFactory.create();
     });
     it("should build a factory", function() {
-      expect(true).toBe(true);
+      expect(Mock.ReportResourceFactory.create).toHaveBeenCalled();
 
     });
   });
 
   function mockFactory($injector, injections) {
-    Mock.ReportResourceFactory = $injector.get('otus.client.ReportResourceFactory');
+    Mock.ReportResourceFactory = $injector.get('otus.client.ReportResourceFactory', injections);
+
   }
 
 });

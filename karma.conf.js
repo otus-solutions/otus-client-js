@@ -17,6 +17,8 @@ module.exports = function(config) {
       NODE_MODULES_ROOT_PATH + 'babel-polyfill/dist/polyfill.js',
       NODE_MODULES_ROOT_PATH + 'angular/angular.min.js',
       NODE_MODULES_ROOT_PATH + 'angular-mocks/angular-mocks.js',
+      NODE_MODULES_ROOT_PATH + 'angular-resource/angular-resource.js',
+
       /* Application files */
 
       APP_ROOT_PATH + 'rest-resource-module.js',
