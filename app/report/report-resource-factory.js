@@ -56,7 +56,7 @@
           }
         },
 
-        listById: {
+        getById: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/list/:id',
           headers: headers.json,
@@ -65,7 +65,7 @@
           }
         },
 
-        listByRecruitmentNumber: {
+        getByRecruitmentNumber: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/participant/:rn/:id',
           headers: headers.json,
