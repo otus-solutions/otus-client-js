@@ -4,8 +4,8 @@ describe('UrlParser test', function() {
   var $resource;
   // angular.mock.module('otus.client');
   beforeEach(function() {
-    angular.mock.module('otus.client');
 
+    angular.mock.module('otus.client');
   });
 
   beforeEach(inject(function(_$injector_) {
@@ -14,28 +14,21 @@ describe('UrlParser test', function() {
   }));
 
   describe('method parser', function() {
+    var parserElement = document.createElement('a');
     beforeEach(function() {
       spyOn(SERVICE, 'parser');
-      SERVICE.parser(jasmine.any(String));
+      parserElement = SERVICE.parser("www");
     });
 
     it('should called method parser', function() {
-      SERVICE.parser(jasmine.any(String));
-      expect(SERVICE.parser).toHaveBeenCalledWith(jasmine.any(String));
+      SERVICE.parser("www");
+      expect(SERVICE.parser).toHaveBeenCalledWith("www");
       expect(SERVICE.parser).not.toBeNull();
+      expect(SERVICE.parser).toBeDefined();
+      expect(SERVICE.parser()).toBe(undefined);
     })
 
 
   });
-  it('is very true', function() {
-    // var $injector = angular.injector();
 
-
-    // SERVICE = UrlParser;
-    // var ngResource = $injector.get('ngResource');
-    expect(SERVICE).toBeDefined();
-    expect(true).toBe(true);
-    // expect($injector.get('ngResource')).toBeDefined();
-
-  });
 });
