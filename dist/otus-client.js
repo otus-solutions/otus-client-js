@@ -832,10 +832,28 @@
 
         listAll: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/list',
+          url: restPrefix + SUFFIX,
           headers: headers.json,
         },
 
+        getById: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/:id',
+          headers: headers.json,
+          params: {
+            'id': '@id'
+          }
+        },
+
+        update: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX ,
+          headers: headers.json,
+          data: {
+            'reportTemplate': '@reportTemplate'
+          }
+        },
+        
         remove: {
           method: 'DELETE',
           url: restPrefix + SUFFIX + '/:id',
@@ -854,30 +872,13 @@
           }
         },
 
-        listById: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/list/:id',
-          headers: headers.json,
-          params: {
-            'id': '@id'
-          }
-        },
-
-        listByRecruitmentNumber: {
+        getByRecruitmentNumber: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/participant/:rn/:id',
           headers: headers.json,
           params: {
             'rn': '@rn',
             'id': '@id'
-          }
-        },
-        update: {
-          method: 'PUT',
-          url: restPrefix + SUFFIX ,
-          headers: headers.json,
-          data: {
-            'reportTemplate': '@reportTemplate'
           }
         }
       });

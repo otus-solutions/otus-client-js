@@ -34,13 +34,13 @@
 
         listAll: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/list',
+          url: restPrefix + SUFFIX,
           headers: headers.json,
         },
 
         getById: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/list/:id',
+          url: restPrefix + SUFFIX + '/:id',
           headers: headers.json,
           params: {
             'id': '@id'
