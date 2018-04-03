@@ -4,4 +4,4 @@ describe('Teste Check Karma Config', function() {
         expect(true).toBe(true);
     });
 
-}); 
+});
