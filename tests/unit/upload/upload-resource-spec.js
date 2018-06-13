@@ -62,7 +62,7 @@
                 });
             
 
-            describe('HttpFileUploadMethodAtributes check', function(){
+            describe('HttpFileUploadMethodAtributes', function(){
 
                 afterEach(function () {
                     httpBackend.flush();
@@ -78,7 +78,7 @@
                 });
 
                 it('postMethodAttributes check', function () {
-                    var postFactoryResult = factoryResult.post(DATA, promise);
+                    postFactoryResult = factoryResult.post(DATA, promise);
                     postFactoryResult.then(function (resultPost) {
                         expect(resultPost.data).toEqual(DATA);
                         expect(resultPost.config.method).toEqual(METHOD_POST_VALUE);
@@ -87,7 +87,7 @@
                 });
 
                 it('deleteMethodAttributes check', function () {
-                    var deleteFactoryResult = factoryResult.deleteByOID(OID);
+                    deleteFactoryResult = factoryResult.deleteByOID(OID);
                     deleteFactoryResult.then(function (resultDelete) {
                         expect(resultDelete.data).toEqual(DATA);
                         expect(resultDelete.config.method).toEqual(METHOD_DELETE_VALUE);
