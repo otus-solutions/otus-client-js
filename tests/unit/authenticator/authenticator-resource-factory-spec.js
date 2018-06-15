@@ -54,6 +54,12 @@
                 expect(headerBuilderFactory.create).toHaveBeenCalledTimes(1);                
             });
 
+            it('methodFactoryExistence check', function () {
+                expect(factoryResult.authenticate).toBeDefined();
+                expect(factoryResult.invalidate).toBeDefined();
+                expect(factoryResult.authenticateProject).toBeDefined();
+            });
+
             describe('resourceMethods', function(){
 
                 afterEach(function(){
@@ -76,8 +82,8 @@
 
                 it('authenticateProjectMethod check', function () {
                     var authenticateProject = factoryResult.authenticateProject();
-                    authenticateProject.$promise.then(function (resultauthenticateProject) {
-                        expect(resultauthenticateProject.data).toEqual(DATA_CONFIRMATION);
+                    authenticateProject.$promise.then(function (resultAuthenticateProject) {
+                        expect(resultAuthenticateProject.data).toEqual(DATA_CONFIRMATION);
                     });
                 });
             });
