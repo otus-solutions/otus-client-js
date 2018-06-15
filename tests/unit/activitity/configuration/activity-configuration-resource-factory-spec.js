@@ -7,13 +7,10 @@
         var SUFFIX = '/activities/configuration';        
         var CAT_SX = '/categories';
         var DEFAULT_SX = '/default'
-        var ID_SX = '/1234567';
-        
+        var ID_SX = '/1234567';        
         var DATA = {'data': 'returnPromiseOK'};
-        var DATA_CONFIRMATION = 'returnPromiseOK';
-        
-        var ID_PARAMETER = {'id': 1234567};
-        
+        var DATA_CONFIRMATION = 'returnPromiseOK';        
+        var ID_PARAMETER = {'id': 1234567};        
         var METHOD_GET_VALUE = "GET";
         var METHOD_POST_VALUE = "POST";
         var METHOD_DELETE_VALUE = "DELETE";
@@ -83,7 +80,7 @@
                     });
                 });
 
-                it('getById check', function () {
+                it('getByIdMethod check', function () {
                     var getById = factoryResult.getById(ID_PARAMETER);
                     getById.$promise.then(function (resultGetById) {
                         expect(resultGetById.data).toEqual(DATA_CONFIRMATION);
@@ -97,7 +94,7 @@
                     });
                 });
                 
-                it('delete check', function () {
+                it('deleteMethod check', function () {
                     var delet = factoryResult.delete(ID_PARAMETER);
                     delet.$promise.then(function (resultDelete) {
                         expect(resultDelete.data).toEqual(DATA_CONFIRMATION);
@@ -111,7 +108,7 @@
                     });
                 });
 
-                it('setDefault check', function () {
+                it('setDefaultMethod check', function () {
                     var setDefault = factoryResult.setDefault(ID_PARAMETER);
                     setDefault.$promise.then(function (resultSetDefault) {
                         expect(resultSetDefault.data).toEqual(DATA_CONFIRMATION);
