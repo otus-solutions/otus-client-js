@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    describe('DataExtractionResourceFactory', function () {
+    describe('DatasourceResourceFactory', function () {
 
         var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
         var SUFFIX = '/configuration/datasources';

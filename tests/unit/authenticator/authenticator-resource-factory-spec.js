@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    describe('OtusAuthenticatorResourceFactory', function(){
+    describe('AuthenticatorResourceFactory', function(){
 
         var METHOD_POST_VALUE = "POST";
         var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';

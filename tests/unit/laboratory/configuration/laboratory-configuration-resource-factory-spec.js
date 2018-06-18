@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    describe('DataExtractionResourceFactory', function () {
+    describe('LaboratoryConfigurationResourceFactory', function () {
 
         var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
         var SUFFIX = '/laboratory-configuration';
