@@ -29,6 +29,11 @@
                     method: 'GET',
                     url: restPrefix + SUFFIX + '/list',
                     headers: headers.json
+                },
+                listAll: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + '/list/all',
+                    headers: headers.json
                 }
             });
         }
