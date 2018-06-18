@@ -27,6 +27,19 @@
                     method: 'GET',
                     url: restPrefix + SUFFIX,
                     headers: headers.json
+                },
+                listAcronyms: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + "/activities",
+                    headers: headers.json                    
+                },
+                find: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + "/activities/:acronym",
+                    headers: headers.json,
+                    params: {
+                        'acronym': '@acronym'
+                    }
                 }
 
             });
