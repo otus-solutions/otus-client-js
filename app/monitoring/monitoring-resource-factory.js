@@ -40,6 +40,11 @@
                     params: {
                         'acronym': '@acronym'
                     }
+                },
+                listCenters: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + "/centers",
+                    headers: headers.json
                 }
 
             });
