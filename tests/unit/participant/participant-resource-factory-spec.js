@@ -60,14 +60,14 @@
                     httpBackend.flush();
                 });
 
-                it(' listMethod check', function () {
+                it('listMethod check', function () {
                     var list = factoryResult.list();
                     list.$promise.then(function (resultList) {
                         expect(resultList[0]).toEqual(DATA_CONFIRMATION);
                     });
                 });
 
-                it(' listIndexersMethod check', function () {
+                it('listIndexersMethod check', function () {
                     var listIndexers = factoryResult.listIndexers();
                      listIndexers.$promise.then(function (resultListIndexers) {
                         expect(resultListIndexers.data).toEqual(DATA_CONFIRMATION);
