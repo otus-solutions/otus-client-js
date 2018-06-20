@@ -213,10 +213,7 @@
                 it('getReportResourceFactoryMethod check', function () {
                     service.getReportResourceFactory();
                     expect(reportResourceFactory.create).toHaveBeenCalledTimes(1);
-                });
-
-
-                
+                });                
             });
         });
     });
