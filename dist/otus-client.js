@@ -762,15 +762,15 @@
 
     angular
         .module('otus.client')
-        .factory('OtusMonitoringResourceFactory', OtusMonitoringResourceFactory);
+        .factory('otus.client.MonitoringResourceFactory', MonitoringResourceFactory);
 
-        OtusMonitoringResourceFactory.$inject = [
+        MonitoringResourceFactory.$inject = [
         '$resource',
         'OtusRestResourceContext',
         'otus.client.HeaderBuilderFactory'
     ];
 
-    function OtusMonitoringResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+    function MonitoringResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
         var SUFFIX = '/monitoring';
 
         var self = this;
