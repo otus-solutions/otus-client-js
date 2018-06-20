@@ -25,7 +25,7 @@
         'otus.client.ExamLot',
         'otus.client.ExamUpload',
         'otus.client.ReportResourceFactory',
-        'OtusMonitoringResourceFactory'
+        'otus.client.MonitoringResourceFactory'
     ];
 
     function OtusRestResourceService(
