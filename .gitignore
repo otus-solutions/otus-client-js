@@ -15,3 +15,6 @@
 **/.sonar
 env.properties
 package-lock.json
+.project
+.classpath
+.settings/

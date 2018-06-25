@@ -274,7 +274,7 @@
         'otus.client.ExamLot',
         'otus.client.ExamUpload',
         'otus.client.ReportResourceFactory',
-        'OtusMonitoringResourceFactory'
+        'otus.client.MonitoringResourceFactory'
     ];
 
     function OtusRestResourceService(
@@ -765,15 +765,15 @@
 
     angular
         .module('otus.client')
-        .factory('OtusMonitoringResourceFactory', OtusMonitoringResourceFactory);
+        .factory('otus.client.MonitoringResourceFactory', MonitoringResourceFactory);
 
-        OtusMonitoringResourceFactory.$inject = [
+        MonitoringResourceFactory.$inject = [
         '$resource',
         'OtusRestResourceContext',
         'otus.client.HeaderBuilderFactory'
     ];
 
-    function OtusMonitoringResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+    function MonitoringResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
         var SUFFIX = '/monitoring';
 
         var self = this;
@@ -788,6 +788,24 @@
                 list: {
                     method: 'GET',
                     url: restPrefix + SUFFIX,
+                    headers: headers.json
+                },
+                listAcronyms: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + "/activities",
+                    headers: headers.json                    
+                },
+                find: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + "/activities/:acronym",
+                    headers: headers.json,
+                    params: {
+                        'acronym': '@acronym'
+                    }
+                },
+                listCenters: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + "/centers",
                     headers: headers.json
                 }
 
@@ -967,6 +985,11 @@
                 list: {
                     method: 'GET',
                     url: restPrefix + SUFFIX + '/list',
+                    headers: headers.json
+                },
+                listAll: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + '/list/all',
                     headers: headers.json
                 }
             });
