@@ -26,27 +26,11 @@
 
       return $resource({}, {}, {
         getAliquots: {
-          method: 'GET',
+          method: 'POST',
           url: restPrefix + SUFFIX + '/aliquots',
-          headers: headers.json
-
-        },
-        getAliquotsByPeriod: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/aliquots/:initialDate/:finalDate',
           headers: headers.json,
-          params: {
-            'initialDate' : '@initialDate',
-            'finalDate' : '@finalDate'
-          }
-
-        },
-        getAliquotsByCenter: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/aliquots/:center',
-          headers: headers.json,
-          params: {
-            'center': '@center'
+          data: {
+            'lotAliquot' : '@lotAliquot'
           }
         },
         getLots: {
