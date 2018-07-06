@@ -6,13 +6,12 @@
         var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
         var SUFFIX = '/laboratory-project/transportation';
         var ALIQUOTS_SX = '/aliquots';
+        var ALIQUOT_SX = '/aliquot';
         var LOTS_SX = '/lots';
         var LOT_SX = '/lot';
         var ID_SX = '/1234567';
-        var CENTER_SX = '/SP';
         var DATA = {'data': 'returnPromiseOK'};
         var ID_PARAMETER = {'id': 1234567};
-        var CENTER_PARAMETER = {'center': 'SP'};
         var DATA_CONFIRMATION = 'returnPromiseOK';
         var METHOD_GET_VALUE = "GET";
         var METHOD_POST_VALUE = "POST";
@@ -32,12 +31,12 @@
                 spyOn(otusRestResourceContext, 'getSecurityToken');
                 spyOn(headerBuilderFactory, 'create').and.callThrough();
                 httpBackend = _$injector_.get('$httpBackend');
-                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ALIQUOTS_SX).respond(200, DATA);
-                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ALIQUOTS_SX + CENTER_SX).respond(200, DATA);
+                httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + ALIQUOTS_SX).respond(200, DATA);
+                httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + ALIQUOT_SX).respond(200, DATA);
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LOTS_SX).respond(200, DATA);
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + LOT_SX).respond(200, DATA);
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + LOT_SX).respond(200, DATA);
-                httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + LOT_SX + ID_SX).respond(200, DATA);                
+                httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + LOT_SX + ID_SX).respond(200, DATA);
             });
         });
 
@@ -62,8 +61,8 @@
             });
 
             it('methodFactoryExistence check', function () {
-                expect(factoryResult.getAliquots).toBeDefined();
-                expect(factoryResult.getAliquotsByCenter).toBeDefined();
+                expect(factoryResult.getAliquotsByPeriod).toBeDefined();
+                expect(factoryResult.getAliquot).toBeDefined();
                 expect(factoryResult.getLots).toBeDefined();
                 expect(factoryResult.createLot).toBeDefined();
                 expect(factoryResult.updateLot).toBeDefined();
@@ -76,17 +75,17 @@
                     httpBackend.flush();
                 });
 
-                it('getAliquotsMethod check', function () {
-                    var getAliquots = factoryResult.getAliquots();
-                    getAliquots.$promise.then(function (resultGetAliquots) {
+                it('getAliquotsByPeriodMethod check', function () {
+                    var getAliquotsByPeriod = factoryResult.getAliquotsByPeriod();
+                    getAliquotsByPeriod.$promise.then(function (resultGetAliquots) {
                         expect(resultGetAliquots.data).toEqual(DATA_CONFIRMATION);
                     });
                 });
 
-                it('getAliquotsByCenterMethod check', function () {
-                    var getAliquotsByCenter = factoryResult.getAliquotsByCenter(CENTER_PARAMETER);
-                    getAliquotsByCenter.$promise.then(function (resultGetAliquotsByCenter) {
-                        expect(resultGetAliquotsByCenter.data).toEqual(DATA_CONFIRMATION);
+                it('getAliquotMethod check', function () {
+                    var getAliquot = factoryResult.getAliquot();
+                    getAliquot.$promise.then(function (resultGetAliquot) {
+                        expect(resultGetAliquot.data).toEqual(DATA_CONFIRMATION);
                     });
                 });
 

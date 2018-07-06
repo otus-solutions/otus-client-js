@@ -1,12 +1,12 @@
 (function () {
     'use strict';
 
-    describe('RestResourceService', function () {        
+    describe('RestResourceService', function () {
 
         var service, otusRestResourceContext, otusInstallerResourceFactory, otusAuthenticatorResourceFactory, otusFieldCenterResourceFactory;
         var userResourceFactory, otusProjectConfigurationResourceFactory, surveyResourceFactory, activityResourceFactory, activityConfigurationResourceFactory;
         var dataExtractionResourceFactory, participantResourceFactory, laboratoryParticipantResourceFactory, laboratoryConfigurationResourceFactory;
-        var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory;
+        var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory, monitoringResourceFactory;
 
         beforeEach(function () {
             angular.mock.module('otus.client');
@@ -31,10 +31,11 @@
                 examLot = _$injector_.get('otus.client.ExamLot');
                 examUpload = _$injector_.get('otus.client.ExamUpload');
                 reportResourceFactory = _$injector_.get('otus.client.ReportResourceFactory');
-                
+                monitoringResourceFactory = _$injector_.get('otus.client.MonitoringResourceFactory');
+
                 spyOn(otusRestResourceContext, 'hasToken').and.callThrough();
-                spyOn(otusRestResourceContext, 'reset').and.callThrough();                
-                spyOn(otusRestResourceContext, 'init').and.callThrough();                
+                spyOn(otusRestResourceContext, 'reset').and.callThrough();
+                spyOn(otusRestResourceContext, 'init').and.callThrough();
                 spyOn(otusRestResourceContext, 'removeSecurityToken').and.callThrough();
                 spyOn(otusRestResourceContext, 'setUrl').and.callThrough();
                 spyOn(otusRestResourceContext, 'setSecurityToken').and.callThrough();
@@ -56,6 +57,7 @@
                 spyOn(examLot, 'create').and.callThrough();
                 spyOn(examUpload, 'create').and.callThrough();
                 spyOn(reportResourceFactory, 'create').and.callThrough();
+                spyOn(monitoringResourceFactory, 'create').and.callThrough();
             });
         });
 
@@ -89,9 +91,10 @@
                 expect(service.getExamLotResource).toBeDefined();
                 expect(service.getExamUploadResource).toBeDefined();
                 expect(service.getReportResourceFactory).toBeDefined();
+                expect(service.getOtusMonitoringResource).toBeDefined();
             });
 
-            describe('serviceMethods', function () {                
+            describe('serviceMethods', function () {
 
                 it('isLoggedMethod check', function () {
                     service.isLogged();
@@ -101,8 +104,8 @@
                 it('resetConnectionDataMethod check', function () {
                     service.resetConnectionData();
                     expect(otusRestResourceContext.reset).toHaveBeenCalledTimes(1);
-                }); 
-                
+                });
+
                 it('initDefaultConnectionDataMethod check', function () {
                     service.initDefaultConnectionData();
                     expect(otusRestResourceContext.init).toHaveBeenCalledTimes(1);
@@ -154,7 +157,7 @@
                     service.getSurveyResource();
                     expect(surveyResourceFactory.create).toHaveBeenCalledTimes(1);
                 });
-                
+
                 it('getActivityResourceMethod check', function () {
                     service.getActivityResource();
                     expect(activityResourceFactory.create).toHaveBeenCalledTimes(1);
@@ -213,7 +216,12 @@
                 it('getReportResourceFactoryMethod check', function () {
                     service.getReportResourceFactory();
                     expect(reportResourceFactory.create).toHaveBeenCalledTimes(1);
-                });                
+                });
+
+                it('getReportResourceFactoryMethod check', function () {
+                    service.getOtusMonitoringResource();
+                    expect(monitoringResourceFactory.create).toHaveBeenCalledTimes(1);
+                });
             });
         });
     });
