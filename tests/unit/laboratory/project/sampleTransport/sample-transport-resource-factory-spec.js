@@ -37,6 +37,8 @@
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + LOT_SX).respond(200, DATA);
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + LOT_SX).respond(200, DATA);
                 httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + LOT_SX + ID_SX).respond(200, DATA);
+                httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + ALIQUOT_SX).respond(200, DATA);
+                
             });
         });
 
@@ -63,6 +65,7 @@
             it('methodFactoryExistence check', function () {
                 expect(factoryResult.getAliquotsByPeriod).toBeDefined();
                 expect(factoryResult.getAliquot).toBeDefined();
+                expect(factoryResult.deleteAliquot).toBeDefined();
                 expect(factoryResult.getLots).toBeDefined();
                 expect(factoryResult.createLot).toBeDefined();
                 expect(factoryResult.updateLot).toBeDefined();
@@ -86,6 +89,14 @@
                     var getAliquot = factoryResult.getAliquot();
                     getAliquot.$promise.then(function (resultGetAliquot) {
                         expect(resultGetAliquot.data).toEqual(DATA_CONFIRMATION);
+                    });
+                });
+
+
+                it('getDeleteMethod check', function () {
+                    var deleteAliquot = factoryResult.deleteAliquot();
+                    deleteAliquot.$promise.then(function (resultDeleteAliquot) {
+                        expect(resultDeleteAliquot.data).toEqual(DATA_CONFIRMATION);
                     });
                 });
 
