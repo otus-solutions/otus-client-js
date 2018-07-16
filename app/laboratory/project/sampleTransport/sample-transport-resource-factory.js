@@ -25,17 +25,20 @@
       var headers = HeaderBuilderFactory.create(token);
 
       return $resource({}, {}, {
-        getAliquots: {
-          method: 'GET',
+        getAliquotsByPeriod: {
+          method: 'POST',
           url: restPrefix + SUFFIX + '/aliquots',
-          headers: headers.json
-        },
-        getAliquotsByCenter: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/aliquots/:center',
           headers: headers.json,
-          params: {
-            'center': '@center'
+          data: {
+            'lotAliquot' : '@lotAliquot'
+          }
+        },
+        getAliquot: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/aliquot',
+          headers: headers.json,
+          data: {
+            'lotAliquot' : '@lotAliquot'
           }
         },
         getLots: {

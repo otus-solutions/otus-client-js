@@ -22,6 +22,9 @@
         self.setVersion = setVersion;
         self.setSecurityToken = setSecurityToken;
         self.getRestPrefix = getRestPrefix;
+        self.getHostName = getHostName;
+        self.getContext = getContext;
+        self.getVersion = getVersion;
         self.getSecurityToken = getSecurityToken;
         self.removeSecurityToken = removeSecurityToken;
         self.init = init;
