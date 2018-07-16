@@ -40,18 +40,7 @@
           data: {
             'lotAliquot' : '@lotAliquot'
           }
-        },
-
-        deleteAliquot: {
-          method: 'DELETE',
-          url: restPrefix + SUFFIX + '/aliquot',
-          headers: headers.json,
-          data: {
-            'aliquot' : '@aliquot'
-          }
-        },
-
-
+        },        
         getLots: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/lots',
