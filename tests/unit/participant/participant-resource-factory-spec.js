@@ -3,14 +3,16 @@
 
     describe('ParticipantResourceFactory', function () {
 
-        var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';        
+        var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
         var PARTICIPANT_SX = '/participants';
-        var LIST_INDEXERS_SX = '/list-indexers';
+        var RN_SX = '/1234567';
+        var RN_PARAMETER = {'rn':'1234567'};
         var DATA = {'data': 'returnPromiseOK'};
-        var DATA_LIST = ['returnPromiseOK']    
-        var DATA_CONFIRMATION = 'returnPromiseOK';        
+        var DATA_LIST = ['returnPromiseOK']
+        var DATA_CONFIRMATION = 'returnPromiseOK';
         var METHOD_GET_VALUE = "GET";
-        
+        var METHOD_POST_VALUE = "POST";
+
         var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
         var httpBackend;
 
@@ -25,7 +27,8 @@
                 spyOn(headerBuilderFactory, 'create').and.callThrough();
                 httpBackend = _$injector_.get('$httpBackend');
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + PARTICIPANT_SX).respond(200, DATA_LIST);
-                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + LIST_INDEXERS_SX).respond(200, DATA);                
+                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + PARTICIPANT_SX + RN_SX).respond(200, DATA);
+                httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + PARTICIPANT_SX).respond(200, DATA);
             });
         });
 
@@ -51,7 +54,8 @@
 
             it('methodFactoryExistence check', function () {
                 expect(factoryResult.list).toBeDefined();
-                expect(factoryResult.listIndexers).toBeDefined();               
+                expect(factoryResult.getByRecruitmentNumber).toBeDefined();
+                expect(factoryResult.create).toBeDefined();
             });
 
             describe('resourceMethods', function () {
@@ -67,12 +71,19 @@
                     });
                 });
 
-                it('listIndexersMethod check', function () {
-                    var listIndexers = factoryResult.listIndexers();
-                     listIndexers.$promise.then(function (resultListIndexers) {
-                        expect(resultListIndexers.data).toEqual(DATA_CONFIRMATION);
+                it('create check', function () {
+                    var create = factoryResult.create();
+                    create.$promise.then(function (resultCreate) {
+                        expect(resultCreate.data).toEqual(DATA_CONFIRMATION);
                     });
-                });               
+                });
+
+                it('getByRecruitmentNumberMethod check', function () {
+                    var getByRecruitmentNumber = factoryResult.getByRecruitmentNumber(RN_PARAMETER);
+                     getByRecruitmentNumber.$promise.then(function (resultgetByRecruitmentNumber) {
+                        expect(resultgetByRecruitmentNumber.data).toEqual(DATA_CONFIRMATION);
+                    });
+                });
             });
         });
     });

@@ -12,7 +12,7 @@
     ];
 
     function ParticipantResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-        var SUFFIX = '';
+        var SUFFIX = '/participants';
 
         var self = this;
 
@@ -27,14 +27,25 @@
             return $resource({}, {}, {
                 list: {
                     method: 'GET',
-                    url: restPrefix + SUFFIX + '/participants',
+                    url: restPrefix + SUFFIX,
                     isArray: true,
                     headers: headers.json
                 },
-                listIndexers: {
+                create: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX,
+                    headers: headers.json,
+                    data:{
+                      'participantJson': '@participantJson'
+                    }
+                },
+                getByRecruitmentNumber: {
                     method: 'GET',
-                    url: restPrefix + SUFFIX + '/list-indexers',
-                    headers: headers.json
+                    url: restPrefix + SUFFIX + '/:rn',
+                    headers: headers.json,
+                    params:{
+                      'rn': '@rn'
+                    }
                 }
             });
         }
