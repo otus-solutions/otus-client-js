@@ -68,9 +68,6 @@
           method: 'DELETE',
           url: restPrefix + SUFFIX + '/aliquot/:code',
           headers: headers.json,
-          data: {
-            'deleteAliquotDTO' : '@deleteAliquotDTO'
-          },
           params: {
             'code' : '@code'
           }
