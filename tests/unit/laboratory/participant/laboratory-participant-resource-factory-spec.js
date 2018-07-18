@@ -9,12 +9,16 @@
         var TUBE_COLLECTION_DATA_SX = '/tube-collection-data';
         var UPDATE_ALIQUOTS = '/tubes/aliquots'
         var RN_SX = '/1234567';
+        var ALIQUOT_SX = '/aliquot';
+        var ALIQUOT_CODE_SX = '/314000010';
         var DATA = {'data': 'returnPromiseOK'};
         var DATA_CONFIRMATION = 'returnPromiseOK';
         var RN_PARAMETER = {'rn': 1234567};
+        var ALIQUOT_PARAMETER = {'code': 314000010};
         var METHOD_GET_VALUE = "GET";
         var METHOD_POST_VALUE = "POST";
         var METHOD_PUT_VALUE = "PUT";        
+        var METHOD_DELETE_VALUE = "DELETE";        
 
         var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
         var httpBackend;
@@ -34,6 +38,8 @@
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + RN_SX).respond(200, DATA);
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + TUBE_COLLECTION_DATA_SX + RN_SX).respond(200, DATA);
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + RN_SX + UPDATE_ALIQUOTS).respond(200, DATA);
+                httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + ALIQUOT_SX + ALIQUOT_CODE_SX).respond(200, DATA);
+
             });
         });
 
@@ -62,6 +68,7 @@
                 expect(factoryResult.getLaboratory).toBeDefined();
                 expect(factoryResult.update).toBeDefined();
                 expect(factoryResult.updateTubeCollectionData).toBeDefined();
+                expect(factoryResult.deleteAliquot).toBeDefined();
                 expect(factoryResult.updateAliquots).toBeDefined();                
             });
 
@@ -96,6 +103,13 @@
                     var updateTubeCollectionData = factoryResult.updateTubeCollectionData(RN_PARAMETER);
                     updateTubeCollectionData.$promise.then(function (resultUpdateTubeCollectionData) {
                         expect(resultUpdateTubeCollectionData.data).toEqual(DATA_CONFIRMATION);
+                    });
+                });
+
+                it('deleteAliquotMethod check', function () {
+                    var deleteAliquotMethod = factoryResult.deleteAliquot(ALIQUOT_PARAMETER);
+                    deleteAliquotMethod.$promise.then(function (resultdeleteAliquotMethod) {
+                        expect(resultdeleteAliquotMethod.data).toEqual(DATA_CONFIRMATION);
                     });
                 });
 

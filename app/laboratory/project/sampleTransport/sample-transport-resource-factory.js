@@ -40,7 +40,7 @@
           data: {
             'lotAliquot' : '@lotAliquot'
           }
-        },
+        },        
         getLots: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/lots',

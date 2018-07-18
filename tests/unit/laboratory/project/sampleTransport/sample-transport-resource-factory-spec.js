@@ -37,6 +37,7 @@
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + LOT_SX).respond(200, DATA);
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + LOT_SX).respond(200, DATA);
                 httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + LOT_SX + ID_SX).respond(200, DATA);
+                               
             });
         });
 
@@ -87,7 +88,7 @@
                     getAliquot.$promise.then(function (resultGetAliquot) {
                         expect(resultGetAliquot.data).toEqual(DATA_CONFIRMATION);
                     });
-                });
+                });                
 
                 it('getLotsMethod check', function () {
                     var getLots = factoryResult.getLots();
