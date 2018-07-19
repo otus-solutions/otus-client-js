@@ -3,7 +3,7 @@
 
    angular
       .module('otus.client')
-      .factory('otusjs.otus.client.OtusProjectConfigurationResourceFactory', Factory);
+      .factory('otusjs.otus.client.OtusConfigurationResourceFactory', Factory);
 
    Factory.$inject = [
         '$resource',
@@ -13,6 +13,7 @@
 
    function Factory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
       var SUFFIX = '/configuration';
+      var PROJECT = '/project';
 
       var self = this;
       self.create = create;

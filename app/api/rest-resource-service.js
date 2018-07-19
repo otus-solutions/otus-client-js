@@ -12,6 +12,7 @@
         'OtusRestResourceContext',
         'otus.client.UserResourceFactory',
         'otusjs.otus.client.OtusProjectConfigurationResourceFactory',
+        'otusjs.otus.client.OtusConfigurationResourceFactory',
         'otus.client.SurveyResourceFactory',
         'otus.client.ActivityResourceFactory',
         'otus.client.ActivityConfigurationResourceFactory',
@@ -35,6 +36,7 @@
         OtusRestResourceContext,
         UserResourceFactory,
         OtusProjectConfigurationResourceFactory,
+        OtusConfigurationResourceFactory,
         SurveyResourceFactory,
         ActivityResourceFactory,
         ActivityConfigurationResourceFactory,
@@ -62,6 +64,7 @@
         self.getOtusFieldCenterResource = getOtusFieldCenterResource;
         self.getUserResource = getUserResource;
         self.getProjectConfigurationResource = getProjectConfigurationResource;
+        self.getConfigurationResource = getConfigurationResource;
         self.getSurveyResource = getSurveyResource;
         self.getActivityResource = getActivityResource;
         self.getActivityConfigurationResource = getActivityConfigurationResource;
@@ -120,6 +123,10 @@
 
         function getProjectConfigurationResource() {
             return OtusProjectConfigurationResourceFactory.create();
+        }
+
+        function getConfigurationResource() {
+            return OtusConfigurationResourceFactory.create();
         }
 
         function getSurveyResource() {
