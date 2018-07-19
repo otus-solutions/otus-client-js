@@ -28,7 +28,6 @@
                 list: {
                     method: 'GET',
                     url: restPrefix + SUFFIX,
-                    isArray: true,
                     headers: headers.json
                 },
                 create: {
