@@ -37,6 +37,16 @@
                method: 'GET',
                url: restPrefix + SUFFIX,
                headers: headers.json
+            },
+            getVisualIdentity: {
+               method: 'GET',
+               url: restPrefix + SUFFIX + '/visual-identity',
+               headers: headers.json
+            },
+            updateVisualIdentity: {
+               method: 'POST',
+               url: restPrefix + SUFFIX + '/visual-identity',
+               headers: headers.json
             }
          };
          return $resource({}, {}, config);

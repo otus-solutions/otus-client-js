@@ -8,7 +8,7 @@
         var RN_SX = '/1234567';
         var RN_PARAMETER = {'rn':'1234567'};
         var DATA = {'data': 'returnPromiseOK'};
-        var DATA_LIST = ['returnPromiseOK']
+        var DATA_LIST = {0:'returnPromiseOK'};
         var DATA_CONFIRMATION = 'returnPromiseOK';
         var METHOD_GET_VALUE = "GET";
         var METHOD_POST_VALUE = "POST";

@@ -12,8 +12,7 @@
     ];
 
    function Factory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-      var SUFFIX = '/configuration';
-      var PROJECT = '/project';
+      var SUFFIX = '/configuration';      
 
       var self = this;
       self.create = create;
@@ -50,16 +49,6 @@
             deleteSurveyTemplate: {
                method: 'DELETE',
                url: restPrefix + SUFFIX + '/surveys/:acronym',
-               headers: headers.json
-            },
-            getVisualIdentity: {
-               method: 'GET',
-               url: restPrefix + SUFFIX + '/visual-identity',
-               headers: headers.json
-            },
-            updateVisualIdentity: {
-               method: 'POST',
-               url: restPrefix + SUFFIX + '/visual-identity',
                headers: headers.json
             }
          };
