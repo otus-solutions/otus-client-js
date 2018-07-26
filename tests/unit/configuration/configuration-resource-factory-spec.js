@@ -8,8 +8,7 @@
         var SURVEYS_SX = '/surveys';
         var ACRONYM_SX = '/ABCD';
         var TYPE_SX = '/type';
-        var PUBLISH_TEMPLATE_SX = '/publish/template';
-        var VISUAL_IDENTITY_SX = '/visual-identity';
+        var PUBLISH_TEMPLATE_SX = '/publish/template';       
         var DATA = {'data': 'returnPromiseOK'};
         var DATA_CONFIRMATION = 'returnPromiseOK';
         var ACRONYM_PARAMETER = {'acronym': 'ABCD'};
@@ -24,7 +23,7 @@
         beforeEach(function () {
             angular.mock.module('otus.client');
             angular.mock.inject(function (_$injector_) {
-                factory = _$injector_.get('otusjs.otus.client.OtusProjectConfigurationResourceFactory');
+                factory = _$injector_.get('otusjs.otus.client.OtusConfigurationResourceFactory');
                 otusRestResourceContext = _$injector_.get('OtusRestResourceContext');
                 headerBuilderFactory = _$injector_.get('otus.client.HeaderBuilderFactory');
                 spyOn(otusRestResourceContext, 'getRestPrefix').and.callThrough();
@@ -34,9 +33,7 @@
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX).respond(200, DATA);
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ACRONYM_SX + TYPE_SX).respond(200, DATA);
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + PUBLISH_TEMPLATE_SX).respond(200, DATA);
-                httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ACRONYM_SX).respond(200, DATA);
-                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + VISUAL_IDENTITY_SX).respond(200, DATA);
-                httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + VISUAL_IDENTITY_SX).respond(200, DATA);                
+                httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ACRONYM_SX).respond(200, DATA);                          
             });
         });
 
@@ -64,9 +61,7 @@
                 expect(factoryResult.getSurveys).toBeDefined();
                 expect(factoryResult.updateSurveyTemplateType).toBeDefined();
                 expect(factoryResult.publishTemplate).toBeDefined();
-                expect(factoryResult.deleteSurveyTemplate).toBeDefined();
-                expect(factoryResult.getVisualIdentity).toBeDefined();
-                expect(factoryResult.updateVisualIdentity).toBeDefined();
+                expect(factoryResult.deleteSurveyTemplate).toBeDefined();                
             });
 
             describe('resourceMethods', function () {
@@ -96,24 +91,10 @@
                     });
                 });
 
-                it('deleteSurveyMethod check', function () {
+                it('deleteSurveyTemplateMethod check', function () {
                     var deleteSurveyTemplate = factoryResult.deleteSurveyTemplate(ACRONYM_PARAMETER);
                     deleteSurveyTemplate.$promise.then(function (resultDeleteSurveyTemplate) {
                         expect(resultDeleteSurveyTemplate.data).toEqual(DATA_CONFIRMATION);
-                    });
-                });
-
-                it('getVisualIdentityMethod check', function () {
-                    var getVisualIdentity = factoryResult.getVisualIdentity();
-                    getVisualIdentity.$promise.then(function (resultGetVisualIdentity) {
-                        expect(resultGetVisualIdentity.data).toEqual(DATA_CONFIRMATION);
-                    });
-                });
-
-                it('updateVisualIdentityMethod check', function () {
-                    var updateVisualIdentity = factoryResult.updateVisualIdentity();
-                    updateVisualIdentity.$promise.then(function (resultUpdateVisualIdentity) {
-                        expect(resultUpdateVisualIdentity.data).toEqual(DATA_CONFIRMATION);
                     });
                 });
             });

@@ -261,6 +261,7 @@
         'OtusRestResourceContext',
         'otus.client.UserResourceFactory',
         'otusjs.otus.client.OtusProjectConfigurationResourceFactory',
+        'otusjs.otus.client.OtusConfigurationResourceFactory',
         'otus.client.SurveyResourceFactory',
         'otus.client.ActivityResourceFactory',
         'otus.client.ActivityConfigurationResourceFactory',
@@ -284,6 +285,7 @@
         OtusRestResourceContext,
         UserResourceFactory,
         OtusProjectConfigurationResourceFactory,
+        OtusConfigurationResourceFactory,
         SurveyResourceFactory,
         ActivityResourceFactory,
         ActivityConfigurationResourceFactory,
@@ -311,6 +313,7 @@
         self.getOtusFieldCenterResource = getOtusFieldCenterResource;
         self.getUserResource = getUserResource;
         self.getProjectConfigurationResource = getProjectConfigurationResource;
+        self.getConfigurationResource = getConfigurationResource;
         self.getSurveyResource = getSurveyResource;
         self.getActivityResource = getActivityResource;
         self.getActivityConfigurationResource = getActivityConfigurationResource;
@@ -369,6 +372,10 @@
 
         function getProjectConfigurationResource() {
             return OtusProjectConfigurationResourceFactory.create();
+        }
+
+        function getConfigurationResource() {
+            return OtusConfigurationResourceFactory.create();
         }
 
         function getSurveyResource() {
@@ -546,7 +553,7 @@
 
    angular
       .module('otus.client')
-      .factory('otusjs.otus.client.OtusProjectConfigurationResourceFactory', Factory);
+      .factory('otusjs.otus.client.OtusConfigurationResourceFactory', Factory);
 
    Factory.$inject = [
         '$resource',
@@ -555,7 +562,7 @@
     ];
 
    function Factory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-      var SUFFIX = '/configuration';
+      var SUFFIX = '/configuration';      
 
       var self = this;
       self.create = create;
@@ -592,16 +599,6 @@
             deleteSurveyTemplate: {
                method: 'DELETE',
                url: restPrefix + SUFFIX + '/surveys/:acronym',
-               headers: headers.json
-            },
-            getVisualIdentity: {
-               method: 'GET',
-               url: restPrefix + SUFFIX + '/visual-identity',
-               headers: headers.json
-            },
-            updateVisualIdentity: {
-               method: 'POST',
-               url: restPrefix + SUFFIX + '/visual-identity',
                headers: headers.json
             }
          };
@@ -831,7 +828,7 @@
     ];
 
     function ParticipantResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-        var SUFFIX = '';
+        var SUFFIX = '/participants';
 
         var self = this;
 
@@ -846,14 +843,24 @@
             return $resource({}, {}, {
                 list: {
                     method: 'GET',
-                    url: restPrefix + SUFFIX + '/participants',
-                    isArray: true,
+                    url: restPrefix + SUFFIX,
                     headers: headers.json
                 },
-                listIndexers: {
+                create: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX,
+                    headers: headers.json,
+                    data:{
+                      'participantJson': '@participantJson'
+                    }
+                },
+                getByRecruitmentNumber: {
                     method: 'GET',
-                    url: restPrefix + SUFFIX + '/list-indexers',
-                    headers: headers.json
+                    url: restPrefix + SUFFIX + '/:rn',
+                    headers: headers.json,
+                    params:{
+                      'rn': '@rn'
+                    }
                 }
             });
         }
@@ -1230,48 +1237,57 @@
 
    angular
       .module('otus.client')
-      .factory('otus.client.LaboratoryConfigurationResourceFactory', LaboratoryConfigurationResourceFactory);
+      .factory('otusjs.otus.client.OtusProjectConfigurationResourceFactory', Factory);
 
-   LaboratoryConfigurationResourceFactory.$inject = [
-    '$resource',
-    'OtusRestResourceContext',
-    'otus.client.HeaderBuilderFactory'
-  ];
+   Factory.$inject = [
+        '$resource',
+        'OtusRestResourceContext',
+        'otus.client.HeaderBuilderFactory'
+    ];
 
-   function LaboratoryConfigurationResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-      var SUFFIX = '/laboratory-configuration';
+   function Factory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+      var SUFFIX = '/configuration/project';
 
       var self = this;
-
-      /* Public methods */
       self.create = create;
 
       function create() {
          var restPrefix = OtusRestResourceContext.getRestPrefix();
          var token = OtusRestResourceContext.getSecurityToken();
          var headers = HeaderBuilderFactory.create(token);
+         var headersPublishTemplate = HeaderBuilderFactory.create(token);
+         headersPublishTemplate.setContentType('application/json; charset=utf-8');
 
-         return $resource({}, {}, {
-            getDescriptors: {
-               method: 'GET',
-               url: restPrefix + SUFFIX + '/descriptor',
+         var config = {
+            allowNewParticipants: {
+               method: 'PUT',
+               url: restPrefix + SUFFIX + '/participant/registration/:permission',
                headers: headers.json,
+               params: {
+                  'permission': '@permission'
+               }
             },
-            getAliquotConfiguration: {
+            getProjectConfiguration: {
                method: 'GET',
-               url: restPrefix + SUFFIX + '/aliquot-configuration',
-               headers: headers.json,
+               url: restPrefix + SUFFIX,
+               headers: headers.json
             },
-            getAliquotDescriptors: {
+            getVisualIdentity: {
                method: 'GET',
-               url: restPrefix + SUFFIX + '/aliquot-descriptors',
-               headers: headers.json,
+               url: restPrefix + SUFFIX + '/visual-identity',
+               headers: headers.json
+            },
+            updateVisualIdentity: {
+               method: 'POST',
+               url: restPrefix + SUFFIX + '/visual-identity',
+               headers: headers.json
             }
-         });
+         };
+         return $resource({}, {}, config);
       }
       return self;
-   }
 
+   }
 }());
 
 (function() {
@@ -1364,6 +1380,55 @@
     }
     return self;
   }
+
+}());
+
+(function() {
+   'use strict';
+
+   angular
+      .module('otus.client')
+      .factory('otus.client.LaboratoryConfigurationResourceFactory', LaboratoryConfigurationResourceFactory);
+
+   LaboratoryConfigurationResourceFactory.$inject = [
+    '$resource',
+    'OtusRestResourceContext',
+    'otus.client.HeaderBuilderFactory'
+  ];
+
+   function LaboratoryConfigurationResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+      var SUFFIX = '/laboratory-configuration';
+
+      var self = this;
+
+      /* Public methods */
+      self.create = create;
+
+      function create() {
+         var restPrefix = OtusRestResourceContext.getRestPrefix();
+         var token = OtusRestResourceContext.getSecurityToken();
+         var headers = HeaderBuilderFactory.create(token);
+
+         return $resource({}, {}, {
+            getDescriptors: {
+               method: 'GET',
+               url: restPrefix + SUFFIX + '/descriptor',
+               headers: headers.json,
+            },
+            getAliquotConfiguration: {
+               method: 'GET',
+               url: restPrefix + SUFFIX + '/aliquot-configuration',
+               headers: headers.json,
+            },
+            getAliquotDescriptors: {
+               method: 'GET',
+               url: restPrefix + SUFFIX + '/aliquot-descriptors',
+               headers: headers.json,
+            }
+         });
+      }
+      return self;
+   }
 
 }());
 
