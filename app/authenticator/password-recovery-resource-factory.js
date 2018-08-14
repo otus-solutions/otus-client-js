@@ -31,7 +31,7 @@
                         'userEmail': '@userEmail'
                     }
                 },
-                tokenValidation: {
+                validateToken: {
                     method: 'GET',
                     url: restPrefix + SUFFIX + '/validateToken/:tk',
                     headers: headers.json,
