@@ -1,11 +1,11 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('otus.client')
         .factory('OtusPasswordRecoveryResourceFactory', OtusPasswordRecoveryResourceFactory);
 
-        OtusPasswordRecoveryResourceFactory.$inject = [
+    OtusPasswordRecoveryResourceFactory.$inject = [
         '$resource',
         'OtusRestResourceContext',
         'otus.client.HeaderBuilderFactory'
@@ -24,7 +24,7 @@
 
             return $resource({}, {}, {
                 passwordRecovery: {
-                    method: 'POST',
+                    method: 'GET',
                     url: restPrefix + SUFFIX + '/:userEmail',
                     headers: headers.json,
                     params: {
@@ -32,13 +32,22 @@
                     }
                 },
                 tokenValidation: {
-                    method: 'POST',
+                    method: 'GET',
                     url: restPrefix + SUFFIX + '/validateToken/:tk',
                     headers: headers.json,
                     params: {
                         'tk': '@tk'
                     }
-                }                
+                },
+                passwordUpdate: {
+                    method: 'PUT',
+                    url: restPrefix + SUFFIX + '/passwordUpdate',
+                    headers: headers.json,
+                    data: {
+                        'password': '@password'
+                    }
+                }
+
             });
 
         }
