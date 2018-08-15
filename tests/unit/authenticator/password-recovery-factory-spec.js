@@ -7,8 +7,8 @@
         var METHOD_PUT_VALUE = "PUT";
         var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
         var SUFFIX = '/password-recovery';
-        var VALIDATE_TOKEN_SUFFIX = '/validateToken';
-        var PASSWORD_UPDATE_SUFFIX = '/passwordUpdate';
+        var VALIDATE_TOKEN_SUFFIX = '/validation';
+        var PASSWORD_UPDATE_SUFFIX = '/update';
         var USER_EMAIL = 'otus@otus.com';
         var PASSWORD = 123456;
         var TOKEN = 123456;
@@ -21,7 +21,7 @@
         beforeEach(function () {
             angular.mock.module('otus.client');
             angular.mock.inject(function (_$injector_) {
-                factory = _$injector_.get('OtusPasswordRecoveryResourceFactory');
+                factory = _$injector_.get('otus.client.otusPasswordRecoveryResourceFactory');
                 resource = _$injector_.get('$resource');
                 otusRestResourceContext = _$injector_.get('OtusRestResourceContext');
                 headerBuilderFactory = _$injector_.get('otus.client.HeaderBuilderFactory');
@@ -57,9 +57,9 @@
             });
 
             it('methodFactoryExistence check', function () {
-                expect(factoryResult.passwordRecovery).toBeDefined();
-                expect(factoryResult.validateToken).toBeDefined();
-                expect(factoryResult.passwordUpdate).toBeDefined();
+                expect(factoryResult.getRecovery).toBeDefined();
+                expect(factoryResult.getValidationToken).toBeDefined();
+                expect(factoryResult.updatePassword).toBeDefined();
             });
 
             describe('resourceMethods', function () {
@@ -68,23 +68,23 @@
                     httpBackend.flush();
                 });
 
-                it('passwordRecoveryMethod check', function () {
-                    var passwordRecovery = factoryResult.passwordRecovery(USER_EMAIL);
-                    passwordRecovery.$promise.then(function (resultRecovery) {
+                it('getRecoveryMethod check', function () {
+                    var getRecovery = factoryResult.getRecovery(USER_EMAIL);
+                    getRecovery.$promise.then(function (resultRecovery) {
                         expect(resultRecovery.data).toEqual(DATA_CONFIRMATION);
                     });
                 });
 
-                it('tokenValidationMethod check', function () {
-                    var validateToken = factoryResult.validateToken(TOKEN);
-                    validateToken.$promise.then(function (resultValidate) {
+                it('getValidationTokenMethod check', function () {
+                    var getValidationToken = factoryResult.getValidationToken(TOKEN);
+                    getValidationToken.$promise.then(function (resultValidate) {
                         expect(resultValidate.data).toEqual(DATA_CONFIRMATION);
                     });
                 });
 
                 it('passwordUpdateMethod check', function () {
-                    var passwordUpdate = factoryResult.passwordUpdate(PASSWORD);
-                    passwordUpdate.$promise.then(function (resultUpdate) {
+                    var updatePassword = factoryResult.updatePassword(PASSWORD);
+                    updatePassword.$promise.then(function (resultUpdate) {
                         expect(resultUpdate.data).toEqual(DATA_CONFIRMATION);
                     });
                 });
