@@ -24,27 +24,26 @@
 
             return $resource({}, {}, {
                 getRecovery: {
-                    method: 'GET',
+                    method: 'POST',
                     url: restPrefix + SUFFIX + '/:userEmail',
                     headers: headers.json,
+                    data: {
+                        'url': '@url'
+                    },
                     params: {
                         'userEmail': '@userEmail'
                     }
                 },
-                getValidationToken: {
-                    method: 'GET',
-                    url: restPrefix + SUFFIX + '/validation/:token',
-                    headers: headers.json,
-                    params: {
-                        'token': '@token'
-                    }
-                },
+
                 updatePassword: {
                     method: 'PUT',
-                    url: restPrefix + SUFFIX + '/update',
+                    url: restPrefix + SUFFIX + '/update' + '/:token',
                     headers: headers.json,
                     data: {
                         'password': '@password'
+                    },
+                    params: {
+                        'token': '@token'
                     }
                 }
 
