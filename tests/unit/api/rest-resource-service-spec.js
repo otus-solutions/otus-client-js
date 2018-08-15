@@ -4,9 +4,9 @@
     describe('RestResourceService', function () {
 
         var service, otusRestResourceContext, otusInstallerResourceFactory, otusAuthenticatorResourceFactory, otusFieldCenterResourceFactory;
-        var userResourceFactory, otusProjectConfigurationResourceFactory, surveyResourceFactory, activityResourceFactory, activityConfigurationResourceFactory;
+        var userResourceFactory, otusProjectConfigurationResourceFactory, otusConfigurationResourceFactory ,surveyResourceFactory, activityResourceFactory, activityConfigurationResourceFactory;
         var dataExtractionResourceFactory, participantResourceFactory, laboratoryParticipantResourceFactory, laboratoryConfigurationResourceFactory;
-        var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory, monitoringResourceFactory;
+        var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory, monitoringResourceFactory, passwordRecoveryResourceFactory;
 
         beforeEach(function () {
             angular.mock.module('otus.client');
@@ -18,6 +18,7 @@
                 otusFieldCenterResourceFactory = _$injector_.get('OtusFieldCenterResourceFactory');
                 userResourceFactory = _$injector_.get('otus.client.UserResourceFactory');
                 otusProjectConfigurationResourceFactory = _$injector_.get('otusjs.otus.client.OtusProjectConfigurationResourceFactory');
+                otusConfigurationResourceFactory = _$injector_.get('otusjs.otus.client.OtusConfigurationResourceFactory');
                 surveyResourceFactory = _$injector_.get('otus.client.SurveyResourceFactory');
                 activityResourceFactory = _$injector_.get('otus.client.ActivityResourceFactory');
                 activityConfigurationResourceFactory = _$injector_.get('otus.client.ActivityConfigurationResourceFactory');
@@ -32,6 +33,7 @@
                 examUpload = _$injector_.get('otus.client.ExamUpload');
                 reportResourceFactory = _$injector_.get('otus.client.ReportResourceFactory');
                 monitoringResourceFactory = _$injector_.get('otus.client.MonitoringResourceFactory');
+                passwordRecoveryResourceFactory = _$injector_.get('otus.client.otusPasswordRecoveryResourceFactory');
 
                 spyOn(otusRestResourceContext, 'hasToken').and.callThrough();
                 spyOn(otusRestResourceContext, 'reset').and.callThrough();
@@ -44,6 +46,7 @@
                 spyOn(otusFieldCenterResourceFactory, 'create').and.callThrough();
                 spyOn(userResourceFactory, 'create').and.callThrough();
                 spyOn(otusProjectConfigurationResourceFactory, 'create').and.callThrough();
+                spyOn(otusConfigurationResourceFactory, 'create').and.callThrough();
                 spyOn(surveyResourceFactory, 'create').and.callThrough();
                 spyOn(activityResourceFactory, 'create').and.callThrough();
                 spyOn(activityConfigurationResourceFactory, 'create').and.callThrough();
@@ -58,6 +61,7 @@
                 spyOn(examUpload, 'create').and.callThrough();
                 spyOn(reportResourceFactory, 'create').and.callThrough();
                 spyOn(monitoringResourceFactory, 'create').and.callThrough();
+                spyOn(passwordRecoveryResourceFactory, 'create').and.callThrough();
             });
         });
 
@@ -79,6 +83,7 @@
                 expect(service.getOtusFieldCenterResource).toBeDefined();
                 expect(service.getUserResource).toBeDefined();
                 expect(service.getProjectConfigurationResource).toBeDefined();
+                expect(service.getConfigurationResource).toBeDefined();
                 expect(service.getActivityResource).toBeDefined();
                 expect(service.getActivityConfigurationResource).toBeDefined();
                 expect(service.getExtractionResource).toBeDefined();
@@ -92,6 +97,7 @@
                 expect(service.getExamUploadResource).toBeDefined();
                 expect(service.getReportResourceFactory).toBeDefined();
                 expect(service.getOtusMonitoringResource).toBeDefined();
+                expect(service.getOtusPasswordRecoveryResource).toBeDefined();
             });
 
             describe('serviceMethods', function () {
@@ -151,6 +157,11 @@
                 it('getProjectConfigurationResourceMethod check', function () {
                     service.getProjectConfigurationResource();
                     expect(otusProjectConfigurationResourceFactory.create).toHaveBeenCalledTimes(1);
+                });
+
+                it('getConfigurationResourceMethod check', function () {
+                    service.getConfigurationResource();
+                    expect(otusConfigurationResourceFactory.create).toHaveBeenCalledTimes(1);
                 });
 
                 it('getSurveyResourceMethod check', function () {
@@ -221,6 +232,11 @@
                 it('getReportResourceFactoryMethod check', function () {
                     service.getOtusMonitoringResource();
                     expect(monitoringResourceFactory.create).toHaveBeenCalledTimes(1);
+                });
+
+                it('getOtusPasswordRecoveryResourceMethod check', function () {
+                    service.getOtusPasswordRecoveryResource();
+                    expect(passwordRecoveryResourceFactory.create).toHaveBeenCalledTimes(1);
                 });
             });
         });
