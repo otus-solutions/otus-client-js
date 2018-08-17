@@ -23,7 +23,7 @@
             var headers = HeaderBuilderFactory.create(token);
 
             return $resource({}, {}, {
-                getRecovery: {
+                requestRecovery: {
                     method: 'POST',
                     url: restPrefix + SUFFIX + '/:userEmail',
                     headers: headers.json,
@@ -32,6 +32,15 @@
                     },
                     params: {
                         'userEmail': '@userEmail'
+                    }
+                },
+
+                getValidationToken: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + '/validation/:token',
+                    headers: headers.json,
+                    params: {
+                        'token': '@token'
                     }
                 },
 

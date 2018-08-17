@@ -2,7 +2,7 @@
     'use strict';
 
     describe('PasswordRecoveryResourceFactory', function () {
-
+        var METHOD_GET_VALUE = "GET";
         var METHOD_POST_VALUE = "POST";
         var METHOD_PUT_VALUE = "PUT";
         var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
@@ -27,6 +27,7 @@
                 headerBuilderFactory = _$injector_.get('otus.client.HeaderBuilderFactory');
                 httpBackend = _$injector_.get('$httpBackend');
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
+                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + VALIDATE_TOKEN_SUFFIX).respond(200, DATA);
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + PASSWORD_UPDATE_SUFFIX).respond(200, DATA);
                 spyOn(otusRestResourceContext, 'getRestPrefix').and.callThrough();
                 spyOn(otusRestResourceContext, 'getSecurityToken');
@@ -56,7 +57,8 @@
             });
 
             it('methodFactoryExistence check', function () {
-                expect(factoryResult.getRecovery).toBeDefined();
+                expect(factoryResult.requestRecovery).toBeDefined();
+                expect(factoryResult.getValidationToken).toBeDefined();
                 expect(factoryResult.updatePassword).toBeDefined();
             });
 
@@ -67,11 +69,18 @@
                 });
 
                 it('getRecoveryMethod check', function () {
-                    var getRecovery = factoryResult.getRecovery(USER_EMAIL);
-                    getRecovery.$promise.then(function (resultRecovery) {
+                    var requestRecovery = factoryResult.requestRecovery(USER_EMAIL);
+                    requestRecovery.$promise.then(function (resultRecovery) {
                         expect(resultRecovery.data).toEqual(DATA_CONFIRMATION);
                     });
                 });
+
+                it('getValidationTokenMethod check', function () {
+                    var getValidationToken = factoryResult.getValidationToken(TOKEN);
+                    getValidationToken.$promise.then(function (resultValidate) {
+                        expect(resultValidate.data).toEqual(DATA_CONFIRMATION);
+                    });
+                })
 
                 it('passwordUpdateMethod check', function () {
                     var updatePassword = factoryResult.updatePassword(PASSWORD);
