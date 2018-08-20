@@ -7,8 +7,7 @@
         var METHOD_PUT_VALUE = "PUT";
         var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
         var SUFFIX = '/password-recovery';
-        var VALIDATE_TOKEN_SUFFIX = '/validation';
-        var PASSWORD_UPDATE_SUFFIX = '/update';
+        var VALIDATE_TOKEN_SUFFIX = '/validate';        
         var USER_EMAIL = 'otus@otus.com';
         var PASSWORD = 123456;
         var TOKEN = 123456;
@@ -28,7 +27,7 @@
                 httpBackend = _$injector_.get('$httpBackend');
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + VALIDATE_TOKEN_SUFFIX).respond(200, DATA);
-                httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + PASSWORD_UPDATE_SUFFIX).respond(200, DATA);
+                httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
                 spyOn(otusRestResourceContext, 'getRestPrefix').and.callThrough();
                 spyOn(otusRestResourceContext, 'getSecurityToken');
                 spyOn(headerBuilderFactory, 'create').and.callThrough();
@@ -58,7 +57,7 @@
 
             it('methodFactoryExistence check', function () {
                 expect(factoryResult.requestRecovery).toBeDefined();
-                expect(factoryResult.getValidationToken).toBeDefined();
+                expect(factoryResult.validationToken).toBeDefined();
                 expect(factoryResult.updatePassword).toBeDefined();
             });
 
@@ -76,8 +75,8 @@
                 });
 
                 it('getValidationTokenMethod check', function () {
-                    var getValidationToken = factoryResult.getValidationToken(TOKEN);
-                    getValidationToken.$promise.then(function (resultValidate) {
+                    var validationToken = factoryResult.validationToken(TOKEN);
+                    validationToken.$promise.then(function (resultValidate) {
                         expect(resultValidate.data).toEqual(DATA_CONFIRMATION);
                     });
                 })
