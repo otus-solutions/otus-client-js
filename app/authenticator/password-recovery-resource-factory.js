@@ -28,7 +28,7 @@
                     url: restPrefix + SUFFIX,
                     headers: headers.json,
                     data: {
-                        'userEmail': '@userEmail',
+                        'email': '@email',
                         'url': '@url'
                     }
                 },
@@ -48,7 +48,7 @@
                     headers: headers.json,
                     data: {
                         'password': '@password'
-                    }                    
+                    }
                 }
 
             });
