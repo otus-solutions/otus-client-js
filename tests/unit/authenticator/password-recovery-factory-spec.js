@@ -6,8 +6,8 @@
         var METHOD_POST_VALUE = "POST";
         var METHOD_PUT_VALUE = "PUT";
         var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
-        var SUFFIX = '/password-recovery';
-        var VALIDATE_TOKEN_SUFFIX = '/validate';        
+        var SUFFIX = '/user/password-reset';
+        var VALIDATE_TOKEN_SUFFIX = '/validate';
         var USER_EMAIL = 'otus@otus.com';
         var PASSWORD = 123456;
         var TOKEN = 123456;
@@ -20,7 +20,7 @@
         beforeEach(function () {
             angular.mock.module('otus.client');
             angular.mock.inject(function (_$injector_) {
-                factory = _$injector_.get('otus.client.otusPasswordRecoveryResourceFactory');
+                factory = _$injector_.get('otus.client.PasswordResetResourceFactory');
                 resource = _$injector_.get('$resource');
                 otusRestResourceContext = _$injector_.get('OtusRestResourceContext');
                 headerBuilderFactory = _$injector_.get('otus.client.HeaderBuilderFactory');

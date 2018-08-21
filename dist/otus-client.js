@@ -276,7 +276,7 @@
         'otus.client.ExamUpload',
         'otus.client.ReportResourceFactory',
         'otus.client.MonitoringResourceFactory',
-        'otus.client.otusPasswordRecoveryResourceFactory'        
+        'otus.client.PasswordResetResourceFactory'
     ];
 
     function OtusRestResourceService(
@@ -301,7 +301,7 @@
         ExamUpload,
         ReportResourceFactory,
         OtusMonitoringResourceFactory,
-        OtusPasswordRecoveryResourceFactory
+        PasswordResetResourceFactory
     ) {
         var self = this;
 
@@ -331,7 +331,7 @@
         self.isLogged = isLogged;
         self.getReportResourceFactory = getReportResourceFactory;
         self.getOtusMonitoringResource = getOtusMonitoringResource;
-        self.getOtusPasswordRecoveryResource = getOtusPasswordRecoveryResource;
+        self.getPasswordResetResource = getPasswordResetResource;
 
         function isLogged() {
             return OtusRestResourceContext.hasToken();
@@ -430,19 +430,17 @@
         }
 
         function getReportResourceFactory() {
-          return ReportResourceFactory.create();
+            return ReportResourceFactory.create();
         }
 
         function getOtusMonitoringResource() {
             return OtusMonitoringResourceFactory.create();
         }
 
-        function getOtusPasswordRecoveryResource() {
-            return OtusPasswordRecoveryResourceFactory.create();
+        function getPasswordResetResource() {
+            return PasswordResetResourceFactory.create();
         }
-
     }
-
 }());
 
 (function() {
@@ -500,16 +498,16 @@
 
     angular
         .module('otus.client')
-        .factory('otus.client.otusPasswordRecoveryResourceFactory', OtusPasswordRecoveryResourceFactory);
+        .factory('otus.client.PasswordResetResourceFactory', PasswordResetResourceFactory);
 
-    OtusPasswordRecoveryResourceFactory.$inject = [
+    PasswordResetResourceFactory.$inject = [
         '$resource',
         'OtusRestResourceContext',
         'otus.client.HeaderBuilderFactory'
     ];
 
-    function OtusPasswordRecoveryResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-        var SUFFIX = '/password-recovery';
+    function PasswordResetResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+        var SUFFIX = '/user/password-reset';
 
         var self = this;
         self.create = create;
@@ -520,38 +518,38 @@
             var headers = HeaderBuilderFactory.create(token);
 
             return $resource({}, {}, {
-                getRecovery: {
+                requestRecovery: {
                     method: 'POST',
-                    url: restPrefix + SUFFIX + '/:userEmail',
+                    url: restPrefix + SUFFIX,
                     headers: headers.json,
                     data: {
+                        'email': '@email',
                         'url': '@url'
-                    },
+                    }
+                },
+
+                validationToken: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + '/validate/:token',
+                    headers: headers.json,
                     params: {
-                        'userEmail': '@userEmail'
+                        'token': '@token'
                     }
                 },
 
                 updatePassword: {
                     method: 'PUT',
-                    url: restPrefix + SUFFIX + '/update' + '/:token',
+                    url: restPrefix + SUFFIX,
                     headers: headers.json,
                     data: {
+                        'token': '@token',
                         'password': '@password'
-                    },
-                    params: {
-                        'token': '@token'
                     }
                 }
-
             });
-
         }
-
         return self;
-
     }
-
 }());
 
 (function() {

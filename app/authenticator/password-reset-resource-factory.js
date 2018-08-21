@@ -3,16 +3,16 @@
 
     angular
         .module('otus.client')
-        .factory('otus.client.otusPasswordRecoveryResourceFactory', OtusPasswordRecoveryResourceFactory);
+        .factory('otus.client.PasswordResetResourceFactory', PasswordResetResourceFactory);
 
-    OtusPasswordRecoveryResourceFactory.$inject = [
+    PasswordResetResourceFactory.$inject = [
         '$resource',
         'OtusRestResourceContext',
         'otus.client.HeaderBuilderFactory'
     ];
 
-    function OtusPasswordRecoveryResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-        var SUFFIX = '/password-recovery';
+    function PasswordResetResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+        var SUFFIX = '/user/password-reset';
 
         var self = this;
         self.create = create;
@@ -47,16 +47,12 @@
                     url: restPrefix + SUFFIX,
                     headers: headers.json,
                     data: {
+                        'token': '@token',
                         'password': '@password'
                     }
                 }
-
             });
-
         }
-
         return self;
-
     }
-
 }());

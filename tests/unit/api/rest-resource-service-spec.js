@@ -4,9 +4,9 @@
     describe('RestResourceService', function () {
 
         var service, otusRestResourceContext, otusInstallerResourceFactory, otusAuthenticatorResourceFactory, otusFieldCenterResourceFactory;
-        var userResourceFactory, otusProjectConfigurationResourceFactory, otusConfigurationResourceFactory ,surveyResourceFactory, activityResourceFactory, activityConfigurationResourceFactory;
+        var userResourceFactory, otusProjectConfigurationResourceFactory, otusConfigurationResourceFactory, surveyResourceFactory, activityResourceFactory, activityConfigurationResourceFactory;
         var dataExtractionResourceFactory, participantResourceFactory, laboratoryParticipantResourceFactory, laboratoryConfigurationResourceFactory;
-        var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory, monitoringResourceFactory, passwordRecoveryResourceFactory;
+        var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory, monitoringResourceFactory, passwordResetResourceFactory;
 
         beforeEach(function () {
             angular.mock.module('otus.client');
@@ -33,7 +33,7 @@
                 examUpload = _$injector_.get('otus.client.ExamUpload');
                 reportResourceFactory = _$injector_.get('otus.client.ReportResourceFactory');
                 monitoringResourceFactory = _$injector_.get('otus.client.MonitoringResourceFactory');
-                passwordRecoveryResourceFactory = _$injector_.get('otus.client.otusPasswordRecoveryResourceFactory');
+                passwordResetResourceFactory = _$injector_.get('otus.client.PasswordResetResourceFactory');
 
                 spyOn(otusRestResourceContext, 'hasToken').and.callThrough();
                 spyOn(otusRestResourceContext, 'reset').and.callThrough();
@@ -61,7 +61,7 @@
                 spyOn(examUpload, 'create').and.callThrough();
                 spyOn(reportResourceFactory, 'create').and.callThrough();
                 spyOn(monitoringResourceFactory, 'create').and.callThrough();
-                spyOn(passwordRecoveryResourceFactory, 'create').and.callThrough();
+                spyOn(passwordResetResourceFactory, 'create').and.callThrough();
             });
         });
 
@@ -97,7 +97,7 @@
                 expect(service.getExamUploadResource).toBeDefined();
                 expect(service.getReportResourceFactory).toBeDefined();
                 expect(service.getOtusMonitoringResource).toBeDefined();
-                expect(service.getOtusPasswordRecoveryResource).toBeDefined();
+                expect(service.getPasswordResetResource).toBeDefined();
             });
 
             describe('serviceMethods', function () {
@@ -234,9 +234,9 @@
                     expect(monitoringResourceFactory.create).toHaveBeenCalledTimes(1);
                 });
 
-                it('getOtusPasswordRecoveryResourceMethod check', function () {
-                    service.getOtusPasswordRecoveryResource();
-                    expect(passwordRecoveryResourceFactory.create).toHaveBeenCalledTimes(1);
+                it('getPasswordResetResourceMethod check', function () {
+                    service.getPasswordResetResource();
+                    expect(passwordResetResourceFactory.create).toHaveBeenCalledTimes(1);
                 });
             });
         });
