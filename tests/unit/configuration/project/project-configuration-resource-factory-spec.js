@@ -36,8 +36,6 @@
                 httpBackend = _$injector_.get('$httpBackend');
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + ALLOW_PARTICIPANT_SX + PERMISSION_SX).respond(200, DATA);
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
-                // httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + PUBLISH_TEMPLATE_SX).respond(200, DATA);
-                // httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ACRONYM_SX).respond(200, DATA);
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + VISUAL_IDENTITY_SX).respond(200, DATA);
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + VISUAL_IDENTITY_SX).respond(200, DATA);                
             });
