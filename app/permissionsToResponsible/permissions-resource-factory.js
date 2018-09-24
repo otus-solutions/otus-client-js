@@ -28,7 +28,7 @@
           url: restPrefix + SUFFIX,
           headers: headers.json,
           data: {
-            'permissionTemplate': '@permissionTemplate'
+            'permissionData': '@permissionData'
           }
         },
 
@@ -38,25 +38,18 @@
           headers: headers.json,
         },
 
-        getById: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/:id',
-          headers: headers.json,
-          params: {
-            'id': '@id'
-          }
-        },
-
         update: {
           method: 'PUT',
           url: restPrefix + SUFFIX ,
           headers: headers.json,
           data: {
-            'permissionTemplate': '@permissionTemplate'
+            'permissionData': '@permissionData'
           }
         }
       });
     }
+
+
     return self;
   }
 

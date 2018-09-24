@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  fdescribe('PermissionResourceFactory', function () {
+  describe('PermissionResourceFactory', function () {
 
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/permission';
@@ -28,7 +28,6 @@
         httpBackend = _$injector_.get('$httpBackend');
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ID_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
 
       });
@@ -57,7 +56,6 @@
       it('methodFactoryExistence check', function () {
         expect(factoryResult.create).toBeDefined();
         expect(factoryResult.getAll).toBeDefined();
-        expect(factoryResult.getById).toBeDefined();
         expect(factoryResult.update).toBeDefined();
       });
 
@@ -78,13 +76,6 @@
           var getAll = factoryResult.getAll();
           getAll.$promise.then(function (resultGetAll) {
             expect(resultGetAll.data).toEqual(DATA_CONFIRMATION);
-          });
-        });
-
-        it('getByIdMethod check', function () {
-          var getById = factoryResult.getById(ID_PARAMETER);
-          getById.$promise.then(function (resultGetById) {
-            expect(resultGetById.data).toEqual(DATA_CONFIRMATION);
           });
         });
         
