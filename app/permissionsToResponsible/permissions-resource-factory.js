@@ -3,15 +3,15 @@
 
   angular
     .module('otus.client')
-    .factory('otus.client.PermissionResourceFactory', ReportResourceFactory);
+    .factory('otus.client.PermissionResourceFactory', PermissionResourceFactory);
 
-  ReportResourceFactory.$inject = [
+  PermissionResourceFactory.$inject = [
     '$resource',
     'OtusRestResourceContext',
     'otus.client.HeaderBuilderFactory'
   ];
 
-  function ReportResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+  function PermissionResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
     var SUFFIX = '/permission';
 
     var self = this;
@@ -31,12 +31,6 @@
             'permissionTemplate': '@permissionTemplate'
           }
         },
-        //
-        // listAll: {
-        //   method: 'GET',
-        //   url: restPrefix + SUFFIX,
-        //   headers: headers.json,
-        // },
 
         getAll: {
           method: 'GET',
@@ -53,15 +47,6 @@
           }
         },
 
-        // getByUser: {
-        //   method: 'GET',
-        //   url: restPrefix + SUFFIX + '/:exclusiveDisjunction',
-        //   headers: headers.json,
-        //   params: {
-        //     'exclusiveDisjunction': '@exclusiveDisjunction'
-        //   }
-        // },
-
         update: {
           method: 'PUT',
           url: restPrefix + SUFFIX ,
@@ -70,34 +55,6 @@
             'permissionTemplate': '@permissionTemplate'
           }
         }
-
-        // remove: {
-        //   method: 'DELETE',
-        //   url: restPrefix + SUFFIX + '/:id',
-        //   headers: headers.json,
-        //   params: {
-        //     'id' : '@id'
-        //   }
-        // },
-
-        // list: {
-        //   method: 'GET',
-        //   url: restPrefix + SUFFIX + '/participant/list/:rn',
-        //   headers: headers.json,
-        //   params: {
-        //     'rn': '@rn'
-        //   }
-        // },
-
-        // getByRecruitmentNumber: {
-        //   method: 'GET',
-        //   url: restPrefix + SUFFIX + '/participant/:rn/:id',
-        //   headers: headers.json,
-        //   params: {
-        //     'rn': '@rn',
-        //     'id': '@id'
-        //   }
-        // }
       });
     }
     return self;
