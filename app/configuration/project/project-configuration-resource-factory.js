@@ -3,7 +3,7 @@
 
    angular
       .module('otus.client')
-      .factory('otusjs.otus.client.OtusConfigurationResourceFactory', Factory);
+      .factory('otusjs.otus.client.OtusProjectConfigurationResourceFactory', Factory);
 
    Factory.$inject = [
         '$resource',
@@ -12,7 +12,7 @@
     ];
 
    function Factory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-      var SUFFIX = '/configuration';      
+      var SUFFIX = '/configuration/project';
 
       var self = this;
       self.create = create;
@@ -25,30 +25,27 @@
          headersPublishTemplate.setContentType('application/json; charset=utf-8');
 
          var config = {
-            getSurveys: {
-               method: 'GET',
-               url: restPrefix + SUFFIX + '/surveys',
-               headers: headers.json
-            },
-            updateSurveyTemplateType: {
+            allowNewParticipants: {
                method: 'PUT',
-               url: restPrefix + SUFFIX + '/surveys/:acronym/type',
-               data: {
-                  'newSurveyFormType': '@newSurveyFormType'
-               },
+               url: restPrefix + SUFFIX + '/participant/registration/:permission',
                headers: headers.json,
                params: {
-                  'acronym': '@acronym'
+                  'permission': '@permission'
                }
             },
-            publishTemplate: {
-               method: 'POST',
-               url: restPrefix + SUFFIX + '/publish/template',
-               headers: headersPublishTemplate.json
+            getProjectConfiguration: {
+               method: 'GET',
+               url: restPrefix + SUFFIX,
+               headers: headers.json
             },
-            deleteSurveyTemplate: {
-               method: 'DELETE',
-               url: restPrefix + SUFFIX + '/surveys/:acronym',
+            getVisualIdentity: {
+               method: 'GET',
+               url: restPrefix + SUFFIX + '/visual-identity',
+               headers: headers.json
+            },
+            updateVisualIdentity: {
+               method: 'POST',
+               url: restPrefix + SUFFIX + '/visual-identity',
                headers: headers.json
             }
          };

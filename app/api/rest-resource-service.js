@@ -12,6 +12,7 @@
         'OtusRestResourceContext',
         'otus.client.UserResourceFactory',
         'otusjs.otus.client.OtusProjectConfigurationResourceFactory',
+        'otusjs.otus.client.OtusConfigurationResourceFactory',
         'otus.client.SurveyResourceFactory',
         'otus.client.ActivityResourceFactory',
         'otus.client.ActivityConfigurationResourceFactory',
@@ -25,7 +26,8 @@
         'otus.client.ExamLot',
         'otus.client.ExamUpload',
         'otus.client.ReportResourceFactory',
-        'otus.client.MonitoringResourceFactory'
+        'otus.client.MonitoringResourceFactory',
+        'otus.client.PasswordResetResourceFactory'
     ];
 
     function OtusRestResourceService(
@@ -35,6 +37,7 @@
         OtusRestResourceContext,
         UserResourceFactory,
         OtusProjectConfigurationResourceFactory,
+        OtusConfigurationResourceFactory,
         SurveyResourceFactory,
         ActivityResourceFactory,
         ActivityConfigurationResourceFactory,
@@ -48,7 +51,8 @@
         ExamLot,
         ExamUpload,
         ReportResourceFactory,
-        OtusMonitoringResourceFactory
+        OtusMonitoringResourceFactory,
+        PasswordResetResourceFactory
     ) {
         var self = this;
 
@@ -62,6 +66,7 @@
         self.getOtusFieldCenterResource = getOtusFieldCenterResource;
         self.getUserResource = getUserResource;
         self.getProjectConfigurationResource = getProjectConfigurationResource;
+        self.getConfigurationResource = getConfigurationResource;
         self.getSurveyResource = getSurveyResource;
         self.getActivityResource = getActivityResource;
         self.getActivityConfigurationResource = getActivityConfigurationResource;
@@ -77,6 +82,7 @@
         self.isLogged = isLogged;
         self.getReportResourceFactory = getReportResourceFactory;
         self.getOtusMonitoringResource = getOtusMonitoringResource;
+        self.getPasswordResetResource = getPasswordResetResource;
 
         function isLogged() {
             return OtusRestResourceContext.hasToken();
@@ -120,6 +126,10 @@
 
         function getProjectConfigurationResource() {
             return OtusProjectConfigurationResourceFactory.create();
+        }
+
+        function getConfigurationResource() {
+            return OtusConfigurationResourceFactory.create();
         }
 
         function getSurveyResource() {
@@ -171,13 +181,15 @@
         }
 
         function getReportResourceFactory() {
-          return ReportResourceFactory.create();
+            return ReportResourceFactory.create();
         }
 
         function getOtusMonitoringResource() {
             return OtusMonitoringResourceFactory.create();
         }
 
+        function getPasswordResetResource() {
+            return PasswordResetResourceFactory.create();
+        }
     }
-
 }());

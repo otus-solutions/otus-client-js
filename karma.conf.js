@@ -9,7 +9,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['browserify', 'jasmine'],
+    frameworks: ['jasmine'],
 
     // list of files / patterns to load in the browser
     files: [
@@ -33,17 +33,22 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'app/**/*.js': 'coverage',
-      'tests/**/*-spec.js': 'browserify'
+      'app/**/*.js': 'coverage'
     },
-    browserify: {
-      debug: true,
-      transform: ['babelify', 'stringify']
-    },
+    // browserify: {
+    //   debug: true,
+    //   transform: ['babelify', 'stringify']
+    // },
 
     coverageReporter: {
-      type: 'lcov',
-      dir: 'target/test-coverage/'
+      reporters: [{
+        type: 'html',
+        dir: 'target/test-coverage/'
+      }, {
+        type: 'lcov',
+        dir: 'target/test-coverage/',
+        subdir: 'report-lcov'
+      }]
     },
 
     // test results reporter to use
