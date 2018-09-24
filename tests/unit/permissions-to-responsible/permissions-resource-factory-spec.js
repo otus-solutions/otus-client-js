@@ -5,10 +5,8 @@
 
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/permission';
-    var ID_SX = '/1234567';
     var DATA = {'data': 'returnPromiseOK'};
     var DATA_CONFIRMATION = 'returnPromiseOK';
-    var ID_PARAMETER = {'id': 1234567};
     var METHOD_GET_VALUE = "GET";
     var METHOD_POST_VALUE = "POST";
     var METHOD_PUT_VALUE = "PUT";
