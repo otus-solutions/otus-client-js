@@ -85,7 +85,7 @@
         self.getReportResourceFactory = getReportResourceFactory;
         self.getOtusMonitoringResource = getOtusMonitoringResource;
         self.getPasswordResetResource = getPasswordResetResource;
-        self.getPermissionConfigurationResourceFactory = getPermissionConfigurationResourceFactory;
+        self.getPermissionConfigurationResource = getPermissionConfigurationResource;
 
         function isLogged() {
             return OtusRestResourceContext.hasToken();
@@ -195,8 +195,8 @@
             return PasswordResetResourceFactory.create();
         }
 
-      function getPermissionConfigurationResourceFactory() {
-        return PermissionConfigurationResourceFactory.create();
-      }
+        function getPermissionConfigurationResource() {
+            return PermissionConfigurationResourceFactory.create();
+        }
     }
 }());
