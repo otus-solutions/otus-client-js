@@ -27,7 +27,8 @@
         'otus.client.ExamUpload',
         'otus.client.ReportResourceFactory',
         'otus.client.MonitoringResourceFactory',
-        'otus.client.PasswordResetResourceFactory'
+        'otus.client.PasswordResetResourceFactory',
+        'otus.client.PermissionConfigurationResourceFactory'
     ];
 
     function OtusRestResourceService(
@@ -52,7 +53,8 @@
         ExamUpload,
         ReportResourceFactory,
         OtusMonitoringResourceFactory,
-        PasswordResetResourceFactory
+        PasswordResetResourceFactory,
+        PermissionConfigurationResourceFactory
     ) {
         var self = this;
 
@@ -83,6 +85,7 @@
         self.getReportResourceFactory = getReportResourceFactory;
         self.getOtusMonitoringResource = getOtusMonitoringResource;
         self.getPasswordResetResource = getPasswordResetResource;
+        self.getPermissionConfigurationResourceFactory = getPermissionConfigurationResourceFactory;
 
         function isLogged() {
             return OtusRestResourceContext.hasToken();
@@ -191,5 +194,9 @@
         function getPasswordResetResource() {
             return PasswordResetResourceFactory.create();
         }
+
+      function getPermissionConfigurationResourceFactory() {
+        return PermissionConfigurationResourceFactory.create();
+      }
     }
 }());

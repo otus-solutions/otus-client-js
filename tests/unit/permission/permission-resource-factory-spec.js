@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  describe('PermissionResourceFactory', function () {
+  describe('PermissionConfigurationResourceFactory', function () {
 
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/permission';
@@ -17,7 +17,7 @@
     beforeEach(function () {
       angular.mock.module('otus.client');
       angular.mock.inject(function (_$injector_) {
-        factory = _$injector_.get('otus.client.PermissionResourceFactory');
+        factory = _$injector_.get('otus.client.PermissionConfigurationResourceFactory');
         otusRestResourceContext = _$injector_.get('OtusRestResourceContext');
         headerBuilderFactory = _$injector_.get('otus.client.HeaderBuilderFactory');
         spyOn(otusRestResourceContext, 'getRestPrefix').and.callThrough();

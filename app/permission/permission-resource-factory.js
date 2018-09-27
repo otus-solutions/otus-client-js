@@ -3,15 +3,15 @@
 
   angular
     .module('otus.client')
-    .factory('otus.client.PermissionResourceFactory', PermissionResourceFactory);
+    .factory('otus.client.PermissionConfigurationResourceFactory', PermissionConfigurationResourceFactory);
 
-  PermissionResourceFactory.$inject = [
+  PermissionConfigurationResourceFactory.$inject = [
     '$resource',
     'OtusRestResourceContext',
     'otus.client.HeaderBuilderFactory'
   ];
 
-  function PermissionResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+  function PermissionConfigurationResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
     var SUFFIX = '/permission';
 
     var self = this;
