@@ -48,7 +48,7 @@
         },
         getActivitiesProgressReport: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/:center",
+          url: restPrefix + SUFFIX + "/activities/progress/:center",
           headers: headers.json,
           params: {
             'center': '@center'

@@ -1,14 +1,15 @@
 (function () {
   'use strict';
 
-  fdescribe('MonitoringResourceFactory', function () {
+  describe('MonitoringResourceFactory', function () {
 
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/monitoring';
     var ACTIVITIES_SX = '/activities';
+    var ACTIVITIES_PROGRESS_SX = '/progress';
     var CENTERS_SX = '/centers';
-    var CENTER_SX = '/:center';
     var ACRONYM_SX = '/CISE';
+    var CENTER_SX = '/RS';
 
     var DATA = {
       'data': 'returnPromiseOK'
@@ -16,6 +17,9 @@
     var DATA_CONFIRMATION = 'returnPromiseOK';
     var ACRONYM_PARAMETER = {
       'acronym': 'CISE'
+    };
+    var CENTER_PARAMETER = {
+      'center': 'RS'
     };
 
     var METHOD_GET_VALUE = "GET";
@@ -37,7 +41,7 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACRONYM_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + CENTERS_SX).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + CENTER_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + CENTER_SX).respond(200, DATA);
 
       });
     });
@@ -105,7 +109,7 @@
         });
 
         it('getActivitiesProgressReportMethod check', function () {
-          var getActivitiesProgressReport = factoryResult.getActivitiesProgressReport();
+          var getActivitiesProgressReport = factoryResult.getActivitiesProgressReport(CENTER_PARAMETER);
           getActivitiesProgressReport.$promise.then(function (resultGetActivitiesProgressReport) {
             expect(resultGetActivitiesProgressReport.data).toEqual(DATA_CONFIRMATION);
           });
