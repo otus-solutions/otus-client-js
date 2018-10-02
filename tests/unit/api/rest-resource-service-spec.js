@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  fdescribe('RestResourceService', function () {
+  describe('RestResourceService', function () {
 
     var service, otusRestResourceContext, otusInstallerResourceFactory, otusAuthenticatorResourceFactory, otusFieldCenterResourceFactory;
     var userResourceFactory, otusProjectConfigurationResourceFactory, otusConfigurationResourceFactory, surveyResourceFactory, activityResourceFactory, activityConfigurationResourceFactory;
@@ -100,7 +100,7 @@
         expect(service.getReportResourceFactory).toBeDefined();
         expect(service.getOtusMonitoringResource).toBeDefined();
         expect(service.getPasswordResetResource).toBeDefined();
-        expect(service.getPermissionConfigurationResourceFactory).toBeDefined();
+        expect(service.getPermissionConfigurationResource).toBeDefined();
       });
 
       describe('serviceMethods', function () {
@@ -243,7 +243,7 @@
         });
 
         it('getPermissionConfigurationResourceFactoryMethod check', function () {
-          service.getPermissionConfigurationResourceFactory();
+          service.getPermissionConfigurationResource();
           expect(permissionConfigurationResourceFactory.create).toHaveBeenCalledTimes(1);
         });
       });
