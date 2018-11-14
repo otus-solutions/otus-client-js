@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -53,8 +53,23 @@
           params: {
             'center': '@center'
           }
+        },
+        getStatusOfActivities: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/:rn',
+          headers: headers.json,
+          params: {
+            'rn': '@rn'
+          }
+        },
+        defineActivityWithDoesNotApplies: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX,
+          headers: headers.json,
+          data: {
+            'data': '@data'
+          }
         }
-
       });
     }
 
