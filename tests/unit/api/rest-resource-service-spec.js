@@ -7,6 +7,7 @@
     var userResourceFactory, otusProjectConfigurationResourceFactory, otusConfigurationResourceFactory, surveyResourceFactory, activityResourceFactory, activityConfigurationResourceFactory;
     var dataExtractionResourceFactory, participantResourceFactory, laboratoryParticipantResourceFactory, laboratoryConfigurationResourceFactory;
     var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory, monitoringResourceFactory, passwordResetResourceFactory, permissionConfigurationResourceFactory;
+    var participantMonitoringResourceFactory;
 
     beforeEach(function () {
       angular.mock.module('otus.client');
@@ -24,6 +25,7 @@
         activityConfigurationResourceFactory = _$injector_.get('otus.client.ActivityConfigurationResourceFactory');
         dataExtractionResourceFactory = _$injector_.get('otus.client.DataExtractionResourceFactory');
         participantResourceFactory = _$injector_.get('otus.client.ParticipantResourceFactory');
+        participantMonitoringResourceFactory = _$injector_.get('otus.client.ParticipantMonitoringResourceFactory');
         laboratoryParticipantResourceFactory = _$injector_.get('otus.client.LaboratoryParticipantResourceFactory');
         laboratoryConfigurationResourceFactory = _$injector_.get('otus.client.LaboratoryConfigurationResourceFactory');
         datasourceResourceFactory = _$injector_.get('otus.client.DatasourceResourceFactory');
@@ -64,6 +66,7 @@
         spyOn(monitoringResourceFactory, 'create').and.callThrough();
         spyOn(passwordResetResourceFactory, 'create').and.callThrough();
         spyOn(permissionConfigurationResourceFactory, 'create').and.callThrough();
+        spyOn(participantMonitoringResourceFactory, 'create').and.callThrough();
       });
     });
 
@@ -101,6 +104,7 @@
         expect(service.getOtusMonitoringResource).toBeDefined();
         expect(service.getPasswordResetResource).toBeDefined();
         expect(service.getPermissionConfigurationResource).toBeDefined();
+        expect(service.getParticipantMonitoringResource).toBeDefined();
       });
 
       describe('serviceMethods', function () {
@@ -245,6 +249,11 @@
         it('getPermissionConfigurationResourceFactoryMethod check', function () {
           service.getPermissionConfigurationResource();
           expect(permissionConfigurationResourceFactory.create).toHaveBeenCalledTimes(1);
+        });
+
+        it('getParticipantMonitoringResource check', function () {
+          service.getParticipantMonitoringResource();
+          expect(participantMonitoringResourceFactory.create).toHaveBeenCalledTimes(1);
         });
       });
     });
