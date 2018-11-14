@@ -56,7 +56,7 @@
         },
         getStatusOfActivities: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/:rn',
+          url: restPrefix + SUFFIX + '/activities/progress/:rn',
           headers: headers.json,
           params: {
             'rn': '@rn'
@@ -64,7 +64,7 @@
         },
         defineActivityWithDoesNotApplies: {
           method: 'PUT',
-          url: restPrefix + SUFFIX,
+          url: restPrefix + SUFFIX + '/activities/progress/not-apply',
           headers: headers.json,
           data: {
             'data': '@data'
