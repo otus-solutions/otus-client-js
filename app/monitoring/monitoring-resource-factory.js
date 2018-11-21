@@ -69,6 +69,14 @@
           data: {
             'data': '@data'
           }
+        },
+        deleteNotAppliesOfActivity: {
+          method: 'DELETE',
+          url: restPrefix + SUFFIX + '/activities/progress/delete-not-apply',
+          headers: headers.json,
+          data: {
+            'data': '@data'
+          }
         }
       });
     }
