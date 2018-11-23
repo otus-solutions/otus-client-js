@@ -56,7 +56,7 @@
         },
         getStatusOfActivities: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/activities/progress/:rn',
+          url: restPrefix + SUFFIX + '/activities/progress/participant/:rn',
           headers: headers.json,
           params: {
             'rn': '@rn'
@@ -72,10 +72,11 @@
         },
         deleteNotAppliesOfActivity: {
           method: 'DELETE',
-          url: restPrefix + SUFFIX + '/activities/progress/delete-not-apply',
+          url: restPrefix + SUFFIX + '/activities/progress/not-apply/:rn/:acronym',
           headers: headers.json,
-          data: {
-            'data': '@data'
+          params: {
+            'rn': '@rn',
+            'acronym': '@acronym'
           }
         }
       });
