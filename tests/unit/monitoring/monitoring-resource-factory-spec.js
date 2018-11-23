@@ -7,18 +7,19 @@
     var SUFFIX = '/monitoring';
     var ACTIVITIES_SX = '/activities';
     var ACTIVITIES_PROGRESS_SX = '/progress';
+    var PARTICIPANT = '/participant';
     var CENTERS_SX = '/centers';
     var ACRONYM_SX = '/CISE';
     var CENTER_SX = '/RS';
     var PARAMETER_SX = '/1234567';
     var NOT_APPLY_SX = '/not-apply';
-    var DELETE_NOT_APPLY_SX = '/delete-not-apply';
+    var DELETE_NOT_APPLY_SX = '/not-apply';
 
     var DATA = {
       'data': 'returnPromiseOK'
     };
     var DATA_CONFIRMATION = 'returnPromiseOK';
-    var DATA_LIST = { 0: 'returnPromiseOK' };;
+    var DATA_LIST = { 0: 'returnPromiseOK' };
 
     var ACRONYM_PARAMETER = {
       'acronym': 'CISE'
@@ -28,6 +29,11 @@
     };
 
     var RN_PARAMETER = {
+      'rn': '1234567'
+    };
+
+    var DELETE_PARANS = {
+      'acronym': 'CISE',
       'rn': '1234567'
     };
 
@@ -53,9 +59,9 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACRONYM_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + CENTERS_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + CENTER_SX).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + PARAMETER_SX).respond(200, DATA_LIST);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + PARTICIPANT + PARAMETER_SX).respond(200, DATA_LIST);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + NOT_APPLY_SX).respond(200, DATA);
-        httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + DELETE_NOT_APPLY_SX).respond(200, DATA);
+        httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + DELETE_NOT_APPLY_SX + PARAMETER_SX + ACRONYM_SX).respond(200, DATA);
       });
     });
 
@@ -146,7 +152,7 @@
         });
 
         it('deleteNotAppliesOfActivity check', function () {
-          var deleteNotAppliesOfActivity = factoryResult.deleteNotAppliesOfActivity();
+          var deleteNotAppliesOfActivity = factoryResult.deleteNotAppliesOfActivity(DELETE_PARANS);
           deleteNotAppliesOfActivity.$promise.then(function (deleteNotAppliesOfActivity) {
             expect(deleteNotAppliesOfActivity.data).toEqual(DATA_CONFIRMATION);
           });
