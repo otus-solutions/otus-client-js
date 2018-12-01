@@ -25,7 +25,7 @@
       var headers = HeaderBuilderFactory.create(token);
 
       return $resource({}, {}, {
-        getAliquots: {
+        getLotAliquots: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/aliquots/:lotId',
           headers: headers.json,
@@ -59,8 +59,11 @@
         },
         getLots: {
           method: 'GET',
-          url: restPrefix + SUFFIX,
-          headers: headers.json
+          url: restPrefix + SUFFIX + '/center-lots/:acronym',
+          headers: headers.json,
+          params: {
+            'acronym': '@acronym'
+          }
         },
         createLot: {
           method: 'POST',
