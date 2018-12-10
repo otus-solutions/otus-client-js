@@ -7,7 +7,7 @@
     var userResourceFactory, otusProjectConfigurationResourceFactory, otusConfigurationResourceFactory, surveyResourceFactory, activityResourceFactory, activityConfigurationResourceFactory;
     var dataExtractionResourceFactory, participantResourceFactory, laboratoryParticipantResourceFactory, laboratoryConfigurationResourceFactory;
     var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory, monitoringResourceFactory, passwordResetResourceFactory, permissionConfigurationResourceFactory;
-
+    var laboratoryMonitoringResourceFactory;
     beforeEach(function () {
       angular.mock.module('otus.client');
       angular.mock.inject(function (_$injector_) {
@@ -33,6 +33,7 @@
         examUpload = _$injector_.get('otus.client.ExamUpload');
         reportResourceFactory = _$injector_.get('otus.client.ReportResourceFactory');
         monitoringResourceFactory = _$injector_.get('otus.client.MonitoringResourceFactory');
+        laboratoryMonitoringResourceFactory = _$injector_.get('otus.client.LaboratoryMonitoringResourceFactory');
         passwordResetResourceFactory = _$injector_.get('otus.client.PasswordResetResourceFactory');
         permissionConfigurationResourceFactory = _$injector_.get('otus.client.PermissionConfigurationResourceFactory')
 
@@ -62,6 +63,7 @@
         spyOn(examUpload, 'create').and.callThrough();
         spyOn(reportResourceFactory, 'create').and.callThrough();
         spyOn(monitoringResourceFactory, 'create').and.callThrough();
+        spyOn(laboratoryMonitoringResourceFactory, 'create').and.callThrough();
         spyOn(passwordResetResourceFactory, 'create').and.callThrough();
         spyOn(permissionConfigurationResourceFactory, 'create').and.callThrough();
       });
@@ -99,6 +101,7 @@
         expect(service.getExamUploadResource).toBeDefined();
         expect(service.getReportResourceFactory).toBeDefined();
         expect(service.getOtusMonitoringResource).toBeDefined();
+        expect(service.getOtusLaboratoryMonitoringResource).toBeDefined();
         expect(service.getPasswordResetResource).toBeDefined();
         expect(service.getPermissionConfigurationResource).toBeDefined();
       });
@@ -232,9 +235,14 @@
           expect(reportResourceFactory.create).toHaveBeenCalledTimes(1);
         });
 
-        it('getReportResourceFactoryMethod check', function () {
+        it('getOtusMonitoringResourceFactoryMethod check', function () {
           service.getOtusMonitoringResource();
           expect(monitoringResourceFactory.create).toHaveBeenCalledTimes(1);
+        });
+
+        it('getOtusLaboratoryMonitoringResourceFactoryMethod check', function () {
+          service.getOtusLaboratoryMonitoringResource();
+          expect(laboratoryMonitoringResourceFactory.create).toHaveBeenCalledTimes(1);
         });
 
         it('getPasswordResetResourceMethod check', function () {
