@@ -25,27 +25,52 @@
       return $resource({}, {}, {
         getDataOfPendingResultsByAliquots: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/pendings",
+          url: restPrefix + SUFFIX + "/pending",
           headers: headers.json
         },
         getDataQuantitativeByTypeOfAliquots: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/quantitatives",
+          url: restPrefix + SUFFIX + "/quantitative",
           headers: headers.json
         },
         getDataOrphanByExams: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/orphans",
+          url: restPrefix + SUFFIX + "/orphan",
           headers: headers.json
         },
         getDataOfStorageByAliquots: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/storages",
+          url: restPrefix + SUFFIX + "/storage",
           headers: headers.json
         },
         getDataOfResultsByExam: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/results",
+          url: restPrefix + SUFFIX + "/result",
+          headers: headers.json
+        },
+        getDataToCSVOfPendingResultsByAliquots: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/pending/csv",
+          headers: headers.json
+        },
+        getDataToCSVOfQuantitativeByTypeOfAliquots: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/quantitative/csv",
+          headers: headers.json
+        },
+        getDataToCSVOfOrphansByExam: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/orphan/csv",
+          headers: headers.json
+        },
+        getDataToCSVOfStorageByAliquots: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/storage/csv",
+          headers: headers.json
+        },
+        getDataToCSVOfResultsByExam: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/result/csv",
           headers: headers.json
         }
       });

@@ -5,12 +5,17 @@
 
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/monitoring/laboratory';
-    var PENDINGS_SX = '/pendings';
-    var QUANTITATIVE_SX = '/quantitatives';
-    var ORPHANS_SX = '/orphans';
-    var STORAGE_SX = '/storages';
-    var RESULTS_SX = '/results';
-  
+    var PENDINGS_SX = '/pending';
+    var QUANTITATIVE_SX = '/quantitative';
+    var ORPHANS_SX = '/orphan';
+    var STORAGE_SX = '/storage';
+    var RESULTS_SX = '/result';
+    var PENDINGS_CSV_SX = '/pending/csv';
+    var QUANTITATIV_CSV_SX = '/quantitative/csv';
+    var ORPHANS_CSV_SX = '/orphan/csv';
+    var STORAGE_CSV_SX = '/storage/csv';
+    var RESULTS_CSV_SX = '/result/csv';
+
     var DATA = {
       'data': 'returnPromiseOK'
     };
@@ -38,6 +43,11 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ORPHANS_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + STORAGE_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + RESULTS_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + PENDINGS_CSV_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + QUANTITATIV_CSV_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ORPHANS_CSV_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + STORAGE_CSV_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + RESULTS_CSV_SX).respond(200, DATA);
       });
     });
 
@@ -85,31 +95,65 @@
         it('getDataQuantitativeByTypeOfAliquotsMethod check', function () {
           var getDataQuantitativeByTypeOfAliquots = factoryResult.getDataQuantitativeByTypeOfAliquots();
           getDataQuantitativeByTypeOfAliquots.$promise.then(function (resultGetDataQuantitativeByTypeOfAliquots) {
-          expect(resultGetDataQuantitativeByTypeOfAliquots.data).toEqual(DATA_CONFIRMATION);
+            expect(resultGetDataQuantitativeByTypeOfAliquots.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
         it('getDataOrphanByExamsMethod check', function () {
           var getDataOrphanByExams = factoryResult.getDataOrphanByExams();
           getDataOrphanByExams.$promise.then(function (resultGetDataOrphanByExams) {
-          expect(resultGetDataOrphanByExams.data).toEqual(DATA_CONFIRMATION);
+            expect(resultGetDataOrphanByExams.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
         it('getDataOfStorageByAliquotsMethod check', function () {
           var getDataOfStorageByAliquots = factoryResult.getDataOfStorageByAliquots();
           getDataOfStorageByAliquots.$promise.then(function (resultGetDataOfStorageByAliquots) {
-          expect(resultGetDataOfStorageByAliquots.data).toEqual(DATA_CONFIRMATION);
+            expect(resultGetDataOfStorageByAliquots.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
         it('getDataOfResultsByExamMethod check', function () {
           var getDataOfResultsByExam = factoryResult.getDataOfResultsByExam();
           getDataOfResultsByExam.$promise.then(function (resultGetDataOfResultsByExam) {
-          expect(resultGetDataOfResultsByExam.data).toEqual(DATA_CONFIRMATION);
+            expect(resultGetDataOfResultsByExam.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
+        it('getDataToCSVOfPendingResultsByAliquotsMethod check', function () {
+          var getDataToCSVOfPendingResultsByAliquots = factoryResult.getDataToCSVOfPendingResultsByAliquots();
+          getDataToCSVOfPendingResultsByAliquots.$promise.then(function (getDataToCSVOfPendingResultsByAliquots) {
+            expect(getDataToCSVOfPendingResultsByAliquots.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getDataToCSVOfQuantitativeByTypeOfAliquotsMethod check', function () {
+          var getDataToCSVOfQuantitativeByTypeOfAliquots = factoryResult.getDataToCSVOfQuantitativeByTypeOfAliquots();
+          getDataToCSVOfQuantitativeByTypeOfAliquots.$promise.then(function (getDataToCSVOfQuantitativeByTypeOfAliquots) {
+            expect(getDataToCSVOfQuantitativeByTypeOfAliquots.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getDataToCSVOfOrphansByExamMethod check', function () {
+          var getDataToCSVOfOrphansByExam = factoryResult.getDataToCSVOfOrphansByExam();
+          getDataToCSVOfOrphansByExam.$promise.then(function (getDataToCSVOfOrphansByExam) {
+            expect(getDataToCSVOfOrphansByExam.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getDataToCSVOfStorageByAliquotsMethod check', function () {
+          var getDataToCSVOfStorageByAliquots = factoryResult.getDataToCSVOfStorageByAliquots();
+          getDataToCSVOfStorageByAliquots.$promise.then(function (getDataToCSVOfStorageByAliquots) {
+            expect(getDataToCSVOfStorageByAliquots.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getDataToCSVOfResultsByExamMethod check', function () {
+          var getDataToCSVOfResultsByExam = factoryResult.getDataToCSVOfResultsByExam();
+          getDataToCSVOfResultsByExam.$promise.then(function (getDataToCSVOfResultsByExam) {
+            expect(getDataToCSVOfResultsByExam.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
       });
     });
   });
