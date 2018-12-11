@@ -25,7 +25,7 @@
       return $resource({}, {}, {
         getDataOfPendingResultsByAliquots: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/pendings",
+          url: restPrefix + SUFFIX + "/pending",
           headers: headers.json
         },
         getDataQuantitativeByTypeOfAliquots: {

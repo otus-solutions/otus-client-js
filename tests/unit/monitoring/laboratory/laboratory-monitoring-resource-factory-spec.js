@@ -5,7 +5,7 @@
 
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/monitoring/laboratory';
-    var PENDINGS_SX = '/pendings';
+    var PENDINGS_SX = '/pending';
     var QUANTITATIVE_SX = '/quantitative';
     var ORPHANS_SX = '/orphans';
     var STORAGE_SX = '/storage';
