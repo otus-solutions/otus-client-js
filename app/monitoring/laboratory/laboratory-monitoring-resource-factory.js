@@ -12,7 +12,7 @@
   ];
 
   function LaboratoryMonitoringResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/laboratory-monitoring';
+    var SUFFIX = '/monitoring/laboratory';
 
     var self = this;
     self.create = create;

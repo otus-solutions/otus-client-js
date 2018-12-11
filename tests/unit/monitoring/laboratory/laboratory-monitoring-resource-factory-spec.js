@@ -4,7 +4,7 @@
   describe('LaboratoryMonitoringResourceFactory', function () {
 
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
-    var SUFFIX = '/laboratory-monitoring';
+    var SUFFIX = '/monitoring/laboratory';
     var PENDINGS_SX = '/pendings';
     var QUANTITATIVE_SX = '/quantitative';
     var ORPHANS_SX = '/orphans';
