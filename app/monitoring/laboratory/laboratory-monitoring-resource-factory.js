@@ -43,9 +43,9 @@
           url: restPrefix + SUFFIX + "/storage",
           headers: headers.json
         },
-        getDataOfResultsByExam: {
+        getDataByExam: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/result",
+          url: restPrefix + SUFFIX + "/exam",
           headers: headers.json
         },
         getDataToCSVOfPendingResultsByAliquots: {
@@ -68,9 +68,9 @@
           url: restPrefix + SUFFIX + "/storage/csv",
           headers: headers.json
         },
-        getDataToCSVOfResultsByExam: {
+        getDataToCSVByExam: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/result/csv",
+          url: restPrefix + SUFFIX + "/exam/csv",
           headers: headers.json
         }
       });

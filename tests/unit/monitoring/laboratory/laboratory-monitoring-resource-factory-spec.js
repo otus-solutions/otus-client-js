@@ -9,12 +9,12 @@
     var QUANTITATIVE_SX = '/quantitative';
     var ORPHANS_SX = '/orphan';
     var STORAGE_SX = '/storage';
-    var RESULTS_SX = '/result';
+    var EXAM_SX = '/exam';
     var PENDINGS_CSV_SX = '/pending/csv';
     var QUANTITATIV_CSV_SX = '/quantitative/csv';
     var ORPHANS_CSV_SX = '/orphan/csv';
     var STORAGE_CSV_SX = '/storage/csv';
-    var RESULTS_CSV_SX = '/result/csv';
+    var EXAM_CSV_SX = '/exam/csv';
 
     var DATA = {
       'data': 'returnPromiseOK'
@@ -42,12 +42,12 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + QUANTITATIVE_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ORPHANS_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + STORAGE_SX).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + RESULTS_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + EXAM_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + PENDINGS_CSV_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + QUANTITATIV_CSV_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ORPHANS_CSV_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + STORAGE_CSV_SX).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + RESULTS_CSV_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + EXAM_CSV_SX).respond(200, DATA);
       });
     });
 
@@ -76,7 +76,12 @@
         expect(factoryResult.getDataQuantitativeByTypeOfAliquots).toBeDefined();
         expect(factoryResult.getDataOrphanByExams).toBeDefined();
         expect(factoryResult.getDataOfStorageByAliquots).toBeDefined();
-        expect(factoryResult.getDataOfResultsByExam).toBeDefined();
+        expect(factoryResult.getDataByExam).toBeDefined();
+        expect(factoryResult.getDataToCSVOfPendingResultsByAliquots).toBeDefined();
+        expect(factoryResult.getDataToCSVOfQuantitativeByTypeOfAliquots).toBeDefined();
+        expect(factoryResult.getDataToCSVOfOrphansByExam).toBeDefined();
+        expect(factoryResult.getDataToCSVOfStorageByAliquots).toBeDefined();
+        expect(factoryResult.getDataToCSVByExam).toBeDefined();
       });
 
       describe('resourceMethods', function () {
@@ -87,71 +92,71 @@
 
         it('getDataOfPendingResultsByAliquotsMethod check', function () {
           var getDataOfPendingResultsByAliquots = factoryResult.getDataOfPendingResultsByAliquots();
-          getDataOfPendingResultsByAliquots.$promise.then(function (resultGetDataOfPendingResultsByAliquots) {
-            expect(resultGetDataOfPendingResultsByAliquots.data).toEqual(DATA_CONFIRMATION);
+          getDataOfPendingResultsByAliquots.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
         it('getDataQuantitativeByTypeOfAliquotsMethod check', function () {
           var getDataQuantitativeByTypeOfAliquots = factoryResult.getDataQuantitativeByTypeOfAliquots();
-          getDataQuantitativeByTypeOfAliquots.$promise.then(function (resultGetDataQuantitativeByTypeOfAliquots) {
-            expect(resultGetDataQuantitativeByTypeOfAliquots.data).toEqual(DATA_CONFIRMATION);
+          getDataQuantitativeByTypeOfAliquots.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
         it('getDataOrphanByExamsMethod check', function () {
           var getDataOrphanByExams = factoryResult.getDataOrphanByExams();
-          getDataOrphanByExams.$promise.then(function (resultGetDataOrphanByExams) {
-            expect(resultGetDataOrphanByExams.data).toEqual(DATA_CONFIRMATION);
+          getDataOrphanByExams.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
         it('getDataOfStorageByAliquotsMethod check', function () {
           var getDataOfStorageByAliquots = factoryResult.getDataOfStorageByAliquots();
-          getDataOfStorageByAliquots.$promise.then(function (resultGetDataOfStorageByAliquots) {
-            expect(resultGetDataOfStorageByAliquots.data).toEqual(DATA_CONFIRMATION);
+          getDataOfStorageByAliquots.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
-        it('getDataOfResultsByExamMethod check', function () {
-          var getDataOfResultsByExam = factoryResult.getDataOfResultsByExam();
-          getDataOfResultsByExam.$promise.then(function (resultGetDataOfResultsByExam) {
-            expect(resultGetDataOfResultsByExam.data).toEqual(DATA_CONFIRMATION);
+        it('getDataByExamMethod check', function () {
+          var getDataByExam = factoryResult.getDataByExam();
+          getDataByExam.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
         it('getDataToCSVOfPendingResultsByAliquotsMethod check', function () {
           var getDataToCSVOfPendingResultsByAliquots = factoryResult.getDataToCSVOfPendingResultsByAliquots();
-          getDataToCSVOfPendingResultsByAliquots.$promise.then(function (getDataToCSVOfPendingResultsByAliquots) {
-            expect(getDataToCSVOfPendingResultsByAliquots.data).toEqual(DATA_CONFIRMATION);
+          getDataToCSVOfPendingResultsByAliquots.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
         it('getDataToCSVOfQuantitativeByTypeOfAliquotsMethod check', function () {
           var getDataToCSVOfQuantitativeByTypeOfAliquots = factoryResult.getDataToCSVOfQuantitativeByTypeOfAliquots();
-          getDataToCSVOfQuantitativeByTypeOfAliquots.$promise.then(function (getDataToCSVOfQuantitativeByTypeOfAliquots) {
-            expect(getDataToCSVOfQuantitativeByTypeOfAliquots.data).toEqual(DATA_CONFIRMATION);
+          getDataToCSVOfQuantitativeByTypeOfAliquots.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
         it('getDataToCSVOfOrphansByExamMethod check', function () {
           var getDataToCSVOfOrphansByExam = factoryResult.getDataToCSVOfOrphansByExam();
-          getDataToCSVOfOrphansByExam.$promise.then(function (getDataToCSVOfOrphansByExam) {
-            expect(getDataToCSVOfOrphansByExam.data).toEqual(DATA_CONFIRMATION);
+          getDataToCSVOfOrphansByExam.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
         it('getDataToCSVOfStorageByAliquotsMethod check', function () {
           var getDataToCSVOfStorageByAliquots = factoryResult.getDataToCSVOfStorageByAliquots();
-          getDataToCSVOfStorageByAliquots.$promise.then(function (getDataToCSVOfStorageByAliquots) {
-            expect(getDataToCSVOfStorageByAliquots.data).toEqual(DATA_CONFIRMATION);
+          getDataToCSVOfStorageByAliquots.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
-        it('getDataToCSVOfResultsByExamMethod check', function () {
-          var getDataToCSVOfResultsByExam = factoryResult.getDataToCSVOfResultsByExam();
-          getDataToCSVOfResultsByExam.$promise.then(function (getDataToCSVOfResultsByExam) {
-            expect(getDataToCSVOfResultsByExam.data).toEqual(DATA_CONFIRMATION);
+        it('getDataToCSVByExamMethod check', function () {
+          var getDataToCSVByExam = factoryResult.getDataToCSVByExam();
+          getDataToCSVByExam.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
       });
