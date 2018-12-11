@@ -25,12 +25,12 @@
       return $resource({}, {}, {
         getDataOfPendingResultsByAliquots: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/pending",
+          url: restPrefix + SUFFIX + "/pendings",
           headers: headers.json
         },
         getDataQuantitativeByTypeOfAliquots: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/quantitative",
+          url: restPrefix + SUFFIX + "/quantitatives",
           headers: headers.json
         },
         getDataOrphanByExams: {
@@ -40,7 +40,7 @@
         },
         getDataOfStorageByAliquots: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/storage",
+          url: restPrefix + SUFFIX + "/storages",
           headers: headers.json
         },
         getDataOfResultsByExam: {
