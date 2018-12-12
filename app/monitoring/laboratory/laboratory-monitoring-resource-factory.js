@@ -41,11 +41,8 @@
         },
         getDataOrphanByExams: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/orphan/:center",
-          headers: headers.json,
-          params: {
-            'center': '@center'
-          }
+          url: restPrefix + SUFFIX + "/orphan",
+          headers: headers.json
         },
         getDataOfStorageByAliquots: {
           method: 'GET',
@@ -66,38 +63,6 @@
         getDataToCSVOfPendingResultsByAliquots: {
           method: 'GET',
           url: restPrefix + SUFFIX + "/pending/csv/:center",
-          headers: headers.json,
-          params: {
-            'center': '@center'
-          }
-        },
-        getDataToCSVOfQuantitativeByTypeOfAliquots: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + "/quantitative/csv/:center",
-          headers: headers.json,
-          params: {
-            'center': '@center'
-          }
-        },
-        getDataToCSVOfOrphansByExam: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + "/orphan/csv/:center",
-          headers: headers.json,
-          params: {
-            'center': '@center'
-          }
-        },
-        getDataToCSVOfStorageByAliquots: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + "/storage/csv/:center",
-          headers: headers.json,
-          params: {
-            'center': '@center'
-          }
-        },
-        getDataToCSVByExam: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + "/exam/csv/:center",
           headers: headers.json,
           params: {
             'center': '@center'
