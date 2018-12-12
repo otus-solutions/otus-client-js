@@ -25,53 +25,83 @@
       return $resource({}, {}, {
         getDataOfPendingResultsByAliquots: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/pending",
-          headers: headers.json
+          url: restPrefix + SUFFIX + "/pending/:center",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
         },
         getDataQuantitativeByTypeOfAliquots: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/quantitative",
-          headers: headers.json
+          url: restPrefix + SUFFIX + "/quantitative/:center",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
         },
         getDataOrphanByExams: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/orphan",
-          headers: headers.json
+          url: restPrefix + SUFFIX + "/orphan/:center",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
         },
         getDataOfStorageByAliquots: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/storage",
-          headers: headers.json
+          url: restPrefix + SUFFIX + "/storage/:center",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
         },
         getDataByExam: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/exam",
-          headers: headers.json
+          url: restPrefix + SUFFIX + "/exam/:center",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
         },
         getDataToCSVOfPendingResultsByAliquots: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/pending/csv",
-          headers: headers.json
+          url: restPrefix + SUFFIX + "/pending/csv/:center",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
         },
         getDataToCSVOfQuantitativeByTypeOfAliquots: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/quantitative/csv",
-          headers: headers.json
+          url: restPrefix + SUFFIX + "/quantitative/csv/:center",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
         },
         getDataToCSVOfOrphansByExam: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/orphan/csv",
-          headers: headers.json
+          url: restPrefix + SUFFIX + "/orphan/csv/:center",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
         },
         getDataToCSVOfStorageByAliquots: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/storage/csv",
-          headers: headers.json
+          url: restPrefix + SUFFIX + "/storage/csv/:center",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
         },
         getDataToCSVByExam: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/exam/csv",
-          headers: headers.json
+          url: restPrefix + SUFFIX + "/exam/csv/:center",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
         }
       });
     }
