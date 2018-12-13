@@ -67,6 +67,11 @@
           params: {
             'center': '@center'
           }
+        },
+        getDataToCSVOfOrphansByExam: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/orphan/csv",
+          headers: headers.json
         }
       });
     }

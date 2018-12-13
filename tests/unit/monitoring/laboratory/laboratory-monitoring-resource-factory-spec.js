@@ -11,6 +11,7 @@
     var STORAGE_SX = '/storage';
     var EXAM_SX = '/exam';
     var PENDINGS_CSV_SX = '/pending/csv';
+    var ORPHAN_CSV_SX = '/orphan/csv';
 
     var DATA = {
       'data': 'returnPromiseOK'
@@ -40,6 +41,7 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + STORAGE_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + EXAM_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + PENDINGS_CSV_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ORPHAN_CSV_SX).respond(200, DATA);
       });
     });
 
@@ -70,6 +72,7 @@
         expect(factoryResult.getDataOfStorageByAliquots).toBeDefined();
         expect(factoryResult.getDataByExam).toBeDefined();
         expect(factoryResult.getDataToCSVOfPendingResultsByAliquots).toBeDefined();
+        expect(factoryResult.getDataToCSVOfOrphansByExam).toBeDefined();
       });
 
       describe('resourceMethods', function () {
@@ -116,6 +119,13 @@
         it('getDataToCSVOfPendingResultsByAliquotsMethod check', function () {
           var getDataToCSVOfPendingResultsByAliquots = factoryResult.getDataToCSVOfPendingResultsByAliquots();
           getDataToCSVOfPendingResultsByAliquots.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getDataToCSVOfOrphansByExamMethod check', function () {
+          var getDataToCSVOfOrphansByExam = factoryResult.getDataToCSVOfOrphansByExam();
+          getDataToCSVOfOrphansByExam.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
