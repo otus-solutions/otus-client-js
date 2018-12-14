@@ -6,6 +6,8 @@
         var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
         var SUFFIX = '/laboratory-project/exam-lot';
         var ALIQUOTS_SX = '/aliquots';
+        var ALIQUOT_SX = '/aliquot';
+        var CENTER_LOTS_SX = '/center-lots';
         var CENTER_SX = '/SP';
         var AVAILABLE_EXAMS_SX = '/available-exams';
         var ID_SX = '/1234567';
@@ -13,6 +15,7 @@
         var DATA_CONFIRMATION = 'returnPromiseOK';
         var RN_PARAMETER = {'id': 1234567};
         var CENTER_PARAMETER = {'center': 'SP'};
+        var ACRONYM = {'acronym': 'SP'};
         var METHOD_GET_VALUE = "GET";
         var METHOD_POST_VALUE = "POST";
         var METHOD_PUT_VALUE = "PUT";
@@ -34,6 +37,8 @@
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ALIQUOTS_SX).respond(200, DATA);
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ALIQUOTS_SX + CENTER_SX).respond(200, DATA);
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + AVAILABLE_EXAMS_SX + CENTER_SX).respond(200, DATA);
+                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + CENTER_LOTS_SX + CENTER_SX).respond(200, DATA);
+                httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + ALIQUOT_SX).respond(200, DATA);
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
@@ -62,8 +67,9 @@
             });
 
             it('methodFactoryExistence check', function () {
-                expect(factoryResult.getAliquots).toBeDefined();
+                expect(factoryResult.getLotAliquots).toBeDefined();
                 expect(factoryResult.getAliquotsByCenter).toBeDefined();
+                expect(factoryResult.getAliquot).toBeDefined();
                 expect(factoryResult.getAvailableExams).toBeDefined();
                 expect(factoryResult.getLots).toBeDefined();
                 expect(factoryResult.createLot).toBeDefined();
@@ -77,8 +83,8 @@
                     httpBackend.flush();
                 });
 
-                it('getAliquotsMethod check', function () {
-                    var getAliquots = factoryResult.getAliquots();
+                it('getLotAliquots check', function () {
+                    var getAliquots = factoryResult.getLotAliquots();
                     getAliquots.$promise.then(function (resultGetAliquots) {
                         expect(resultGetAliquots.data).toEqual(DATA_CONFIRMATION);
                     });
@@ -91,6 +97,13 @@
                     });
                 });
 
+                it('getAliquotMethod check', function () {
+                  var getAliquotsByCenter = factoryResult.getAliquot();
+                  getAliquotsByCenter.$promise.then(function (resultGetAliquot) {
+                    expect(resultGetAliquot.data).toEqual(DATA_CONFIRMATION);
+                  });
+                });
+
                 it('getAvailableExamsMethod check', function () {
                     var getAvailableExams = factoryResult.getAvailableExams(CENTER_PARAMETER);
                     getAvailableExams.$promise.then(function (resultGetAvailableExams) {
@@ -99,7 +112,7 @@
                 });
 
                 it('getLotsMethod check', function () {
-                    var getLots = factoryResult.getLots();
+                    var getLots = factoryResult.getLots(ACRONYM);
                     getLots.$promise.then(function (resultGetLots) {
                         expect(resultGetLots.data).toEqual(DATA_CONFIRMATION);
                     });
