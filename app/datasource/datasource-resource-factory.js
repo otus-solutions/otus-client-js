@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -25,6 +25,22 @@
             var headers = HeaderBuilderFactory.create(token);
 
             return $resource({}, {}, {
+                create: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX,
+                    headers: headers.json,
+                    body: {
+                        'datasource': '@datasource'
+                    }
+                },
+                update: {
+                    method: 'PUT',
+                    url: restPrefix + SUFFIX,
+                    headers: headers.json,
+                    body: {
+                        'datasource': '@datasource'
+                    }
+                },
                 list: {
                     method: 'GET',
                     url: restPrefix + SUFFIX,
