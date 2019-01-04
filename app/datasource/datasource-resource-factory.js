@@ -15,7 +15,6 @@
         var SUFFIX = '/configuration/datasources';
         var self = this;
 
-
         /* Public methods */
         self.create = create;
 
@@ -28,18 +27,20 @@
                 create: {
                     method: 'POST',
                     url: restPrefix + SUFFIX,
-                    headers: headers.json,
-                    body: {
-                        'datasource': '@datasource'
-                    }
+                    headers: {
+                        'Content-Type': undefined,
+                        enctype: 'multipart/form-data'
+                    },
+                    transformRequest: formDataObject
                 },
                 update: {
                     method: 'PUT',
                     url: restPrefix + SUFFIX,
-                    headers: headers.json,
-                    body: {
-                        'datasource': '@datasource'
-                    }
+                    headers: {
+                        'Content-Type': undefined,
+                        enctype: 'multipart/form-data'
+                    },
+                    transformRequest: formDataObject
                 },
                 list: {
                     method: 'GET',
@@ -56,8 +57,6 @@
                 }
             });
         }
-
         return self;
     }
-
 }());
