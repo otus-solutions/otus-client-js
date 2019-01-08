@@ -74,11 +74,8 @@
         function getByID(id) {
             return $http({
                 method: 'GET',
-                url: _restPrefix + SUFFIX + '/:idx',
-                headers: _headers.json,
-                params: {
-                    'idx': '@' + id
-                }
+                url: _restPrefix + SUFFIX + '/' + id,
+                headers: _headers.json
             });
         };
         return self;
