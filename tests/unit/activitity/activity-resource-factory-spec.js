@@ -13,7 +13,7 @@
     var SUFFIX = '/participants/activities';
     var SUFFIX_WITH_ID = '/participants/activities/1234567';
     var ACTIVITY_REVISION = '/revision';
-    var ACTIVITY_REVISION_WITH_ID = '/participants/activities/1234567/revision/5c41c6b316da48006573a500';
+    var ACTIVITY_REVISION_WITH_ID = '/5c41c6b316da48006573a500';
     var DATA_CONFIRMATION = 'returnPromiseOK';
 
     var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
@@ -34,7 +34,7 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_WITH_ID).respond(200, DATA);
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REVISION).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_WITH_ID + ACTIVITY_REVISION_WITH_ID).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REVISION + ACTIVITY_REVISION_WITH_ID).respond(200, DATA);
       });
     });
 

@@ -31,7 +31,7 @@
           headers: headers.json,
           params: {
             'id': '@id',
-            'rn': '@rn',
+            'rn': '@rn'
           }
         },
         update: {
@@ -43,7 +43,7 @@
           },
           params: {
             'id': '@id',
-            'rn': '@rn',
+            'rn': '@rn'
           }
         },
         listAll: {
@@ -51,7 +51,7 @@
           url: restPrefix + SUFFIX,
           headers: headers.json,
           params: {
-            'rn': '@rn',
+            'rn': '@rn'
           }
         },
         getById: {
@@ -60,7 +60,7 @@
           headers: headers.json,
           params: {
             'id': '@id',
-            'rn': '@rn',
+            'rn': '@rn'
           }
         },
         deleteById: {
@@ -72,7 +72,7 @@
           },
           params: {
             'id': '@id',
-            'rn': '@rn',
+            'rn': '@rn'
           }
         },
         addActivityRevision: {
@@ -88,7 +88,7 @@
           url: restPrefix + SUFFIX + '/revision/:id',
           headers: headers.json,
           params: {
-            'activityID': '@activityID',
+            'id': '@id'
           }
         }
       });
