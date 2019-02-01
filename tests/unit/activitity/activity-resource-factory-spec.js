@@ -11,6 +11,7 @@
         var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
         var SUFFIX = '/participants/activities';        
         var SUFFIX_WITH_ID = '/participants/activities/1234567';
+        var UPDATE_CHECKER = '/participants/activities/update-checker-activity'
         var DATA_CONFIRMATION = 'returnPromiseOK';
 
          var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
@@ -28,8 +29,9 @@
                 httpBackend = _$injector_.get('$httpBackend');
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);                
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX_WITH_ID).respond(200, DATA);
-                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);                
-                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_WITH_ID).respond(200, DATA);                
+                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
+                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_WITH_ID).respond(200, DATA);
+                httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + UPDATE_CHECKER).respond(200, DATA);
             });
         });
 
@@ -72,8 +74,6 @@
                     create.$promise.then(function (resultCreate) {
                         expect(resultCreate.data).toEqual(DATA_CONFIRMATION);                       
                     });
-                    
-                    
                 });
 
                 it('updateMethod check', function () {
@@ -103,6 +103,13 @@
                         expect(resultDeleteById.data).toEqual(DATA_CONFIRMATION);
                     });
                 });
+
+              it('updateCheckerActivityMethod check', function () {
+                var updateCheckerActivity = factoryResult.updateCheckerActivity(ID_PARAMETER);
+                updateCheckerActivity.$promise.then(function (resultUpdate) {
+                  expect(resultUpdate.data).toEqual(DATA_CONFIRMATION);
+                });
+              });
             });
         });
     });

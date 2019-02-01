@@ -13,6 +13,7 @@
 
     function ActivityResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
         var SUFFIX = '/participants/:rn/activities';
+        var UPDATE_CHECKER ='/update-checker-activity';
 
         var self = this;
 
@@ -73,6 +74,15 @@
                 params: {
                   'id': '@id',
                   'rn': '@rn',
+                }
+              },
+
+              updateCheckerActivity: {
+                method: 'PUT',
+                url: restPrefix + SUFFIX + UPDATE_CHECKER,
+                headers: headers.json,
+                data: {
+                  'checkerUpdated': '@checkerUpdated'
                 }
               }
             });
