@@ -12,6 +12,7 @@
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/participants/activities';
     var SUFFIX_WITH_ID = '/participants/activities/1234567';
+    var UPDATE_CHECKER = '/participants/activities/update-checker-activity'
     var ACTIVITY_REVISION = '/revision';
     var ACTIVITY_REVISION_WITH_ID = '/5c41c6b316da48006573a500';
     var DATA_CONFIRMATION = 'returnPromiseOK';
@@ -33,6 +34,7 @@
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX_WITH_ID).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_WITH_ID).respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + UPDATE_CHECKER).respond(200, DATA);
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REVISION).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REVISION + ACTIVITY_REVISION_WITH_ID).respond(200, DATA);
       });
@@ -64,8 +66,6 @@
         expect(factoryResult.listAll).toBeDefined();
         expect(factoryResult.getById).toBeDefined();
         expect(factoryResult.deleteById).toBeDefined();
-        expect(factoryResult.addActivityRevision).toBeDefined();
-        expect(factoryResult.getActivityRevisions).toBeDefined();
       });
 
       describe('resourceMethods', function () {
@@ -109,6 +109,13 @@
           });
         });
 
+        it('updateCheckerActivityMethod check', function () {
+          var updateCheckerActivity = factoryResult.updateCheckerActivity(ID_PARAMETER);
+          updateCheckerActivity.$promise.then(function (resultUpdate) {
+            expect(resultUpdate.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
         it('addActivityRevisionMethod check', function () {
           var addActivityRevision = factoryResult.addActivityRevision();
           addActivityRevision.$promise.then(function (resultAddActivityRevision) {
@@ -124,6 +131,5 @@
         });
       });
     });
-  });
-
+  })
 }());

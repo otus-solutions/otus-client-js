@@ -13,6 +13,7 @@
 
   function ActivityResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
     var SUFFIX = '/participants/:rn/activities';
+    var UPDATE_CHECKER ='/update-checker-activity';
 
     var self = this;
 
@@ -31,7 +32,7 @@
           headers: headers.json,
           params: {
             'id': '@id',
-            'rn': '@rn'
+            'rn': '@rn',
           }
         },
         update: {
@@ -43,7 +44,7 @@
           },
           params: {
             'id': '@id',
-            'rn': '@rn'
+            'rn': '@rn',
           }
         },
         listAll: {
@@ -51,7 +52,7 @@
           url: restPrefix + SUFFIX,
           headers: headers.json,
           params: {
-            'rn': '@rn'
+            'rn': '@rn',
           }
         },
         getById: {
@@ -60,19 +61,7 @@
           headers: headers.json,
           params: {
             'id': '@id',
-            'rn': '@rn'
-          }
-        },
-        deleteById: {
-          method: 'PUT',
-          url: restPrefix + SUFFIX + '/:id',
-          headers: headers.json,
-          data: {
-            'activity': '@activity'
-          },
-          params: {
-            'id': '@id',
-            'rn': '@rn'
+            'rn': '@rn',
           }
         },
         addActivityRevision: {
@@ -89,6 +78,26 @@
           headers: headers.json,
           params: {
             'id': '@id'
+          }
+        },
+        deleteById: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/:id',
+          headers: headers.json,
+          data: {
+            'activity': '@activity'
+          },
+          params: {
+            'id': '@id',
+            'rn': '@rn',
+          }
+        },
+        updateCheckerActivity: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + UPDATE_CHECKER,
+          headers: headers.json,
+          data: {
+            'checkerUpdated': '@checkerUpdated'
           }
         }
       });
