@@ -59,7 +59,7 @@
         },
 
         getSurveyGroupsByUser: {
-          method: 'POST',
+          method: 'GET',
           url: restPrefix + SUFFIX + '/groups-by-user',
           headers: headers.json
         }

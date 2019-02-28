@@ -34,7 +34,7 @@
         httpBackend = _$injector_.get('$httpBackend');
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + GET_SX).respond(200, DATA);
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + POST_SX).respond(200, DATA);
-        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + POST_USER_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + POST_USER_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + PUT_SX).respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + DELETE_SX + SURVEY_GROUP_ID_SX).respond(200, DATA);
       });
