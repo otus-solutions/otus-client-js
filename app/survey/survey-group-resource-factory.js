@@ -37,7 +37,7 @@
         },
         editGroup: {
           method: 'PUT',
-          // url: restPrefix + SUFFIX + '/?',
+          url: restPrefix + SUFFIX + '/update-group',
           headers: headers.json
         },
         deleteGroup: {
