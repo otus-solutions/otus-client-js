@@ -63,7 +63,7 @@
       it('methodFactoryExistence check', function () {
         expect(factoryResult.addNewGroup).toBeDefined();
         expect(factoryResult.getListOfSurveyGroups).toBeDefined();
-        expect(factoryResult.editGroup).toBeDefined();
+        expect(factoryResult.updateGroup).toBeDefined();
         expect(factoryResult.deleteGroup).toBeDefined();
         expect(factoryResult.getSurveyGroupsByUser).toBeDefined();
       });
@@ -88,9 +88,9 @@
           });
         });
 
-        it('editGroupMethod check', function () {
-          var editGroup = factoryResult.editGroup(ID_PARAMETER);
-          editGroup.$promise.then(function (result) {
+        it('updateGroupMethod check', function () {
+          var updateGroup = factoryResult.updateGroup(ID_PARAMETER);
+          updateGroup.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });

@@ -40,7 +40,7 @@
           headers: headers.json
         },
 
-        editGroup: {
+        updateGroup: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/update-group',
           headers: headers.json,
