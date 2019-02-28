@@ -7,13 +7,17 @@
     var SUFFIX = '/survey';
     var GET_SX = '/group';
     var POST_SX = '/new-group';
+    var POST_USER_SX = '/groups-by-user';
     var PUT_SX = '/update-group';
+    var DELETE_SX = '/delete-group';
+    var SURVEY_GROUP_ID_SX = '/1234567';
     var DATA = {'data': 'returnPromiseOK'};
     var ID_PARAMETER = { "id" : 1234567};
     var DATA_CONFIRMATION = 'returnPromiseOK';
     var METHOD_GET_VALUE = "GET";
     var METHOD_POST_VALUE = "POST";
     var METHOD_PUT_VALUE = "PUT";
+    var METHOD_DELETE_VALUE = "DELETE";
 
     var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
     var httpBackend;
@@ -30,7 +34,9 @@
         httpBackend = _$injector_.get('$httpBackend');
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + GET_SX).respond(200, DATA);
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + POST_SX).respond(200, DATA);
+        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + POST_USER_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + PUT_SX).respond(200, DATA);
+        httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + DELETE_SX + SURVEY_GROUP_ID_SX).respond(200, DATA);
       });
     });
 
@@ -59,6 +65,7 @@
         expect(factoryResult.getListOfSurveyGroups).toBeDefined();
         expect(factoryResult.editGroup).toBeDefined();
         expect(factoryResult.deleteGroup).toBeDefined();
+        expect(factoryResult.getSurveyGroupsByUser).toBeDefined();
       });
 
       describe('resourceMethods', function () {
@@ -88,12 +95,19 @@
           });
         });
 
-        // it('deleteGroupMethod check', function () {
-        //   var deleteGroup = factoryResult.deleteGroup(ID_PARAMETER);
-        //   deleteGroup.$promise.then(function (result) {
-        //     expect(result.data).toEqual(DATA_CONFIRMATION);
-        //   });
-        // });
+        it('deleteGroupMethod check', function () {
+          var deleteGroup = factoryResult.deleteGroup(ID_PARAMETER);
+          deleteGroup.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getSurveyGroupsByUserMethod check', function () {
+          var getSurveyGroupsByUser = factoryResult.getSurveyGroupsByUser();
+          getSurveyGroupsByUser.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
       });
     });
   });

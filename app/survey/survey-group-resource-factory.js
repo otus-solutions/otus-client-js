@@ -28,22 +28,43 @@
         addNewGroup: {
           method: 'POST',
           url: restPrefix + SUFFIX + '/new-group',
-          headers: headers.json
+          headers: headers.json,
+          data: {
+            'group': '@group'
+          }
         },
+
         getListOfSurveyGroups: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/group',
           headers: headers.json
         },
+
         editGroup: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/update-group',
-          headers: headers.json
+          headers: headers.json,
+          data: {
+            'group': '@group'
+          }
         },
+
         deleteGroup: {
-          method: 'GET',
-          // url: restPrefix + SUFFIX + '/?',
-          headers: headers.json
+          method: 'DELETE',
+          url: restPrefix + SUFFIX + '/delete-group/:id',
+          headers: headers.json,
+          params: {
+            'id': '@id'
+          }
+        },
+
+        getSurveyGroupsByUser: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/groups-by-user',
+          headers: headers.json,
+          data: {
+            'group': '@group'
+          }
         }
       });
     }
