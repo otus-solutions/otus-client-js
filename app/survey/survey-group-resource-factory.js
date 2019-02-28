@@ -30,13 +30,13 @@
           url: restPrefix + SUFFIX + '/new-group',
           headers: headers.json,
           data: {
-            'group': '@group'
+            'surveyGroupJson': '@surveyGroupJson'
           }
         },
 
         getListOfSurveyGroups: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/group',
+          url: restPrefix + SUFFIX + '/groups',
           headers: headers.json
         },
 
@@ -45,7 +45,7 @@
           url: restPrefix + SUFFIX + '/update-group',
           headers: headers.json,
           data: {
-            'group': '@group'
+            'surveyGroupJson': '@surveyGroupJson'
           }
         },
 
@@ -61,10 +61,7 @@
         getSurveyGroupsByUser: {
           method: 'POST',
           url: restPrefix + SUFFIX + '/groups-by-user',
-          headers: headers.json,
-          data: {
-            'group': '@group'
-          }
+          headers: headers.json
         }
       });
     }

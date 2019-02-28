@@ -5,7 +5,7 @@
 
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/survey';
-    var GET_SX = '/group';
+    var GET_SX = '/groups';
     var POST_SX = '/new-group';
     var POST_USER_SX = '/groups-by-user';
     var PUT_SX = '/update-group';
