@@ -40,12 +40,22 @@
           headers: headers.json
         },
 
-        updateGroup: {
+        updateGroupName: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/update-group/:old/:new',
+          headers: headers.json,
+          params: {
+            'old': '@old',
+            'new': '@new'
+          }
+        },
+
+        updateGroupSurveyAcronyms: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/update-group',
           headers: headers.json,
           data: {
-            'surveyGroupJson': '@surveyGroupJson'
+            'surveyGroup': '@surveyGroup'
           }
         },
 
