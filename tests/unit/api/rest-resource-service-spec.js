@@ -3,7 +3,8 @@ describe('RestResourceService', function () {
   var service, otusRestResourceContext, otusInstallerResourceFactory, otusAuthenticatorResourceFactory, otusFieldCenterResourceFactory;
   var userResourceFactory, otusProjectConfigurationResourceFactory, otusConfigurationResourceFactory, surveyResourceFactory, activityResourceFactory, activityConfigurationResourceFactory;
   var dataExtractionResourceFactory, participantResourceFactory, laboratoryParticipantResourceFactory, laboratoryConfigurationResourceFactory;
-  var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory, monitoringResourceFactory, passwordResetResourceFactory, permissionConfigurationResourceFactory;
+  var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory, monitoringResourceFactory;
+  var passwordResetResourceFactory, permissionConfigurationResourceFactory, surveyGroupResourceFactory;
   var laboratoryMonitoringResourceFactory;
 
   beforeEach(function () {
@@ -34,6 +35,7 @@ describe('RestResourceService', function () {
       laboratoryMonitoringResourceFactory = _$injector_.get('otus.client.LaboratoryMonitoringResourceFactory');      
       passwordResetResourceFactory = _$injector_.get('otus.client.PasswordResetResourceFactory');
       permissionConfigurationResourceFactory = _$injector_.get('otus.client.PermissionConfigurationResourceFactory')
+      surveyGroupResourceFactory = _$injector_.get('otus.client.SurveyGroupResourceFactory');
 
       spyOn(otusRestResourceContext, 'hasToken').and.callThrough();
       spyOn(otusRestResourceContext, 'reset').and.callThrough();
@@ -64,6 +66,7 @@ describe('RestResourceService', function () {
       spyOn(laboratoryMonitoringResourceFactory, 'create').and.callThrough();      
       spyOn(passwordResetResourceFactory, 'create').and.callThrough();
       spyOn(permissionConfigurationResourceFactory, 'create').and.callThrough();
+      spyOn(surveyGroupResourceFactory, 'create').and.callThrough();
     });
   });
 
@@ -101,6 +104,7 @@ describe('RestResourceService', function () {
       expect(service.getOtusMonitoringResource).toBeDefined();
       expect(service.getPasswordResetResource).toBeDefined();
       expect(service.getPermissionConfigurationResource).toBeDefined();
+      expect(service.getSurveyGroupResource).toBeDefined();
     });
 
     describe('serviceMethods', function () {
@@ -250,6 +254,11 @@ describe('RestResourceService', function () {
       it('getPermissionConfigurationResourceFactoryMethod check', function () {
         service.getPermissionConfigurationResource();
         expect(permissionConfigurationResourceFactory.create).toHaveBeenCalledTimes(1);
+      });
+
+      it('getSurveyGroupResourceMethod check', function () {
+        service.getSurveyGroupResource();
+        expect(surveyGroupResourceFactory.create).toHaveBeenCalledTimes(1);
       });
     });
   });
