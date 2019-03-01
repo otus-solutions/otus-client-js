@@ -10,9 +10,9 @@
     var POST_USER_SX = '/groups-by-user';
     var PUT_SX = '/update-group';
     var DELETE_SX = '/delete-group';
-    var SURVEY_GROUP_ID_SX = '/1234567';
+    var SURVEY_GROUP_NAME_SX = '/test';
     var DATA = {'data': 'returnPromiseOK'};
-    var ID_PARAMETER = { "id" : 1234567};
+    var NAME_PARAMETER = { "name" : "test"};
     var DATA_CONFIRMATION = 'returnPromiseOK';
     var METHOD_GET_VALUE = "GET";
     var METHOD_POST_VALUE = "POST";
@@ -36,7 +36,7 @@
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + POST_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + POST_USER_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + PUT_SX).respond(200, DATA);
-        httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + DELETE_SX + SURVEY_GROUP_ID_SX).respond(200, DATA);
+        httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + DELETE_SX + SURVEY_GROUP_NAME_SX).respond(200, DATA);
       });
     });
 
@@ -89,14 +89,14 @@
         });
 
         it('updateGroupMethod check', function () {
-          var updateGroup = factoryResult.updateGroup(ID_PARAMETER);
+          var updateGroup = factoryResult.updateGroup();
           updateGroup.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
         it('deleteGroupMethod check', function () {
-          var deleteGroup = factoryResult.deleteGroup(ID_PARAMETER);
+          var deleteGroup = factoryResult.deleteGroup(NAME_PARAMETER);
           deleteGroup.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });

@@ -51,10 +51,10 @@
 
         deleteGroup: {
           method: 'DELETE',
-          url: restPrefix + SUFFIX + '/delete-group/:id',
+          url: restPrefix + SUFFIX + '/delete-group/:name',
           headers: headers.json,
           params: {
-            'id': '@id'
+            'name': '@name'
           }
         },
 
