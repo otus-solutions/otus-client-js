@@ -11,6 +11,7 @@
     var PUT_SX = '/update-group';
     var DELETE_SX = '/delete-group';
     var SURVEY_GROUP_NAME_SX = '/test';
+    var SURVEY_GROUP_OLD_SX = '/test';
     var DATA = {'data': 'returnPromiseOK'};
     var NAME_PARAMETER = { "name" : "test"};
     var DATA_CONFIRMATION = 'returnPromiseOK';
@@ -36,6 +37,7 @@
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + POST_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + POST_USER_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + PUT_SX).respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + PUT_SX + SURVEY_GROUP_OLD_SX + SURVEY_GROUP_NAME_SX).respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + DELETE_SX + SURVEY_GROUP_NAME_SX).respond(200, DATA);
       });
     });
@@ -63,7 +65,8 @@
       it('methodFactoryExistence check', function () {
         expect(factoryResult.addNewGroup).toBeDefined();
         expect(factoryResult.getListOfSurveyGroups).toBeDefined();
-        expect(factoryResult.updateGroup).toBeDefined();
+        expect(factoryResult.updateGroupName).toBeDefined();
+        expect(factoryResult.updateGroupSurveyAcronyms).toBeDefined();
         expect(factoryResult.deleteGroup).toBeDefined();
         expect(factoryResult.getSurveyGroupsByUser).toBeDefined();
       });
@@ -88,9 +91,16 @@
           });
         });
 
-        it('updateGroupMethod check', function () {
-          var updateGroup = factoryResult.updateGroup();
-          updateGroup.$promise.then(function (result) {
+        it('updateGroupNameMethod check', function () {
+          var updateGroupName = factoryResult.updateGroupName();
+          updateGroupName.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('updateGroupSurveyAcronymsMethod check', function () {
+          var updateGroupSurveyAcronyms = factoryResult.updateGroupSurveyAcronyms();
+          updateGroupSurveyAcronyms.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
