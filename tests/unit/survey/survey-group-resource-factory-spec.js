@@ -91,14 +91,14 @@
           });
         });
 
-        it('updateGroupNameMethod check', function () {
+        it('updateSurveyGroupNameMethod check', function () {
           var updateSurveyGroupName = factoryResult.updateSurveyGroupName();
           updateSurveyGroupName.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
-        it('updateGroupSurveyAcronymsMethod check', function () {
+        it('updateSurveySurveyAcronymsMethod check', function () {
           var updateSurveyGroupAcronyms = factoryResult.updateSurveyGroupAcronyms();
           updateSurveyGroupAcronyms.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
