@@ -11,10 +11,7 @@
     var PUT_SX = '/update-group';
     var PUT_NAME_SX = '/update-group-name';
     var DELETE_SX = '/delete-group';
-    var SURVEY_GROUP_NAME_SX = '/test';
-    var SURVEY_GROUP_OLD_SX = '/test';
     var DATA = {'data': 'returnPromiseOK'};
-    var NAME_PARAMETER = { "name" : "test"};
     var DATA_CONFIRMATION = 'returnPromiseOK';
     var METHOD_GET_VALUE = "GET";
     var METHOD_POST_VALUE = "POST";
@@ -39,8 +36,7 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + POST_USER_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + PUT_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + PUT_NAME_SX).respond(200, DATA);
-        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + PUT_SX + SURVEY_GROUP_OLD_SX + SURVEY_GROUP_NAME_SX).respond(200, DATA);
-        httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + DELETE_SX + SURVEY_GROUP_NAME_SX).respond(200, DATA);
+        httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + DELETE_SX).respond(200, DATA);
       });
     });
 
@@ -108,7 +104,7 @@
         });
 
         it('deleteSurveyGroupMethod check', function () {
-          var deleteSurveyGroup = factoryResult.deleteSurveyGroup(NAME_PARAMETER);
+          var deleteSurveyGroup = factoryResult.deleteSurveyGroup();
           deleteSurveyGroup.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });

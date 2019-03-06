@@ -42,11 +42,10 @@
 
         updateSurveyGroupName: {
           method: 'PUT',
-          url: restPrefix + SUFFIX + '/update-group-name/:old/:new',
+          url: restPrefix + SUFFIX + '/update-group-name',
           headers: headers.json,
-          params: {
-            'old': '@old',
-            'new': '@new'
+          data: {
+             'surveyGroupNamesUpdate': '@surveyGroupNamesUpdate'
           }
         },
 
@@ -61,10 +60,10 @@
 
         deleteSurveyGroup: {
           method: 'DELETE',
-          url: restPrefix + SUFFIX + '/delete-group/:name',
+          url: restPrefix + SUFFIX + '/delete-group',
           headers: headers.json,
-          params: {
-            'name': '@name'
+          data: {
+            'surveyGroupJson': '@surveyGroupJson'
           }
         },
 
