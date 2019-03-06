@@ -98,7 +98,7 @@
           });
         });
 
-        it('updateSurveySurveyAcronymsMethod check', function () {
+        it('updateSurveyGroupAcronymsMethod check', function () {
           var updateSurveyGroupAcronyms = factoryResult.updateSurveyGroupAcronyms();
           updateSurveyGroupAcronyms.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
