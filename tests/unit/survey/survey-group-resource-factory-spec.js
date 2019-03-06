@@ -65,8 +65,8 @@
       it('methodFactoryExistence check', function () {
         expect(factoryResult.addNewGroup).toBeDefined();
         expect(factoryResult.getListOfSurveyGroups).toBeDefined();
-        expect(factoryResult.updateGroupName).toBeDefined();
-        expect(factoryResult.updateGroupSurveyAcronyms).toBeDefined();
+        expect(factoryResult.updateSurveyGroupName).toBeDefined();
+        expect(factoryResult.updateSurveyGroupAcronyms).toBeDefined();
         expect(factoryResult.deleteGroup).toBeDefined();
         expect(factoryResult.getSurveyGroupsByUser).toBeDefined();
       });
@@ -92,15 +92,15 @@
         });
 
         it('updateGroupNameMethod check', function () {
-          var updateGroupName = factoryResult.updateGroupName();
-          updateGroupName.$promise.then(function (result) {
+          var updateSurveyGroupName = factoryResult.updateSurveyGroupName();
+          updateSurveyGroupName.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
         it('updateGroupSurveyAcronymsMethod check', function () {
-          var updateGroupSurveyAcronyms = factoryResult.updateGroupSurveyAcronyms();
-          updateGroupSurveyAcronyms.$promise.then(function (result) {
+          var updateSurveyGroupAcronyms = factoryResult.updateSurveyGroupAcronyms();
+          updateSurveyGroupAcronyms.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
