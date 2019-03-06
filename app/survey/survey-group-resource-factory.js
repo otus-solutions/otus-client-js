@@ -25,7 +25,7 @@
       var headers = HeaderBuilderFactory.create(token);
 
       return $resource({}, {}, {
-        addNewGroup: {
+        addNewSurveyGroup: {
           method: 'POST',
           url: restPrefix + SUFFIX + '/new-group',
           headers: headers.json,
@@ -42,7 +42,7 @@
 
         updateSurveyGroupName: {
           method: 'PUT',
-          url: restPrefix + SUFFIX + '/update-group/:old/:new',
+          url: restPrefix + SUFFIX + '/update-group-name/:old/:new',
           headers: headers.json,
           params: {
             'old': '@old',
@@ -59,7 +59,7 @@
           }
         },
 
-        deleteGroup: {
+        deleteSurveyGroup: {
           method: 'DELETE',
           url: restPrefix + SUFFIX + '/delete-group/:name',
           headers: headers.json,

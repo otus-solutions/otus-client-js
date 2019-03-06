@@ -9,6 +9,7 @@
     var POST_SX = '/new-group';
     var POST_USER_SX = '/groups-by-user';
     var PUT_SX = '/update-group';
+    var PUT_NAME_SX = '/update-group-name';
     var DELETE_SX = '/delete-group';
     var SURVEY_GROUP_NAME_SX = '/test';
     var SURVEY_GROUP_OLD_SX = '/test';
@@ -37,6 +38,7 @@
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + POST_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + POST_USER_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + PUT_SX).respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + PUT_NAME_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + PUT_SX + SURVEY_GROUP_OLD_SX + SURVEY_GROUP_NAME_SX).respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + DELETE_SX + SURVEY_GROUP_NAME_SX).respond(200, DATA);
       });
@@ -63,11 +65,11 @@
       });
 
       it('methodFactoryExistence check', function () {
-        expect(factoryResult.addNewGroup).toBeDefined();
+        expect(factoryResult.addNewSurveyGroup).toBeDefined();
         expect(factoryResult.getListOfSurveyGroups).toBeDefined();
         expect(factoryResult.updateSurveyGroupName).toBeDefined();
         expect(factoryResult.updateSurveyGroupAcronyms).toBeDefined();
-        expect(factoryResult.deleteGroup).toBeDefined();
+        expect(factoryResult.deleteSurveyGroup).toBeDefined();
         expect(factoryResult.getSurveyGroupsByUser).toBeDefined();
       });
 
@@ -84,9 +86,9 @@
           });
         });
 
-        it('addNewGroupMethod check', function () {
-          var addNewGroup = factoryResult.addNewGroup();
-          addNewGroup.$promise.then(function (result) {
+        it('addNewSurveyGroupMethod check', function () {
+          var addNewSurveyGroup = factoryResult.addNewSurveyGroup();
+          addNewSurveyGroup.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
@@ -105,9 +107,9 @@
           });
         });
 
-        it('deleteGroupMethod check', function () {
-          var deleteGroup = factoryResult.deleteGroup(NAME_PARAMETER);
-          deleteGroup.$promise.then(function (result) {
+        it('deleteSurveyGroupMethod check', function () {
+          var deleteSurveyGroup = factoryResult.deleteSurveyGroup(NAME_PARAMETER);
+          deleteSurveyGroup.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
