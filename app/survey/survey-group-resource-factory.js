@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -40,7 +40,7 @@
           headers: headers.json
         },
 
-        updateGroupName: {
+        updateSurveyGroupName: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/update-group/:old/:new',
           headers: headers.json,
@@ -50,12 +50,12 @@
           }
         },
 
-        updateGroupSurveyAcronyms: {
+        updateSurveyGroupAcronyms: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/update-group',
           headers: headers.json,
           data: {
-            'surveyGroup': '@surveyGroup'
+            'surveyGroupJson': '@surveyGroupJson'
           }
         },
 
