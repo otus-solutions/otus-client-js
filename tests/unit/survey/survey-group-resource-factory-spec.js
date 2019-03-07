@@ -14,7 +14,6 @@
     var DATA = {'data': 'returnPromiseOK'};
     var DATA_CONFIRMATION = 'returnPromiseOK';
     var METHOD_GET_VALUE = "GET";
-    var METHOD_POST_VALUE = "POST";
     var METHOD_PUT_VALUE = "PUT";
     var METHOD_POST_VALUE = "POST";
 
