@@ -16,7 +16,7 @@
     var METHOD_GET_VALUE = "GET";
     var METHOD_POST_VALUE = "POST";
     var METHOD_PUT_VALUE = "PUT";
-    var METHOD_DELETE_VALUE = "POST";
+    var METHOD_POST_VALUE = "POST";
 
     var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
     var httpBackend;
@@ -36,7 +36,7 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + POST_USER_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + PUT_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + PUT_NAME_SX).respond(200, DATA);
-        httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + DELETE_SX).respond(200, DATA);
+        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + DELETE_SX).respond(200, DATA);
       });
     });
 
