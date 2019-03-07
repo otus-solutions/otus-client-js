@@ -59,7 +59,7 @@
         },
 
         deleteSurveyGroup: {
-          method: 'DELETE',
+          method: 'POST',
           url: restPrefix + SUFFIX + '/delete-group',
           headers: headers.json,
           data: {

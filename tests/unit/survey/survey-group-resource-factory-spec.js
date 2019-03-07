@@ -16,7 +16,7 @@
     var METHOD_GET_VALUE = "GET";
     var METHOD_POST_VALUE = "POST";
     var METHOD_PUT_VALUE = "PUT";
-    var METHOD_DELETE_VALUE = "DELETE";
+    var METHOD_DELETE_VALUE = "POST";
 
     var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
     var httpBackend;
