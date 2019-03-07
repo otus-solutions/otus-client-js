@@ -45,7 +45,7 @@
           url: restPrefix + SUFFIX + '/update-group-name',
           headers: headers.json,
           data: {
-             'surveyGroupNamesUpdate': '@surveyGroupNamesUpdate'
+             'updateSurveyGroupNameDto': '@updateSurveyGroupNameDto'
           }
         },
 
@@ -63,7 +63,7 @@
           url: restPrefix + SUFFIX + '/delete-group',
           headers: headers.json,
           data: {
-            'surveyGroupJson': '@surveyGroupJson'
+            'updateSurveyGroupNameDto': '@updateSurveyGroupNameDto'
           }
         },
 
