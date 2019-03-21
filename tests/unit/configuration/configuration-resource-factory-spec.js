@@ -6,6 +6,7 @@
         var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
         var SUFFIX = '/configuration';
         var SURVEYS_SX = '/surveys';
+        var ALL_SX = '/all';
         var ACRONYM_SX = '/ABCD';
         var TYPE_SX = '/type';
         var PUBLISH_TEMPLATE_SX = '/publish/template';       
@@ -31,6 +32,7 @@
                 spyOn(headerBuilderFactory, 'create').and.callThrough();
                 httpBackend = _$injector_.get('$httpBackend');
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX).respond(200, DATA);
+                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ALL_SX).respond(200, DATA);
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ACRONYM_SX + TYPE_SX).respond(200, DATA);
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + PUBLISH_TEMPLATE_SX).respond(200, DATA);
                 httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ACRONYM_SX).respond(200, DATA);                          
@@ -59,6 +61,7 @@
 
             it('methodFactoryExistence check', function () {
                 expect(factoryResult.getSurveys).toBeDefined();
+                expect(factoryResult.getAllSurveys).toBeDefined();
                 expect(factoryResult.updateSurveyTemplateType).toBeDefined();
                 expect(factoryResult.publishTemplate).toBeDefined();
                 expect(factoryResult.deleteSurveyTemplate).toBeDefined();                
@@ -75,6 +78,13 @@
                     getSurveys.$promise.then(function (resultGetSurveys) {
                         expect(resultGetSurveys.data).toEqual(DATA_CONFIRMATION);
                     });
+                });
+
+                it('getAllSurveysMethod check', function () {
+                  var getAllSurveys = factoryResult.getAllSurveys();
+                  getAllSurveys.$promise.then(function (resultGetAllSurveys) {
+                    expect(resultGetAllSurveys.data).toEqual(DATA_CONFIRMATION);
+                  });
                 });
 
                 it('updateSurveyTemplateTypeMethod check', function () {
