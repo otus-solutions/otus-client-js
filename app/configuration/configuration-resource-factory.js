@@ -30,6 +30,11 @@
                url: restPrefix + SUFFIX + '/surveys',
                headers: headers.json
             },
+            getAllSurveys: {
+               method: 'GET',
+               url: restPrefix + SUFFIX + '/surveys/all',
+               headers: headers.json
+            },
             updateSurveyTemplateType: {
                method: 'PUT',
                url: restPrefix + SUFFIX + '/surveys/:acronym/type',
