@@ -78,6 +78,30 @@
             'rn': '@rn',
             'acronym': '@acronym'
           }
+        },
+        getStatusOfExams: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/exams/progress/participant/:rn',
+          headers: headers.json,
+          params: {
+            'rn': '@rn'
+          }
+        },
+        defineExamWithDoesNotApplies: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/exams/progress/not-apply',
+          headers: headers.json,
+          data: {
+            'data': '@data'
+          }
+        },
+        deleteNotAppliesOfExam: {
+          method: 'DELETE',
+          url: restPrefix + SUFFIX + '/activities/progress/not-apply/delete',
+          headers: headers.json,
+           data: {
+            'data': '@data'
+          }
         }
       });
     }
