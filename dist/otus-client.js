@@ -607,6 +607,66 @@
 }());
 
 (function() {
+    'use strict';
+
+    angular
+        .module('otus.client')
+        .factory('otus.client.DataExtractionResourceFactory', DataExtractionResourceFactory);
+
+    DataExtractionResourceFactory.$inject = [
+        '$resource',
+        'OtusRestResourceContext',
+        'otus.client.HeaderBuilderFactory'
+    ];
+
+    function DataExtractionResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+        var SUFFIX = '/data-extraction';
+        var self = this;
+
+
+        /* Public methods */
+        self.create = create;
+
+        function create() {
+            var restPrefix = OtusRestResourceContext.getRestPrefix();
+            var token = OtusRestResourceContext.getSecurityToken();
+            var headers = HeaderBuilderFactory.create(token);
+
+            return $resource({}, {}, {
+                extractionToken: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + '/extraction-token',
+                    headers: headers.json
+                },
+                listExtractionIps: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + '/list-ips',
+                    headers: headers.json
+                },
+                updateExtractionIps: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX + '/enable-ips',
+                    headers: headers.json
+                },
+                enableExtraction: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX + '/enable',
+                    headers: headers.json
+                },
+                disableExtraction: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX + '/disable',
+                    headers: headers.json
+                }
+            });
+        }
+
+        return self;
+    }
+
+}());
+
+(function() {
    'use strict';
 
    angular
@@ -670,66 +730,6 @@
       return self;
 
    }
-}());
-
-(function() {
-    'use strict';
-
-    angular
-        .module('otus.client')
-        .factory('otus.client.DataExtractionResourceFactory', DataExtractionResourceFactory);
-
-    DataExtractionResourceFactory.$inject = [
-        '$resource',
-        'OtusRestResourceContext',
-        'otus.client.HeaderBuilderFactory'
-    ];
-
-    function DataExtractionResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-        var SUFFIX = '/data-extraction';
-        var self = this;
-
-
-        /* Public methods */
-        self.create = create;
-
-        function create() {
-            var restPrefix = OtusRestResourceContext.getRestPrefix();
-            var token = OtusRestResourceContext.getSecurityToken();
-            var headers = HeaderBuilderFactory.create(token);
-
-            return $resource({}, {}, {
-                extractionToken: {
-                    method: 'GET',
-                    url: restPrefix + SUFFIX + '/extraction-token',
-                    headers: headers.json
-                },
-                listExtractionIps: {
-                    method: 'GET',
-                    url: restPrefix + SUFFIX + '/list-ips',
-                    headers: headers.json
-                },
-                updateExtractionIps: {
-                    method: 'POST',
-                    url: restPrefix + SUFFIX + '/enable-ips',
-                    headers: headers.json
-                },
-                enableExtraction: {
-                    method: 'POST',
-                    url: restPrefix + SUFFIX + '/enable',
-                    headers: headers.json
-                },
-                disableExtraction: {
-                    method: 'POST',
-                    url: restPrefix + SUFFIX + '/disable',
-                    headers: headers.json
-                }
-            });
-        }
-
-        return self;
-    }
-
 }());
 
 (function() {
@@ -1014,7 +1014,7 @@
           }
         },
         deleteNotAppliesOfExam: {
-          method: 'DELETE',
+          method: 'POST',
           url: restPrefix + SUFFIX + '/exams/progress/not-apply/delete',
           headers: headers.json,
            data: {
@@ -1233,6 +1233,86 @@
 
 }());
 
+(function() {
+   'use strict';
+
+   angular
+      .module('otus.client')
+      .factory('otus.client.UploadResourceFactory', UploadResourceFactory);
+
+   UploadResourceFactory.$inject = [
+        '$http',
+        'OtusRestResourceContext',
+        'otus.client.HeaderBuilderFactory'
+    ];
+
+   function UploadResourceFactory($http, OtusRestResourceContext, HeaderBuilderFactory) {
+      var SUFFIX = '/upload';
+
+      var self = this;
+
+      /* Public methods */
+      self.create = create;
+
+      function create() {
+         return new HttpFileUpload($http, OtusRestResourceContext, HeaderBuilderFactory);
+      }
+      return self;
+   }
+
+   function HttpFileUpload($http, OtusRestResourceContext, HeaderBuilderFactory) {
+      var self = this;
+      var _restPrefix, _token, _headers;
+      var SUFFIX = '/upload';
+
+      self.post = post;
+      self.getByOID = getByOID;
+      self.deleteByOID = deleteByOID;
+
+      _init();
+
+      function _init() {
+         _restPrefix = OtusRestResourceContext.getRestPrefix();
+         _token = OtusRestResourceContext.getSecurityToken();
+         _headers = HeaderBuilderFactory.create(_token);
+      }
+
+      function post(formData, canceler) {
+         _headers.setContentType(undefined);
+         return $http({
+            method: 'POST',
+            url: _restPrefix + SUFFIX,
+            data: formData,
+            headers: _headers.json,
+            timeout: canceler.promise,
+            transformRequest: angular.identity
+         });
+      }
+
+      function getByOID(oid) {
+         return $http({
+            method: 'POST',
+            url: _restPrefix + SUFFIX,
+            data: oid,
+            responseType: "arraybuffer",
+            headers: _headers.json
+         });
+      }
+
+      function deleteByOID(oid) {
+         return $http({
+            method: 'DELETE',
+            url: _restPrefix + SUFFIX + '/' + oid,
+            headers: _headers.json,
+         });
+
+      }
+
+      return self;
+   }
+
+}());
+
 (function () {
   'use strict';
 
@@ -1357,86 +1437,6 @@
 
         return self;
     }
-
-}());
-
-(function() {
-   'use strict';
-
-   angular
-      .module('otus.client')
-      .factory('otus.client.UploadResourceFactory', UploadResourceFactory);
-
-   UploadResourceFactory.$inject = [
-        '$http',
-        'OtusRestResourceContext',
-        'otus.client.HeaderBuilderFactory'
-    ];
-
-   function UploadResourceFactory($http, OtusRestResourceContext, HeaderBuilderFactory) {
-      var SUFFIX = '/upload';
-
-      var self = this;
-
-      /* Public methods */
-      self.create = create;
-
-      function create() {
-         return new HttpFileUpload($http, OtusRestResourceContext, HeaderBuilderFactory);
-      }
-      return self;
-   }
-
-   function HttpFileUpload($http, OtusRestResourceContext, HeaderBuilderFactory) {
-      var self = this;
-      var _restPrefix, _token, _headers;
-      var SUFFIX = '/upload';
-
-      self.post = post;
-      self.getByOID = getByOID;
-      self.deleteByOID = deleteByOID;
-
-      _init();
-
-      function _init() {
-         _restPrefix = OtusRestResourceContext.getRestPrefix();
-         _token = OtusRestResourceContext.getSecurityToken();
-         _headers = HeaderBuilderFactory.create(_token);
-      }
-
-      function post(formData, canceler) {
-         _headers.setContentType(undefined);
-         return $http({
-            method: 'POST',
-            url: _restPrefix + SUFFIX,
-            data: formData,
-            headers: _headers.json,
-            timeout: canceler.promise,
-            transformRequest: angular.identity
-         });
-      }
-
-      function getByOID(oid) {
-         return $http({
-            method: 'POST',
-            url: _restPrefix + SUFFIX,
-            data: oid,
-            responseType: "arraybuffer",
-            headers: _headers.json
-         });
-      }
-
-      function deleteByOID(oid) {
-         return $http({
-            method: 'DELETE',
-            url: _restPrefix + SUFFIX + '/' + oid,
-            headers: _headers.json,
-         });
-
-      }
-
-      return self;
-   }
 
 }());
 

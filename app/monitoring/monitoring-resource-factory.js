@@ -96,7 +96,7 @@
           }
         },
         deleteNotAppliesOfExam: {
-          method: 'DELETE',
+          method: 'POST',
           url: restPrefix + SUFFIX + '/exams/progress/not-apply/delete',
           headers: headers.json,
            data: {
