@@ -6,9 +6,9 @@
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/monitoring';
     var ACTIVITIES_SX = '/activities';
-    var ACTIVITIES_PROGRESS_SX = '/progress';
+    var PROGRESS_SX = '/progress';
     var LABORATORY_SX = '/laboratory';
-    var EXAMS_PROGRESS_SX = '/progress';
+    var LABELS_SX = '/labels';
     var PARTICIPANT = '/participant';
     var CENTERS_SX = '/centers';
     var ACRONYM_SX = '/CISE';
@@ -60,11 +60,12 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACRONYM_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + CENTERS_SX).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + CENTER_SX).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + PARTICIPANT + PARAMETER_SX).respond(200, DATA_LIST);
-        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + NOT_APPLY_SX).respond(200, DATA);
-        httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + DELETE_NOT_APPLY_SX + PARAMETER_SX + ACRONYM_SX).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LABORATORY_SX + EXAMS_PROGRESS_SX + CENTER_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + PROGRESS_SX + CENTER_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + PROGRESS_SX + PARTICIPANT + PARAMETER_SX).respond(200, DATA_LIST);
+        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + PROGRESS_SX + NOT_APPLY_SX).respond(200, DATA);
+        httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + PROGRESS_SX + DELETE_NOT_APPLY_SX + PARAMETER_SX + ACRONYM_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LABORATORY_SX + PROGRESS_SX + CENTER_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LABORATORY_SX + PROGRESS_SX + LABELS_SX).respond(200, DATA);
       });
     });
 
@@ -95,6 +96,7 @@
         expect(factoryResult.listCenters).toBeDefined();
         expect(factoryResult.getActivitiesProgressReport).toBeDefined();
         expect(factoryResult.getExamsProgressReport).toBeDefined();
+        expect(factoryResult.getExamFlagReportLabels).toBeDefined();
         expect(factoryResult.getStatusOfActivities).toBeDefined();
         expect(factoryResult.defineActivityWithDoesNotApplies).toBeDefined();
         expect(factoryResult.deleteNotAppliesOfActivity).toBeDefined();
@@ -145,6 +147,13 @@
           var getExamsProgressReport = factoryResult.getExamsProgressReport(CENTER_PARAMETER);
           getExamsProgressReport.$promise.then(function (resultGetExamsProgressReport) {
             expect(resultGetExamsProgressReport.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getExamFlagReportLabels check', function () {
+          var examLabels = factoryResult.getExamFlagReportLabels();
+          examLabels.$promise.then(function (examLabel) {
+            expect(examLabel.data).toEqual(DATA_CONFIRMATION);
           });
         });
 

@@ -62,6 +62,11 @@
             'center': '@center'
           }
         },
+        getExamFlagReportLabels: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/laboratory/progress/labels",
+          headers: headers.json
+        },
         /* activities participant monitoring */
         getStatusOfActivities: {
           method: 'GET',
