@@ -54,6 +54,15 @@
             'center': '@center'
           }
         },
+        getExamsProgressReport: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/laboratory/progress/:center",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
+        },
+        /* activities participant monitoring */
         getStatusOfActivities: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/activities/progress/participant/:rn',

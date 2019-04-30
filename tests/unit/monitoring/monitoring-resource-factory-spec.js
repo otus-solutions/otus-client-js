@@ -7,6 +7,8 @@
     var SUFFIX = '/monitoring';
     var ACTIVITIES_SX = '/activities';
     var ACTIVITIES_PROGRESS_SX = '/progress';
+    var LABORATORY_SX = '/laboratory';
+    var EXAMS_PROGRESS_SX = '/progress';
     var PARTICIPANT = '/participant';
     var CENTERS_SX = '/centers';
     var ACRONYM_SX = '/CISE';
@@ -62,6 +64,7 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + PARTICIPANT + PARAMETER_SX).respond(200, DATA_LIST);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + NOT_APPLY_SX).respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + DELETE_NOT_APPLY_SX + PARAMETER_SX + ACRONYM_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LABORATORY_SX + EXAMS_PROGRESS_SX + CENTER_SX).respond(200, DATA);
       });
     });
 
@@ -91,6 +94,7 @@
         expect(factoryResult.find).toBeDefined();
         expect(factoryResult.listCenters).toBeDefined();
         expect(factoryResult.getActivitiesProgressReport).toBeDefined();
+        expect(factoryResult.getExamsProgressReport).toBeDefined();
         expect(factoryResult.getStatusOfActivities).toBeDefined();
         expect(factoryResult.defineActivityWithDoesNotApplies).toBeDefined();
         expect(factoryResult.deleteNotAppliesOfActivity).toBeDefined();
@@ -134,6 +138,13 @@
           var getActivitiesProgressReport = factoryResult.getActivitiesProgressReport(CENTER_PARAMETER);
           getActivitiesProgressReport.$promise.then(function (resultGetActivitiesProgressReport) {
             expect(resultGetActivitiesProgressReport.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getExamsProgressReport check', function () {
+          var getExamsProgressReport = factoryResult.getExamsProgressReport(CENTER_PARAMETER);
+          getExamsProgressReport.$promise.then(function (resultGetExamsProgressReport) {
+            expect(resultGetExamsProgressReport.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
