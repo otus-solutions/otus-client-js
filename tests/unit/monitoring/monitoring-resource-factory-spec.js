@@ -96,7 +96,7 @@
         expect(factoryResult.listCenters).toBeDefined();
         expect(factoryResult.getActivitiesProgressReport).toBeDefined();
         expect(factoryResult.getExamsFlagReport).toBeDefined();
-        expect(factoryResult.getExamFlagReportLabels).toBeDefined();
+        expect(factoryResult.getExamsFlagReportLabels).toBeDefined();
         expect(factoryResult.getStatusOfActivities).toBeDefined();
         expect(factoryResult.defineActivityWithDoesNotApplies).toBeDefined();
         expect(factoryResult.deleteNotAppliesOfActivity).toBeDefined();
@@ -150,8 +150,8 @@
           });
         });
 
-        it('getExamFlagReportLabels check', function () {
-          var examLabels = factoryResult.getExamFlagReportLabels();
+        it('getExamsFlagReportLabels check', function () {
+          var examLabels = factoryResult.getExamsFlagReportLabels();
           examLabels.$promise.then(function (examLabel) {
             expect(examLabel.data).toEqual(DATA_CONFIRMATION);
           });

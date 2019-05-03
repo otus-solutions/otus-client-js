@@ -64,7 +64,7 @@
             'center': '@center'
           }
         },
-        getExamFlagReportLabels: {
+        getExamsFlagReportLabels: {
           method: 'GET',
           url: restPrefix + SUFFIX + "/laboratory/progress/:center/labels",
           headers: headers.json,
