@@ -54,7 +54,9 @@
             'center': '@center'
           }
         },
-        getExamsProgressReport: {
+
+        /* Exam flag report */
+        getExamsFlagReport: {
           method: 'GET',
           url: restPrefix + SUFFIX + "/laboratory/progress/:center",
           headers: headers.json,
@@ -64,10 +66,14 @@
         },
         getExamFlagReportLabels: {
           method: 'GET',
-          url: restPrefix + SUFFIX + "/laboratory/progress/labels",
-          headers: headers.json
+          url: restPrefix + SUFFIX + "/laboratory/progress/:center/labels",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
         },
-        /* activities participant monitoring */
+
+        /* participant activities monitoring */
         getStatusOfActivities: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/activities/progress/participant/:rn',
