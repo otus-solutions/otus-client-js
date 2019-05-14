@@ -6,6 +6,7 @@
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/monitoring';
     var ACTIVITIES_SX = '/activities';
+    var EXAMS_SX = '/exams';
     var PROGRESS_SX = '/progress';
     var LABORATORY_SX = '/laboratory';
     var LABELS_SX = '/labels';
@@ -16,6 +17,7 @@
     var PARAMETER_SX = '/1234567';
     var NOT_APPLY_SX = '/not-apply';
     var DELETE_NOT_APPLY_SX = '/not-apply';
+    var DELETE = '/delete';
 
     var DATA = {
       'data': 'returnPromiseOK'
@@ -41,6 +43,7 @@
 
     var METHOD_GET_VALUE = "GET";
     var METHOD_PUT_VALUE = "PUT";
+    var METHOD_POST_VALUE = "POST";
     var METHOD_DELETE_VALUE = "DELETE";
 
     var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
@@ -64,6 +67,9 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + PROGRESS_SX + PARTICIPANT + PARAMETER_SX).respond(200, DATA_LIST);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + PROGRESS_SX + NOT_APPLY_SX).respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + PROGRESS_SX + DELETE_NOT_APPLY_SX + PARAMETER_SX + ACRONYM_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + EXAMS_SX + PROGRESS_SX + PARTICIPANT + PARAMETER_SX).respond(200, DATA_LIST);
+        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + EXAMS_SX + PROGRESS_SX + NOT_APPLY_SX).respond(200, DATA);
+        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + EXAMS_SX + PROGRESS_SX + DELETE_NOT_APPLY_SX + DELETE).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LABORATORY_SX + PROGRESS_SX + CENTER_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LABORATORY_SX + PROGRESS_SX + LABELS_SX).respond(200, DATA);
       });
@@ -100,6 +106,9 @@
         expect(factoryResult.getStatusOfActivities).toBeDefined();
         expect(factoryResult.defineActivityWithDoesNotApplies).toBeDefined();
         expect(factoryResult.deleteNotAppliesOfActivity).toBeDefined();
+        expect(factoryResult.getStatusOfExams).toBeDefined();
+        expect(factoryResult.defineExamWithDoesNotApplies).toBeDefined();
+        expect(factoryResult.deleteNotAppliesOfExam).toBeDefined();
       });
 
       describe('resourceMethods', function () {
@@ -175,6 +184,27 @@
           var deleteNotAppliesOfActivity = factoryResult.deleteNotAppliesOfActivity(DELETE_PARANS);
           deleteNotAppliesOfActivity.$promise.then(function (deleteNotAppliesOfActivity) {
             expect(deleteNotAppliesOfActivity.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getStatusOfExams check', function () {
+          var getStatusOfExams = factoryResult.getStatusOfExams(RN_PARAMETER);
+          getStatusOfExams.$promise.then(function (resultList) {
+            expect(resultList[0]).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('defineExamWithDoesNotApplies check', function () {
+          var defineExamWithDoesNotApplies = factoryResult.defineExamWithDoesNotApplies();
+          defineExamWithDoesNotApplies.$promise.then(function (resultDefineExamWithDoesNotApplies) {
+            expect(resultDefineExamWithDoesNotApplies.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('deleteNotAppliesOfExam check', function () {
+          var deleteNotAppliesOfExam = factoryResult.deleteNotAppliesOfExam();
+          deleteNotAppliesOfExam.$promise.then(function (deleteNotAppliesOfExam) {
+            expect(deleteNotAppliesOfExam.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
