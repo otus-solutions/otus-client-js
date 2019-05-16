@@ -54,6 +54,26 @@
             'center': '@center'
           }
         },
+
+        /* Exam flag report */
+        getExamsFlagReport: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/laboratory/progress/:center",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
+        },
+        getExamsFlagReportLabels: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/laboratory/progress/:center/labels",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
+        },
+
+        /* participant activities monitoring */
         getStatusOfActivities: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/activities/progress/participant/:rn',

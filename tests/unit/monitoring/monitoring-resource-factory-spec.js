@@ -7,7 +7,9 @@
     var SUFFIX = '/monitoring';
     var ACTIVITIES_SX = '/activities';
     var EXAMS_SX = '/exams';
-    var ACTIVITIES_PROGRESS_SX = '/progress';
+    var PROGRESS_SX = '/progress';
+    var LABORATORY_SX = '/laboratory';
+    var LABELS_SX = '/labels';
     var PARTICIPANT = '/participant';
     var CENTERS_SX = '/centers';
     var ACRONYM_SX = '/CISE';
@@ -61,13 +63,15 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACRONYM_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + CENTERS_SX).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + CENTER_SX).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + PARTICIPANT + PARAMETER_SX).respond(200, DATA_LIST);
-        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + NOT_APPLY_SX).respond(200, DATA);
-        httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + ACTIVITIES_PROGRESS_SX + DELETE_NOT_APPLY_SX + PARAMETER_SX + ACRONYM_SX).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + EXAMS_SX + ACTIVITIES_PROGRESS_SX + PARTICIPANT + PARAMETER_SX).respond(200, DATA_LIST);
-        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + EXAMS_SX + ACTIVITIES_PROGRESS_SX + NOT_APPLY_SX).respond(200, DATA);
-        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + EXAMS_SX + ACTIVITIES_PROGRESS_SX + DELETE_NOT_APPLY_SX + DELETE).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + PROGRESS_SX + CENTER_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + PROGRESS_SX + PARTICIPANT + PARAMETER_SX).respond(200, DATA_LIST);
+        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + PROGRESS_SX + NOT_APPLY_SX).respond(200, DATA);
+        httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + ACTIVITIES_SX + PROGRESS_SX + DELETE_NOT_APPLY_SX + PARAMETER_SX + ACRONYM_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + EXAMS_SX + PROGRESS_SX + PARTICIPANT + PARAMETER_SX).respond(200, DATA_LIST);
+        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + EXAMS_SX + PROGRESS_SX + NOT_APPLY_SX).respond(200, DATA);
+        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + EXAMS_SX + PROGRESS_SX + DELETE_NOT_APPLY_SX + DELETE).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LABORATORY_SX + PROGRESS_SX + CENTER_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LABORATORY_SX + PROGRESS_SX + LABELS_SX).respond(200, DATA);
       });
     });
 
@@ -97,6 +101,8 @@
         expect(factoryResult.find).toBeDefined();
         expect(factoryResult.listCenters).toBeDefined();
         expect(factoryResult.getActivitiesProgressReport).toBeDefined();
+        expect(factoryResult.getExamsFlagReport).toBeDefined();
+        expect(factoryResult.getExamsFlagReportLabels).toBeDefined();
         expect(factoryResult.getStatusOfActivities).toBeDefined();
         expect(factoryResult.defineActivityWithDoesNotApplies).toBeDefined();
         expect(factoryResult.deleteNotAppliesOfActivity).toBeDefined();
@@ -143,6 +149,20 @@
           var getActivitiesProgressReport = factoryResult.getActivitiesProgressReport(CENTER_PARAMETER);
           getActivitiesProgressReport.$promise.then(function (resultGetActivitiesProgressReport) {
             expect(resultGetActivitiesProgressReport.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getExamsFlagReport check', function () {
+          var getExamsFlagReport = factoryResult.getExamsFlagReport(CENTER_PARAMETER);
+          getExamsFlagReport.$promise.then(function (resultGetExamsProgressReport) {
+            expect(resultGetExamsProgressReport.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getExamsFlagReportLabels check', function () {
+          var examLabels = factoryResult.getExamsFlagReportLabels();
+          examLabels.$promise.then(function (examLabel) {
+            expect(examLabel.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
