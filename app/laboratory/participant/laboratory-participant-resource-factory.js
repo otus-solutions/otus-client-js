@@ -63,7 +63,6 @@
               'rn': '@rn'
           }
         },
-
         deleteAliquot: {
           method: 'DELETE',
           url: restPrefix + SUFFIX + '/aliquot/:code',
@@ -72,7 +71,6 @@
             'code' : '@code'
           }
         },
-
         updateAliquots: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/:rn/tubes/aliquots',
@@ -82,6 +80,14 @@
           },
           params: {
             'rn': '@rn'
+          }
+        },
+        convertAliquotRole: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/convert-aliquot-role',
+          headers: headers.json,
+          data: {
+            'convertedAliquot': '@convertedAliquot'
           }
         }
       });
