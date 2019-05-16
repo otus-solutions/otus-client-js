@@ -122,10 +122,10 @@
           });
         });
 
-        it('convertAliquotRoleMethod check', function () {
-          var convertAliquotRole = factoryResult.convertAliquotRole();
-          convertAliquotRole.$promise.then(function (resultConvertAliquotRole) {
-            expect(resultConvertAliquotRole.data).toEqual(DATA_CONFIRMATION);
+        it('convertStorageAliquotMethod check', function () {
+          var convertStorageAliquot = factoryResult.convertStorageAliquot();
+          convertStorageAliquot.$promise.then(function (resultConvertStorageAliquot) {
+            expect(resultConvertStorageAliquot.data).toEqual(DATA_CONFIRMATION);
           });
         });
       });

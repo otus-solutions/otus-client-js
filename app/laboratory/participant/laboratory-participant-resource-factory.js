@@ -82,7 +82,7 @@
             'rn': '@rn'
           }
         },
-        convertAliquotRole: {
+        convertStorageAliquot: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/convert-aliquot-role',
           headers: headers.json,
