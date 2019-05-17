@@ -972,6 +972,26 @@
             'center': '@center'
           }
         },
+
+        /* Exam flag report */
+        getExamsFlagReport: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/laboratory/progress/:center",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
+        },
+        getExamsFlagReportLabels: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/laboratory/progress/:center/labels",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
+        },
+
+        /* participant activities monitoring */
         getStatusOfActivities: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/activities/progress/participant/:rn',
@@ -995,6 +1015,30 @@
           params: {
             'rn': '@rn',
             'acronym': '@acronym'
+          }
+        },
+        getStatusOfExams: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/exams/progress/participant/:rn',
+          headers: headers.json,
+          params: {
+            'rn': '@rn'
+          }
+        },
+        defineExamWithDoesNotApplies: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/exams/progress/not-apply',
+          headers: headers.json,
+          data: {
+            'data': '@data'
+          }
+        },
+        deleteNotAppliesOfExam: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/exams/progress/not-apply/delete',
+          headers: headers.json,
+           data: {
+            'data': '@data'
           }
         }
       });
