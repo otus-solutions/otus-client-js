@@ -25,7 +25,7 @@
       var headers = HeaderBuilderFactory.create(token);
 
       return $resource({}, {}, {
-        exists: {
+        getCheckingExist: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/exists'
         },

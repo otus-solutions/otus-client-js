@@ -54,7 +54,7 @@
             });
 
             it('methodFactoryExistence check', function () {
-                expect(factoryResult.exists).toBeDefined();
+                expect(factoryResult.getCheckingExist).toBeDefined();
                 expect(factoryResult.getDescriptors).toBeDefined();
                 expect(factoryResult.getAliquotConfiguration).toBeDefined();
                 expect(factoryResult.getAliquotDescriptors).toBeDefined();
@@ -66,8 +66,8 @@
                     httpBackend.flush();
                 });
 
-                it('exists check', function () {
-                    var exists = factoryResult.exists();
+                it('getCheckingExist check', function () {
+                    var exists = factoryResult.getCheckingExist();
                     exists.$promise.then(function (resultGetDescriptors) {
                         expect(resultGetDescriptors.data).toEqual(DATA_CONFIRMATION);
                     });
