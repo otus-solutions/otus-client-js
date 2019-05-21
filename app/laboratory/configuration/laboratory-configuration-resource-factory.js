@@ -27,7 +27,8 @@
       return $resource({}, {}, {
         getCheckingExist: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/exists'
+          url: restPrefix + SUFFIX + '/exists',
+          headers: headers.json
         },
         getDescriptors: {
           method: 'GET',
