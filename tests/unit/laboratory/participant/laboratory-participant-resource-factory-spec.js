@@ -71,7 +71,7 @@
         expect(factoryResult.updateTubeCollectionData).toBeDefined();
         expect(factoryResult.deleteAliquot).toBeDefined();
         expect(factoryResult.updateAliquots).toBeDefined();
-        expect(factoryResult.convertAliquotRole).toBeDefined();
+        expect(factoryResult.convertStorageAliquot).toBeDefined();
       });
 
       describe('resourceMethods', function () {
