@@ -5,10 +5,11 @@
 
         var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
         var SUFFIX = '/laboratory-configuration';
+        var EXISTS = '/exists';
         var DESCRIPTOR_SX = '/descriptor';
         var ALIQUOT_CONFIGURATION_SX = '/aliquot-configuration';
-        var ALIQUOT_DESCRIPTORS_SX = '/aliquot-descriptors'       
-        var DATA = {'data': 'returnPromiseOK'};
+        var ALIQUOT_DESCRIPTORS_SX = '/aliquot-descriptors'
+        var DATA = { 'data': 'returnPromiseOK' };
         var DATA_CONFIRMATION = 'returnPromiseOK';
         var METHOD_GET_VALUE = "GET";
 
@@ -25,6 +26,7 @@
                 spyOn(otusRestResourceContext, 'getSecurityToken');
                 spyOn(headerBuilderFactory, 'create').and.callThrough();
                 httpBackend = _$injector_.get('$httpBackend');
+                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + EXISTS).respond(200, DATA);
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + DESCRIPTOR_SX).respond(200, DATA);
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ALIQUOT_CONFIGURATION_SX).respond(200, DATA);
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ALIQUOT_DESCRIPTORS_SX).respond(200, DATA);
@@ -52,15 +54,23 @@
             });
 
             it('methodFactoryExistence check', function () {
+                expect(factoryResult.getCheckingExist).toBeDefined();
                 expect(factoryResult.getDescriptors).toBeDefined();
                 expect(factoryResult.getAliquotConfiguration).toBeDefined();
-                expect(factoryResult.getAliquotDescriptors).toBeDefined();               
+                expect(factoryResult.getAliquotDescriptors).toBeDefined();
             });
 
             describe('resourceMethods', function () {
 
                 afterEach(function () {
                     httpBackend.flush();
+                });
+
+                it('getCheckingExist check', function () {
+                    var exists = factoryResult.getCheckingExist();
+                    exists.$promise.then(function (resultGetDescriptors) {
+                        expect(resultGetDescriptors.data).toEqual(DATA_CONFIRMATION);
+                    });
                 });
 
                 it('getDescriptorsMethod check', function () {
