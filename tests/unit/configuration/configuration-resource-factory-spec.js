@@ -9,10 +9,11 @@
         var ALL_SX = '/all';
         var ACRONYM_SX = '/ABCD';
         var TYPE_SX = '/type';
-        var PUBLISH_TEMPLATE_SX = '/publish/template';       
-        var DATA = {'data': 'returnPromiseOK'};
+        var VERSIONS = '/versions';
+        var PUBLISH_TEMPLATE_SX = '/publish/template';
+        var DATA = { 'data': 'returnPromiseOK' };
         var DATA_CONFIRMATION = 'returnPromiseOK';
-        var ACRONYM_PARAMETER = {'acronym': 'ABCD'};
+        var ACRONYM_PARAMETER = { 'acronym': 'ABCD' };
         var METHOD_GET_VALUE = "GET";
         var METHOD_PUT_VALUE = "PUT";
         var METHOD_POST_VALUE = "POST";
@@ -33,9 +34,11 @@
                 httpBackend = _$injector_.get('$httpBackend');
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX).respond(200, DATA);
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ALL_SX).respond(200, DATA);
+                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ACRONYM_SX).respond(200, DATA);
+                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ACRONYM_SX + VERSIONS).respond(200, DATA);
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ACRONYM_SX + TYPE_SX).respond(200, DATA);
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + PUBLISH_TEMPLATE_SX).respond(200, DATA);
-                httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ACRONYM_SX).respond(200, DATA);                          
+                httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ACRONYM_SX).respond(200, DATA);
             });
         });
 
@@ -62,9 +65,11 @@
             it('methodFactoryExistence check', function () {
                 expect(factoryResult.getSurveys).toBeDefined();
                 expect(factoryResult.getAllSurveys).toBeDefined();
+                expect(factoryResult.getSurveyVersions).toBeDefined();
+                expect(factoryResult.getAllSurveys).toBeDefined();
                 expect(factoryResult.updateSurveyTemplateType).toBeDefined();
                 expect(factoryResult.publishTemplate).toBeDefined();
-                expect(factoryResult.deleteSurveyTemplate).toBeDefined();                
+                expect(factoryResult.deleteSurveyTemplate).toBeDefined();
             });
 
             describe('resourceMethods', function () {
@@ -81,10 +86,24 @@
                 });
 
                 it('getAllSurveysMethod check', function () {
-                  var getAllSurveys = factoryResult.getAllSurveys();
-                  getAllSurveys.$promise.then(function (resultGetAllSurveys) {
-                    expect(resultGetAllSurveys.data).toEqual(DATA_CONFIRMATION);
-                  });
+                    var getAllSurveys = factoryResult.getAllSurveys();
+                    getAllSurveys.$promise.then(function (resultGetAllSurveys) {
+                        expect(resultGetAllSurveys.data).toEqual(DATA_CONFIRMATION);
+                    });
+                });
+
+                it('getByAcronymMethod check', function () {
+                    var response = factoryResult.updateSurveyTemplateType(ACRONYM_PARAMETER);
+                    response.$promise.then(function (SurveyTemplates) {
+                        expect(SurveyTemplates.data).toEqual(DATA_CONFIRMATION);
+                    });
+                });
+
+                it('getSurveyVersionsMethod check', function () {
+                    var response = factoryResult.getSurveyVersions(ACRONYM_PARAMETER);
+                    response.$promise.then(function (versions) {
+                        expect(versions.data).toEqual(DATA_CONFIRMATION);
+                    });
                 });
 
                 it('updateSurveyTemplateTypeMethod check', function () {
