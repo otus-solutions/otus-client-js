@@ -35,6 +35,19 @@
                url: restPrefix + SUFFIX + '/surveys/all',
                headers: headers.json
             },
+            getByAcronym: {
+               method: 'GET',
+               url: restPrefix + SUFFIX + '/surveys/:acronym',
+               headers: headers.json
+            },
+            getSurveyVersions: {
+               method: 'GET',
+               url: restPrefix + SUFFIX + '/surveys/:acronym/versions',
+               headers: headers.json,
+               params: {
+                'acronym': '@acronym'
+               }
+            },
             updateSurveyTemplateType: {
                method: 'PUT',
                url: restPrefix + SUFFIX + '/surveys/:acronym/type',
