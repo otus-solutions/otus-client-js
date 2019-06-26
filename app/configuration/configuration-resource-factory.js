@@ -12,7 +12,7 @@
     ];
 
    function Factory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-      var SUFFIX = '/configuration';      
+      var SUFFIX = '/configuration';
 
       var self = this;
       self.create = create;
@@ -38,7 +38,10 @@
             getByAcronym: {
                method: 'GET',
                url: restPrefix + SUFFIX + '/surveys/:acronym',
-               headers: headers.json
+               headers: headers.json,
+               params: {
+                'acronym': '@acronym'
+               }
             },
             getSurveyVersions: {
                method: 'GET',
