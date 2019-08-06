@@ -28,7 +28,7 @@
           url: restPrefix + SUFFIX,
           headers: headers.json,
           data: {
-              'request': '@request'
+              'data': '@data'
           }
         }
       });
