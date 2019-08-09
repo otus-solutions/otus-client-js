@@ -5,7 +5,7 @@ describe('RestResourceService', function () {
   var dataExtractionResourceFactory, participantResourceFactory, laboratoryParticipantResourceFactory, laboratoryConfigurationResourceFactory;
   var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory, monitoringResourceFactory;
   var passwordResetResourceFactory, permissionConfigurationResourceFactory, surveyGroupResourceFactory, userPermissionResourceFactory;
-  var laboratoryMonitoringResourceFactory;
+  var laboratoryMonitoringResourceFactory, staticVariableResourceFactory;
 
   beforeEach(function () {
     angular.mock.module('otus.client');
@@ -37,6 +37,7 @@ describe('RestResourceService', function () {
       permissionConfigurationResourceFactory = _$injector_.get('otus.client.PermissionConfigurationResourceFactory');
       userPermissionResourceFactory = _$injector_.get('otus.client.UserPermissionResourceFactory');
       surveyGroupResourceFactory = _$injector_.get('otus.client.SurveyGroupResourceFactory');
+      staticVariableResourceFactory = _$injector_.get('otus.client.StaticVariableResourceFactory');
 
       spyOn(otusRestResourceContext, 'hasToken').and.callThrough();
       spyOn(otusRestResourceContext, 'reset').and.callThrough();
@@ -69,6 +70,7 @@ describe('RestResourceService', function () {
       spyOn(permissionConfigurationResourceFactory, 'create').and.callThrough();
       spyOn(userPermissionResourceFactory, 'create').and.callThrough();
       spyOn(surveyGroupResourceFactory, 'create').and.callThrough();
+      spyOn(staticVariableResourceFactory, 'create').and.callThrough();
     });
   });
 
@@ -108,6 +110,7 @@ describe('RestResourceService', function () {
       expect(service.getPermissionConfigurationResource).toBeDefined();
       expect(service.getUserPermissionResource).toBeDefined();
       expect(service.getSurveyGroupResource).toBeDefined();
+      expect(service.getStaticVariableResource).toBeDefined();
     });
 
     describe('serviceMethods', function () {
@@ -267,6 +270,11 @@ describe('RestResourceService', function () {
       it('getSurveyGroupResourceMethod check', function () {
         service.getSurveyGroupResource();
         expect(surveyGroupResourceFactory.create).toHaveBeenCalledTimes(1);
+      });
+
+      it('getStaticVariableResource check', function () {
+        service.getStaticVariableResource();
+        expect(staticVariableResourceFactory.create).toHaveBeenCalledTimes(1);
       });
     });
   });
