@@ -47,6 +47,15 @@
           }
         },
 
+        getActivityReport: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/activity-report/:id',
+          headers: headers.json,
+          params: {
+            'id': '@id'
+          }
+        },
+
         update: {
           method: 'PUT',
           url: restPrefix + SUFFIX ,
@@ -55,7 +64,7 @@
             'reportTemplate': '@reportTemplate'
           }
         },
-        
+
         remove: {
           method: 'DELETE',
           url: restPrefix + SUFFIX + '/:id',
