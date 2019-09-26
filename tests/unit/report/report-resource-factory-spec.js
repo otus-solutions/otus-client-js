@@ -5,8 +5,9 @@
 
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/report';
+    var ACTIVITY_REPORT = '/activity-report';
     var PARTICIPANT_SX = '/participant';
-    var LIST_SX = '/list';    
+    var LIST_SX = '/list';
     var ID_SX = '/1234567';
     var RN_SX = '/7654321';
     var DATA = {'data': 'returnPromiseOK'};
@@ -39,7 +40,7 @@
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + ID_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + PARTICIPANT_SX + LIST_SX +RN_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + PARTICIPANT_SX + RN_SX + ID_SX).respond(200, DATA);
-        
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REPORT + ID_SX).respond(200, DATA);
       });
     });
 
@@ -71,6 +72,7 @@
         expect(factoryResult.remove).toBeDefined();
         expect(factoryResult.list).toBeDefined();
         expect(factoryResult.getByRecruitmentNumber).toBeDefined();
+        expect(factoryResult.getActivityReport).toBeDefined();
       });
 
       describe('resourceMethods', function () {
@@ -99,7 +101,7 @@
             expect(resultGetById.data).toEqual(DATA_CONFIRMATION);
           });
         });
-        
+
         it('updateMethod check', function () {
           var update = factoryResult.update();
           update.$promise.then(function (resultUpdate) {
@@ -114,7 +116,7 @@
             expect(resultRemove.data).toEqual(DATA_CONFIRMATION);
           });
         });
-        
+
         it('listMethod check', function () {
           var list = factoryResult.list(RN_PARAMETER);
           list.$promise.then(function (resultList) {
@@ -124,8 +126,15 @@
 
         it('getByRecruitmentNumberMethod check', function () {
           var getByRecruitmentNumber = factoryResult.getByRecruitmentNumber(ID_RN_PARAMETER);
-          getByRecruitmentNumber.$promise.then(function (resultgetByRecruitmentNumber) {
-            expect(resultgetByRecruitmentNumber.data).toEqual(DATA_CONFIRMATION);
+          getByRecruitmentNumber.$promise.then(function (resultGetByRecruitmentNumber) {
+            expect(resultGetByRecruitmentNumber.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getActivityReportMethod check', function () {
+          var getActivityReport = factoryResult.getActivityReport(ID_PARAMETER);
+          getActivityReport.$promise.then(function (resultGetActivityReport) {
+            expect(resultGetActivityReport.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
