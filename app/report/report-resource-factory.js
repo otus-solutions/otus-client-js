@@ -47,6 +47,42 @@
           }
         },
 
+        createActivityReport: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/activity-report',
+          headers: headers.json,
+          data: {
+              'reportTemplate': '@reportTemplate'
+          }
+        },
+
+        getActivityReport: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/activity-report/:id',
+          headers: headers.json,
+          params: {
+            'id': '@id'
+          }
+        },
+
+        getActivityReportList: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/activity-report/:acronym',
+          headers: headers.json,
+          params: {
+            'acronym': '@acronym'
+          }
+        },
+
+        updateActivityReport: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/activity-report/update/:id',
+          headers: headers.json,
+          params: {
+            'id': '@id'
+          }
+        },
+
         update: {
           method: 'PUT',
           url: restPrefix + SUFFIX ,
@@ -55,7 +91,7 @@
             'reportTemplate': '@reportTemplate'
           }
         },
-        
+
         remove: {
           method: 'DELETE',
           url: restPrefix + SUFFIX + '/:id',
