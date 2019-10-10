@@ -7,13 +7,16 @@
     var SUFFIX = '/report';
     var ACTIVITY_REPORT = '/activity-report';
     var PARTICIPANT_SX = '/participant';
+    var UPDATE_SX = '/update';
     var LIST_SX = '/list';
     var ID_SX = '/1234567';
     var RN_SX = '/7654321';
+    var ACRONYM_SX = '/ACTA';
     var DATA = {'data': 'returnPromiseOK'};
     var DATA_CONFIRMATION = 'returnPromiseOK';
     var ID_PARAMETER = {'id': 1234567};
     var RN_PARAMETER = {'rn': 7654321};
+    var ACRONYM_PARAMETER = {'acronym': 'ACTA'};
     var ID_RN_PARAMETER = {'id': 1234567,'rn': 7654321};
     var METHOD_GET_VALUE = "GET";
     var METHOD_POST_VALUE = "POST";
@@ -38,9 +41,12 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ID_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + ID_SX).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + PARTICIPANT_SX + LIST_SX +RN_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + PARTICIPANT_SX + LIST_SX + RN_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + PARTICIPANT_SX + RN_SX + ID_SX).respond(200, DATA);
+        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REPORT).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REPORT + ID_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REPORT + ACRONYM_SX).respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REPORT + UPDATE_SX + ID_SX).respond(200, DATA);
       });
     });
 
@@ -72,7 +78,10 @@
         expect(factoryResult.remove).toBeDefined();
         expect(factoryResult.list).toBeDefined();
         expect(factoryResult.getByRecruitmentNumber).toBeDefined();
+        expect(factoryResult.createActivityReport).toBeDefined();
         expect(factoryResult.getActivityReport).toBeDefined();
+        expect(factoryResult.getActivityReportList).toBeDefined();
+        expect(factoryResult.updateActivityReport).toBeDefined();
       });
 
       describe('resourceMethods', function () {
@@ -131,10 +140,31 @@
           });
         });
 
+        it('createActivityReportMethod check', function () {
+          var createActivityReport = factoryResult.createActivityReport();
+          createActivityReport.$promise.then(function (resultCreateActivityReport) {
+            expect(resultCreateActivityReport.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
         it('getActivityReportMethod check', function () {
           var getActivityReport = factoryResult.getActivityReport(ID_PARAMETER);
           getActivityReport.$promise.then(function (resultGetActivityReport) {
             expect(resultGetActivityReport.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getActivityReportListMethod check', function () {
+          var getActivityReportList = factoryResult.getActivityReportList(ACRONYM_PARAMETER);
+          getActivityReportList.$promise.then(function (resultGetActivityReportList) {
+            expect(resultGetActivityReportList.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('updateActivityReportMethod check', function () {
+          var updateActivityReport = factoryResult.updateActivityReport(ID_PARAMETER);
+          updateActivityReport.$promise.then(function (resultUpdateActivityReport) {
+            expect(resultUpdateActivityReport.data).toEqual(DATA_CONFIRMATION);
           });
         });
 

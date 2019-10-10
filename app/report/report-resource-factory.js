@@ -65,7 +65,7 @@
           }
         },
 
-        getReportList: {
+        getActivityReportList: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/activity-report/:acronym',
           headers: headers.json,
