@@ -45,7 +45,7 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + PARTICIPANT_SX + RN_SX + ID_SX).respond(200, DATA);
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REPORT).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REPORT + ID_SX).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REPORT + ACRONYM_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REPORT + LIST_SX + ACRONYM_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REPORT + UPDATE_SX + ID_SX).respond(200, DATA);
       });
     });
