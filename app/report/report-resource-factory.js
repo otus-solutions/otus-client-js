@@ -80,6 +80,9 @@
           headers: headers.json,
           params: {
             'id': '@id'
+          },
+          data: {
+            'reportTemplate': '@reportTemplate'
           }
         },
 
