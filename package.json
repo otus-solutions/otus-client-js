@@ -1,6 +1,6 @@
 {
   "name": "otus-client-js",
-  "version": "0.0.2-SNAPSHOT",
+  "version": "1.18.0",
   "description": "Client EndPoints Otus",
   "keywords": [
     "otus-client-js",
@@ -18,7 +18,8 @@
     "gulp": "gulp",
     "karma": "karma",
     "build": "gulp compress",
-    "start": "npm run gulp browser-sync"
+    "start": "npm run gulp browser-sync",
+    "production": "npm install && npm test && npm run build && npm prune --production"
   },
   "dependencies": {
     "angular": "^1.4.9",
