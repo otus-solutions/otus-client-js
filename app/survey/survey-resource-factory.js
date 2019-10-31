@@ -30,11 +30,13 @@
           url: restPrefix + SUFFIX + '/list',
           headers: headers.json
         },
+
         listAll: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/list/all',
           headers: headers.json
         },
+
         updateSurveyRequiredExternalID: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/update-required-external-id',
@@ -43,6 +45,7 @@
             'requiredExternalId': '@requiredExternalId'
           }
         }
+
       });
     }
 

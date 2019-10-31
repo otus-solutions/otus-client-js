@@ -39,7 +39,6 @@
           url: restPrefix + SUFFIX + '/groups',
           headers: headers.json
         },
-
         updateSurveyGroupName: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/update-group-name',

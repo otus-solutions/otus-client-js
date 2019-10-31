@@ -6,11 +6,11 @@
         var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
         var SUFFIX = '/survey';
         var LIST_SX = '/list';
-        // var LIST_INDEXERS_SX = '/list-indexers';
+        var UPDATE_EXT_ID = '/update-required-external-id';
         var DATA = {'data': 'returnPromiseOK'};
-        // var DATA_LIST = ['returnPromiseOK']
         var DATA_CONFIRMATION = 'returnPromiseOK';
         var METHOD_GET_VALUE = "GET";
+        var METHOD_PUT_VALUE = "PUT";
 
         var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
         var httpBackend;
@@ -25,7 +25,8 @@
                 spyOn(otusRestResourceContext, 'getSecurityToken');
                 spyOn(headerBuilderFactory, 'create').and.callThrough();
                 httpBackend = _$injector_.get('$httpBackend');
-                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LIST_SX).respond(200, DATA);                
+                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LIST_SX).respond(200, DATA);
+                httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + UPDATE_EXT_ID).respond(200, DATA);
             });
         });
 
@@ -50,11 +51,12 @@
             });
 
             it('methodFactoryExistence check', function () {
-                expect(factoryResult.list).toBeDefined();                
+                expect(factoryResult.list).toBeDefined();
+                expect(factoryResult.listAll).toBeDefined();
+                expect(factoryResult.updateSurveyRequiredExternalID).toBeDefined();
             });
 
             describe('resourceMethods', function () {
-
                 afterEach(function () {
                     httpBackend.flush();
                 });
@@ -65,6 +67,13 @@
                         expect(resultList.data).toEqual(DATA_CONFIRMATION);
                     });
                 });
+
+                it('updateSurveyRequiredExternalID check', function (){
+                  var updateSurveyRequiredExternalID = factoryResult.updateSurveyRequiredExternalID();
+                  updateSurveyRequiredExternalID.$promise.then(function (resultUpdate) {
+                    expect(resultUpdate.data).toEqual(DATA_CONFIRMATION)
+                  });
+              });
             });
         });
     });
