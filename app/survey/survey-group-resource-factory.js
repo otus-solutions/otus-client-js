@@ -71,6 +71,15 @@
           method: 'GET',
           url: restPrefix + SUFFIX + '/groups-by-user',
           headers: headers.json
+        },
+
+        updateSurveyRequiredExternalID: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/update-required-external-id',
+          headers: headers.json,
+          data: {
+            'requiredExternalId': '@requiredExternalId'
+          }
         }
       });
     }
