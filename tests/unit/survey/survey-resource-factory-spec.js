@@ -6,7 +6,8 @@
         var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
         var SUFFIX = '/survey';
         var LIST_SX = '/list';
-        var UPDATE_EXT_ID = '/update-required-external-id';
+        var UPDATE_EXT_ID = '/update-required-external-id/1234567';
+        var ID_PARAMETER = {'id': 1234567};
         var DATA = {'data': 'returnPromiseOK'};
         var DATA_CONFIRMATION = 'returnPromiseOK';
         var METHOD_GET_VALUE = "GET";
@@ -69,7 +70,7 @@
                 });
 
                 it('updateSurveyRequiredExternalID check', function (){
-                  var updateSurveyRequiredExternalID = factoryResult.updateSurveyRequiredExternalID();
+                  var updateSurveyRequiredExternalID = factoryResult.updateSurveyRequiredExternalID(ID_PARAMETER);
                   updateSurveyRequiredExternalID.$promise.then(function (resultUpdate) {
                     expect(resultUpdate.data).toEqual(DATA_CONFIRMATION)
                   });

@@ -39,16 +39,17 @@
 
         updateSurveyRequiredExternalID: {
           method: 'PUT',
-          url: restPrefix + SUFFIX + '/update-required-external-id',
+          url: restPrefix + SUFFIX + '/update-required-external-id/:id',
           headers: headers.json,
+          params:{
+            'id':'@id'
+          },
           data: {
             'requiredExternalId': '@requiredExternalId'
           }
         }
-
       });
     }
-
     return self;
   }
 
