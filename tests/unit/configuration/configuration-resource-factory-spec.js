@@ -18,6 +18,8 @@
         var METHOD_PUT_VALUE = "PUT";
         var METHOD_POST_VALUE = "POST";
         var METHOD_DELETE_VALUE = "DELETE";
+        var ID_PARAMETER = {'id': 1234567};
+        var UPDATE_EXT_ID = 'surveys/update-required-external-id/1234567';
 
         var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
         var httpBackend;
@@ -39,6 +41,7 @@
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ACRONYM_SX + TYPE_SX).respond(200, DATA);
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + PUBLISH_TEMPLATE_SX).respond(200, DATA);
                 httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ACRONYM_SX).respond(200, DATA);
+                httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + UPDATE_EXT_ID).respond(200, DATA);
             });
         });
 
@@ -70,6 +73,7 @@
                 expect(factoryResult.updateSurveyTemplateType).toBeDefined();
                 expect(factoryResult.publishTemplate).toBeDefined();
                 expect(factoryResult.deleteSurveyTemplate).toBeDefined();
+                expect(factoryResult.updateSurveyRequiredExternalID).toBeDefined();
             });
 
             describe('resourceMethods', function () {
@@ -126,6 +130,14 @@
                         expect(resultDeleteSurveyTemplate.data).toEqual(DATA_CONFIRMATION);
                     });
                 });
+
+              it('updateSurveyRequiredExternalID check', function (){
+                var updateSurveyRequiredExternalID = factoryResult.updateSurveyRequiredExternalID(ID_PARAMETER);
+                updateSurveyRequiredExternalID.$promise.then(function (resultUpdate) {
+                  expect(resultUpdate.data).toEqual(DATA_CONFIRMATION)
+                });
+              });
+
             });
         });
     });
