@@ -37,17 +37,17 @@
           headers: headers.json
         },
 
-        updateSurveyRequiredExternalID: {
-          method: 'PUT',
-          url: restPrefix + SUFFIX + '/update-required-external-id/:id',
-          headers: headers.json,
-          params:{
-            'id':'@id'
-          },
-          data: {
-            'requiredExternalId': '@requiredExternalId'
-          }
-        }
+        // updateSurveyRequiredExternalID: {
+        //   method: 'PUT',
+        //   url: restPrefix + SUFFIX + '/update-required-external-id/:id',
+        //   headers: headers.json,
+        //   params:{
+        //     'id':'@id'
+        //   },
+        //   data: {
+        //     'requiredExternalId': '@requiredExternalId'
+        //   }
+        // }
       });
     }
     return self;
