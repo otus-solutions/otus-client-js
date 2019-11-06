@@ -81,7 +81,7 @@
                'id':'@id'
              },
              data: {
-               'requiredExternalId': '@requiredExternalId'
+               'requiredExternalID': '@requiredExternalID'
              }
            }
          };
