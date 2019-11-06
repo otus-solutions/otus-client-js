@@ -75,7 +75,7 @@
 
            updateSurveyRequiredExternalID: {
              method: 'PUT',
-             url: restPrefix + SUFFIX + 'surveys/update-required-external-id/:id',
+             url: restPrefix + SUFFIX + '/surveys/update-required-external-id/:id',
              headers: headers.json,
              params:{
                'id':'@id'
