@@ -6,8 +6,10 @@
         var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
         var SUFFIX = '/configuration';
         var SURVEYS_SX = '/surveys';
+        var UPDATE_EXTERNAL_SX = '/update-required-external-id';
         var ALL_SX = '/all';
         var ACRONYM_SX = '/ABCD';
+        var ID_SX = '/1234567';
         var TYPE_SX = '/type';
         var VERSIONS = '/versions';
         var PUBLISH_TEMPLATE_SX = '/publish/template';
@@ -19,7 +21,6 @@
         var METHOD_POST_VALUE = "POST";
         var METHOD_DELETE_VALUE = "DELETE";
         var ID_PARAMETER = {'id': 1234567};
-        var UPDATE_EXT_ID = 'surveys/update-required-external-id/1234567';
 
         var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
         var httpBackend;
@@ -41,7 +42,7 @@
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ACRONYM_SX + TYPE_SX).respond(200, DATA);
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + PUBLISH_TEMPLATE_SX).respond(200, DATA);
                 httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + ACRONYM_SX).respond(200, DATA);
-                httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + UPDATE_EXT_ID).respond(200, DATA);
+                httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + SURVEYS_SX + UPDATE_EXTERNAL_SX + ID_SX).respond(200, DATA);
             });
         });
 
