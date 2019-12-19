@@ -3,16 +3,16 @@
 
   angular
     .module('otus.client')
-    .factory('otus.client.ActivityReviewPendencyFactory', ActivityReviewPendencyFactory);
+    .factory('otus.client.UserActivityPendencyFactory', UserActivityPendencyFactory);
 
-  ActivityReviewPendencyFactory.$inject = [
+  UserActivityPendencyFactory.$inject = [
     '$resource',
     'OtusRestResourceContext',
     'otus.client.HeaderBuilderFactory'
   ];
 
-  function ActivityReviewPendencyFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/pendency/activity-review-pendency';
+  function UserActivityPendencyFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+    var SUFFIX = '/pendency/user-activity-pendency';
 
     var self = this;
 
@@ -30,7 +30,7 @@
           url: restPrefix + SUFFIX,
           headers: headers.json,
           data: {
-            'pendencyActivityReview': '@pendencyActivityReview'
+            'userActivityPendency': '@userActivityPendency'
           }
         },
         update: {
@@ -38,26 +38,27 @@
           url: restPrefix + SUFFIX + '/:id',
           headers: headers.json,
           data: {
-            'pendencyActivityReview': '@pendencyActivityReview'
+            'userActivityPendency': '@userActivityPendency'
           },
           params: {
             'id': '@id'
           }
         },
-        getAllByUser: {
+        get: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/:id',
+          url: restPrefix + SUFFIX + '/:id' + '/:state',
           headers: headers.json,
           params: {
-            'id': '@id'
+            'id': '@id',
+            'state': '@state'
           }
         },
-        deleteById: {
+        delete: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/:id',
           headers: headers.json,
           data: {
-            'pendencyActivityReview': '@pendencyActivityReview'
+            'userActivityPendency': '@userActivityPendency'
           },
           params: {
             'id': '@id'
