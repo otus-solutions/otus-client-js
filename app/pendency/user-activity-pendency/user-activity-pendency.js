@@ -53,8 +53,16 @@
             'state': '@state'
           }
         },
+        getByActivityId: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/:activityId',
+          headers: headers.json,
+          params: {
+            'activityId': '@activityId'
+          }
+        },
         delete: {
-          method: 'PUT',
+          method: 'DELETE',
           url: restPrefix + SUFFIX + '/:id',
           headers: headers.json,
           data: {
