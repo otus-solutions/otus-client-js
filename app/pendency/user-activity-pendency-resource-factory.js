@@ -44,6 +44,8 @@
             'id': '@id'
           }
         },
+
+        //getPendencyByState
         get: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/:id' + '/:state',

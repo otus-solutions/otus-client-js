@@ -33,7 +33,8 @@
     'otus.client.PermissionConfigurationResourceFactory',
     'otus.client.UserPermissionResourceFactory',
     'otus.client.ActivityImportationResourceFactory',
-    'otus.client.StaticVariableResourceFactory'
+    'otus.client.StaticVariableResourceFactory',
+    'otus.client.UserActivityPendencyResourceFactory'
   ];
 
   function OtusRestResourceService(
@@ -64,7 +65,8 @@
     PermissionConfigurationResourceFactory,
     UserPermissionResourceFactory,
     ActivityImportationResourceFactory,
-    StaticVariableResourceFactory
+    StaticVariableResourceFactory,
+    UserActivityPendencyResourceFactory
   ) {
     var self = this;
 
@@ -101,6 +103,7 @@
     self.getUserPermissionResource = getUserPermissionResource;
     self.getStaticVariableResource = getStaticVariableResource;
     self.getActivityImportationResource = getActivityImportationResource;
+    self.getUserActivityPendencyResource = getUserActivityPendencyResource;
 
     function isLogged() {
       return OtusRestResourceContext.hasToken();
@@ -232,6 +235,10 @@
 
     function getStaticVariableResource() {
       return StaticVariableResourceFactory.create();
+    }
+
+    function getUserActivityPendencyResource() {
+      return UserActivityPendencyResourceFactory.create();
     }
   }
 }());
