@@ -3,15 +3,15 @@
 
   angular
     .module('otus.client')
-    .factory('otus.client.UserActivityPendencyFactory', UserActivityPendencyFactory);
+    .factory('otus.client.UserActivityPendencyResourceFactory', UserActivityPendencyResourceFactory);
 
-  UserActivityPendencyFactory.$inject = [
+  UserActivityPendencyResourceFactory.$inject = [
     '$resource',
     'OtusRestResourceContext',
     'otus.client.HeaderBuilderFactory'
   ];
 
-  function UserActivityPendencyFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+  function UserActivityPendencyResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
     var SUFFIX = '/pendency/user-activity-pendency';
 
     var self = this;
