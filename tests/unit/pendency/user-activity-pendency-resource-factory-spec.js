@@ -1,18 +1,20 @@
 (function(){
   'use strict';
 
-  describe('UserActivityPendencyFactory', function () {
+  describe('UserActivityPendencyResourceFactory', function () {
 
     var DATA = {'data': 'returnPromiseOK'};
     var METHOD_POST_VALUE = "POST";
     var METHOD_GET_VALUE = "GET";
     var METHOD_PUT_VALUE = "PUT";
+    var METHOD_DELETE_VALUE = "DELETE";
     var ID_PARAMETER = { "id" : 1234567 };
-    var STATE_PARAMETER = { "state": "someState" };
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/pendency/user-activity-pendency';
     var SUFFIX_WITH_ID = SUFFIX + '/1234567';
-    var SUFFIX_WITH_ID_STATE = SUFFIX_WITH_ID + '/someState';
+    var SUFFIX_GET = SUFFIX + "/list";
+    var SUFFIX_GET_OPENED = SUFFIX_GET + "/opened";
+    var SUFFIX_GET_DONE = SUFFIX_GET + "/done";
     var DATA_CONFIRMATION = 'returnPromiseOK';
 
     var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
@@ -21,7 +23,7 @@
     beforeEach(function(){
       angular.mock.module('otus.client');
       angular.mock.inject(function (_$injector_) {
-        factory = _$injector_.get('otus.client.UserActivityPendencyFactory');
+        factory = _$injector_.get('otus.client.UserActivityPendencyResourceFactory');
         otusRestResourceContext = _$injector_.get('OtusRestResourceContext');
         headerBuilderFactory = _$injector_.get('otus.client.HeaderBuilderFactory');
         spyOn(otusRestResourceContext, 'getRestPrefix').and.callThrough();
@@ -30,9 +32,10 @@
         httpBackend = _$injector_.get('$httpBackend');
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX_WITH_ID).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_WITH_ID).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_WITH_ID_STATE).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_OPENED).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_DONE).respond(200, DATA);
+        httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX_WITH_ID).respond(200, DATA);
       });
     });
 
@@ -45,7 +48,6 @@
     });
 
     describe('factoryInstance', function () {
-
       beforeEach(function () {
         factoryResult = factory.create();
       });
@@ -59,19 +61,23 @@
       it('methodFactoryExistence check', function () {
         expect(factoryResult.create).toBeDefined();
         expect(factoryResult.update).toBeDefined();
-        expect(factoryResult.getAll).toBeDefined();
-        expect(factoryResult.deleteById).toBeDefined();
+        expect(factoryResult.getAllPendencies).toBeDefined();
+        expect(factoryResult.getOpenedPendencies).toBeDefined();
+        expect(factoryResult.getDonePendencies).toBeDefined();
+        expect(factoryResult.getByActivityId).toBeDefined();
+        expect(factoryResult.delete).toBeDefined();
       });
 
       describe('resourceMethods', function () {
-
         afterEach(function () {
           httpBackend.flush();
         });
 
         it('createMethod check', function () {
           var create = factoryResult.create();
+          console.log(create);
           create.$promise.then(function (resultCreate) {
+            console.log(resultCreate);
             expect(resultCreate.data).toEqual(DATA_CONFIRMATION);
           });
         });
@@ -83,8 +89,23 @@
           });
         });
 
-        it('getMethod check', function () {
-          var get = factoryResult.get(ID_PARAMETER, STATE_PARAMETER);
+        it('getAllPendenciesMethod check', function () {
+          var get = factoryResult.getAllPendencies();
+          get.$promise.then(function (resultGetAll) {
+            expect(resultGetAll.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getOpenedPendenciesMethod check', function () {
+          var get = factoryResult.getOpenedPendencies();
+          get.$promise.then(function (resultGetAll) {
+            expect(resultGetAll.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getDonePendenciesMethod check', function () {
+          var get = factoryResult.getDonePendencies();
+          console.log(get);
           get.$promise.then(function (resultGetAll) {
             expect(resultGetAll.data).toEqual(DATA_CONFIRMATION);
           });
