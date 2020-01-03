@@ -44,14 +44,20 @@
             'id': '@id'
           }
         },
-        get: {
+        getAllPendencies: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/:id' + '/:state',
-          headers: headers.json,
-          params: {
-            'id': '@id',
-            'state': '@state'
-          }
+          url: restPrefix + SUFFIX + '/list',
+          headers: headers.json
+        },
+        getOpenedPendencies: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/list/opened',
+          headers: headers.json
+        },
+        getDonePendencies: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/list/done',
+          headers: headers.json
         },
         getByActivityId: {
           method: 'GET',
@@ -65,9 +71,6 @@
           method: 'DELETE',
           url: restPrefix + SUFFIX + '/:id',
           headers: headers.json,
-          data: {
-            'userActivityPendency': '@userActivityPendency'
-          },
           params: {
             'id': '@id'
           }
