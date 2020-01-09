@@ -71,7 +71,19 @@
                method: 'DELETE',
                url: restPrefix + SUFFIX + '/surveys/:acronym',
                headers: headers.json
-            }
+            },
+
+           updateSurveyRequiredExternalID: {
+             method: 'PUT',
+             url: restPrefix + SUFFIX + '/surveys/update-required-external-id/:id',
+             headers: headers.json,
+             params:{
+               'id':'@id'
+             },
+             data: {
+               'requiredExternalID': '@requiredExternalID'
+             }
+           }
          };
          return $resource({}, {}, config);
       }
