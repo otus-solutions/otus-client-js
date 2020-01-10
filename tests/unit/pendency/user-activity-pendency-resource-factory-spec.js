@@ -12,9 +12,13 @@
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/pendency/user-activity-pendency';
     var SUFFIX_WITH_ID = SUFFIX + '/1234567';
-    var SUFFIX_GET = SUFFIX + "/list";
-    var SUFFIX_GET_OPENED = SUFFIX_GET + "/opened";
-    var SUFFIX_GET_DONE = SUFFIX_GET + "/done";
+    var SUFFIX_GET_LIST = SUFFIX + "/list";
+    var SUFFIX_GET_LIST_RECEIVER = SUFFIX_GET_LIST + "/receiver";
+    var SUFFIX_GET_LIST_REQUESTER = SUFFIX_GET_LIST + "/requester";
+    var SUFFIX_GET_LIST_OPENED_RECEIVER = SUFFIX_GET_LIST_RECEIVER + "/opened";
+    var SUFFIX_GET_LIST_DONE_RECEIVER = SUFFIX_GET_LIST_RECEIVER + "/done";
+    var SUFFIX_GET_LIST_OPENED_REQUESTER = SUFFIX_GET_LIST_REQUESTER + "/opened";
+    var SUFFIX_GET_LIST_DONE_REQUESTER = SUFFIX_GET_LIST_REQUESTER + "/done";
     var DATA_CONFIRMATION = 'returnPromiseOK';
 
     var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
@@ -32,9 +36,12 @@
         httpBackend = _$injector_.get('$httpBackend');
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX_WITH_ID).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_OPENED).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_DONE).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_LIST_RECEIVER ).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_LIST_OPENED_RECEIVER ).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_LIST_DONE_RECEIVER ).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_LIST_REQUESTER).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_LIST_OPENED_REQUESTER).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_LIST_DONE_REQUESTER).respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX_WITH_ID).respond(200, DATA);
       });
     });
@@ -61,9 +68,12 @@
       it('methodFactoryExistence check', function () {
         expect(factoryResult.create).toBeDefined();
         expect(factoryResult.update).toBeDefined();
-        expect(factoryResult.getAllPendencies).toBeDefined();
-        expect(factoryResult.getOpenedPendencies).toBeDefined();
-        expect(factoryResult.getDonePendencies).toBeDefined();
+        expect(factoryResult.getAllPendenciesToReceiver).toBeDefined();
+        expect(factoryResult.getOpenedPendenciesToReceiver).toBeDefined();
+        expect(factoryResult.getDonePendenciesToReceiver).toBeDefined();
+        expect(factoryResult.getAllPendenciesFromRequester).toBeDefined();
+        expect(factoryResult.getOpenedPendenciesFromRequester).toBeDefined();
+        expect(factoryResult.getDonePendenciesFromRequester).toBeDefined();
         expect(factoryResult.getByActivityId).toBeDefined();
         expect(factoryResult.delete).toBeDefined();
       });
@@ -89,32 +99,56 @@
           });
         });
 
+        it('deleteMethod check', function () {
+          var deleteById = factoryResult.delete(ID_PARAMETER);
+          deleteById.$promise.then(function (resultDeleteById) {
+            expect(resultDeleteById.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
         it('getAllPendenciesMethod check', function () {
-          var get = factoryResult.getAllPendencies();
+          var get = factoryResult.getAllPendenciesToReceiver();
           get.$promise.then(function (resultGetAll) {
             expect(resultGetAll.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
         it('getOpenedPendenciesMethod check', function () {
-          var get = factoryResult.getOpenedPendencies();
+          var get = factoryResult.getOpenedPendenciesToReceiver();
           get.$promise.then(function (resultGetAll) {
             expect(resultGetAll.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
-        it('getDonePendenciesMethod check', function () {
-          var get = factoryResult.getDonePendencies();
+        it('getDonePendenciesToReceiverMethod check', function () {
+          var get = factoryResult.getDonePendenciesToReceiver();
           console.log(get);
           get.$promise.then(function (resultGetAll) {
             expect(resultGetAll.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
-        it('deleteMethod check', function () {
-          var deleteById = factoryResult.delete(ID_PARAMETER);
-          deleteById.$promise.then(function (resultDeleteById) {
-            expect(resultDeleteById.data).toEqual(DATA_CONFIRMATION);
+        // requester
+
+        it('getAllPendenciesRquesterMethod check', function () {
+          var get = factoryResult.getAllPendenciesFromRequester();
+          get.$promise.then(function (resultGetAll) {
+            expect(resultGetAll.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getOpenedPendenciesRquesterMethod check', function () {
+          var get = factoryResult.getOpenedPendenciesFromRequester();
+          get.$promise.then(function (resultGetAll) {
+            expect(resultGetAll.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getDonePendenciesRquesterMethod check', function () {
+          var get = factoryResult.getDonePendenciesFromRequester();
+          console.log(get);
+          get.$promise.then(function (resultGetAll) {
+            expect(resultGetAll.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
