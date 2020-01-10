@@ -44,21 +44,6 @@
             'id': '@id'
           }
         },
-        getAllPendencies: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/list',
-          headers: headers.json
-        },
-        getOpenedPendencies: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/list/opened',
-          headers: headers.json
-        },
-        getDonePendencies: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/list/done',
-          headers: headers.json
-        },
         getByActivityId: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/:activityId',
@@ -74,7 +59,38 @@
           params: {
             'id': '@id'
           }
+        },
+        getAllPendenciesToReceiver: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/list/receiver',
+          headers: headers.json
+        },
+        getOpenedPendenciesToReceiver: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/list/receiver/opened',
+          headers: headers.json
+        },
+        getDonePendenciesToReceiver: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/list/receiver/done',
+          headers: headers.json
+        },
+        getAllPendenciesFromRequester: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/list/requester',
+          headers: headers.json
+        },
+        getOpenedPendenciesFromRequester: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/list/requester/opened',
+          headers: headers.json
+        },
+        getDonePendenciesFromRequester: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/list/requester/done',
+          headers: headers.json
         }
+
       });
     }
 
