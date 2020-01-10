@@ -128,8 +128,6 @@
           });
         });
 
-        // requester
-
         it('getAllPendenciesRquesterMethod check', function () {
           var get = factoryResult.getAllPendenciesFromRequester();
           get.$promise.then(function (resultGetAll) {
