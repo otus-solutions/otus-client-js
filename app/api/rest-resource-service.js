@@ -34,7 +34,8 @@
     'otus.client.UserPermissionResourceFactory',
     'otus.client.ActivityImportationResourceFactory',
     'otus.client.StaticVariableResourceFactory',
-    'otus.client.OutcomeResourceFactory'
+    'otus.client.FollowUpResourceFactory',
+    'otus.client.EventResourceFactory',
   ];
 
   function OtusRestResourceService(
@@ -66,7 +67,8 @@
     UserPermissionResourceFactory,
     ActivityImportationResourceFactory,
     StaticVariableResourceFactory,
-    OutcomeResourceFactory
+    FollowUpResourceFactory,
+    EventResourceFactory
   ) {
     var self = this;
 
@@ -103,7 +105,8 @@
     self.getUserPermissionResource = getUserPermissionResource;
     self.getStaticVariableResource = getStaticVariableResource;
     self.getStaticVariableResource = getStaticVariableResource;
-    self.getOutcomeResourceFactory = getOutcomeResourceFactory;
+    self.getFollowUpResourceFactory = getFollowUpResourceFactory;
+    self.getEventResourceFactory = getEventResourceFactory;
     self.getActivityImportationResource = getActivityImportationResource;
 
     function isLogged() {
@@ -238,8 +241,12 @@
       return StaticVariableResourceFactory.create();
     }
 
-    function getOutcomeResourceFactory() {
-      return OutcomeResourceFactory.create();
+    function getFollowUpResourceFactory() {
+      return FollowUpResourceFactory.create();
+    }
+
+    function getEventResourceFactory() {
+      return EventResourceFactory.create();
     }
   }
 }());

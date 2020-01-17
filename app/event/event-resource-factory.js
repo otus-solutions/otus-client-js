@@ -3,16 +3,16 @@
 
   angular
     .module('otus.client')
-    .factory('otus.client.OutcomeResourceFactory', StaticVariableResourceFactory);
+    .factory('otus.client.EventResourceFactory', Factory);
 
-  StaticVariableResourceFactory.$inject = [
+  Factory.$inject = [
     '$resource',
     'OtusRestResourceContext',
     'otus.client.HeaderBuilderFactory'
   ];
 
-  function StaticVariableResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/outcome';
+  function Factory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+    var SUFFIX = '/event';
     var self = this;
 
     self.create = create;
@@ -25,27 +25,22 @@
       return $resource({}, {}, {
         create: {
           method: 'POST',
-          url: restPrefix + SUFFIX,
+          url: restPrefix + SUFFIX + '/create/:id',
           headers: headers.json,
           data: {
               'data': '@data'
-          }
-        },
-        update: {
-          method: 'PUT',
-          url: restPrefix + SUFFIX + '/:id',
-          headers: headers.json,
+          },
           params:{
             'id':'@id'
           },
-          data: {
-            'outcomeData': '@outcomeData'
-          }
         },
-        list: {
-          method: 'GET',
-          url: restPrefix + SUFFIX,
-          headers: headers.json
+        deactivate: {
+          method: 'DELETE',
+          url: restPrefix + SUFFIX + '/remove/:id',
+          headers: headers.json,
+          params:{
+            'id':'@id'
+          }
         }
       });
     }

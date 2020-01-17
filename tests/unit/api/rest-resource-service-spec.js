@@ -5,7 +5,7 @@ describe('RestResourceService', function () {
   var dataExtractionResourceFactory, participantResourceFactory, laboratoryParticipantResourceFactory, laboratoryConfigurationResourceFactory;
   var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory, monitoringResourceFactory;
   var passwordResetResourceFactory, permissionConfigurationResourceFactory, surveyGroupResourceFactory, userPermissionResourceFactory;
-  var laboratoryMonitoringResourceFactory, staticVariableResourceFactory, outcomeResourceFactory;
+  var laboratoryMonitoringResourceFactory, staticVariableResourceFactory, followUpResourceFactory, eventResourceFactory;
 
   beforeEach(function () {
     angular.mock.module('otus.client');
@@ -38,7 +38,8 @@ describe('RestResourceService', function () {
       userPermissionResourceFactory = _$injector_.get('otus.client.UserPermissionResourceFactory');
       surveyGroupResourceFactory = _$injector_.get('otus.client.SurveyGroupResourceFactory');
       staticVariableResourceFactory = _$injector_.get('otus.client.StaticVariableResourceFactory');
-      outcomeResourceFactory = _$injector_.get('otus.client.OutcomeResourceFactory');
+      followUpResourceFactory = _$injector_.get('otus.client.FollowUpResourceFactory');
+      eventResourceFactory = _$injector_.get('otus.client.EventResourceFactory');
 
       spyOn(otusRestResourceContext, 'hasToken').and.callThrough();
       spyOn(otusRestResourceContext, 'reset').and.callThrough();
@@ -72,7 +73,8 @@ describe('RestResourceService', function () {
       spyOn(userPermissionResourceFactory, 'create').and.callThrough();
       spyOn(surveyGroupResourceFactory, 'create').and.callThrough();
       spyOn(staticVariableResourceFactory, 'create').and.callThrough();
-      spyOn(outcomeResourceFactory, 'create').and.callThrough();
+      spyOn(followUpResourceFactory, 'create').and.callThrough();
+      spyOn(eventResourceFactory, 'create').and.callThrough();
     });
   });
 
@@ -113,7 +115,8 @@ describe('RestResourceService', function () {
       expect(service.getUserPermissionResource).toBeDefined();
       expect(service.getSurveyGroupResource).toBeDefined();
       expect(service.getStaticVariableResource).toBeDefined();
-      expect(service.getOutcomeResourceFactory).toBeDefined();
+      expect(service.getFollowUpResourceFactory).toBeDefined();
+      expect(service.getEventResourceFactory).toBeDefined();
     });
 
     describe('serviceMethods', function () {
@@ -275,9 +278,14 @@ describe('RestResourceService', function () {
         expect(surveyGroupResourceFactory.create).toHaveBeenCalledTimes(1);
       });
 
-      it('getOutcomeResourceFactoryMethod check', function () {
-        service.getOutcomeResourceFactory();
-        expect(outcomeResourceFactory.create).toHaveBeenCalledTimes(1);
+      it('getFollowUpResourceFactoryMethod check', function () {
+        service.getFollowUpResourceFactory();
+        expect(followUpResourceFactory.create).toHaveBeenCalledTimes(1);
+      });
+
+      it('getEventResourceFactoryMethod check', function () {
+        service.getEventResourceFactory();
+        expect(eventResourceFactory.create).toHaveBeenCalledTimes(1);
       });
 
       it('getStaticVariableResource check', function () {
