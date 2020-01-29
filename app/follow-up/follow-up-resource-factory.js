@@ -12,7 +12,7 @@
   ];
 
   function StaticVariableResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/followup';
+    var SUFFIX = '/followUp';
     var self = this;
 
     self.create = create;
@@ -33,11 +33,8 @@
         },
         update: {
           method: 'PUT',
-          url: restPrefix + SUFFIX + '/update/:id',
+          url: restPrefix + SUFFIX + '/update',
           headers: headers.json,
-          params:{
-            'id':'@id'
-          },
           data: {
             'data': '@data'
           }
@@ -53,6 +50,25 @@
           headers: headers.json,
           params:{
             'id':'@id'
+          }
+        },
+        listParticipantsFollowUps: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/list/:rn',
+          headers: headers.json,
+          params:{
+            'rn':'@rn'
+          }
+        },
+        activateFollowUpEvent: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/participantEvent/add/:rn',
+          headers: headers.json,
+          params:{
+            'rn':'@rn'
+          },
+          data: {
+            'data': '@data'
           }
         }
       });
