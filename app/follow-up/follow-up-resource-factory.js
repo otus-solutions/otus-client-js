@@ -70,6 +70,15 @@
           data: {
             'data': '@data'
           }
+        },
+        deactivateFollowUpEvent: {
+          method: 'PUTgit add .' +
+            '',
+          url: restPrefix + SUFFIX + '/participantEvent/cancel/:followUpId',
+          headers: headers.json,
+          params:{
+            'followUpId':'@followUpId'
+          }
         }
       });
     }
