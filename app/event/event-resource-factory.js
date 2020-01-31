@@ -24,7 +24,7 @@
 
       return $resource({}, {}, {
         create: {
-          method: 'POST',
+          method: 'PUT',
           url: restPrefix + SUFFIX + '/create/:id',
           headers: headers.json,
           data: {

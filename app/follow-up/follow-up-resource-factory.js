@@ -24,7 +24,7 @@
 
       return $resource({}, {}, {
         add: {
-          method: 'POST',
+          method: 'PUT',
           url: restPrefix + SUFFIX + '/add',
           headers: headers.json,
           data: {
@@ -32,7 +32,7 @@
           }
         },
         update: {
-          method: 'PUT',
+          method: 'POST',
           url: restPrefix + SUFFIX + '/update',
           headers: headers.json,
           data: {
@@ -72,8 +72,7 @@
           }
         },
         deactivateFollowUpEvent: {
-          method: 'PUTgit add .' +
-            '',
+          method: 'PUT',
           url: restPrefix + SUFFIX + '/participantEvent/cancel/:followUpId',
           headers: headers.json,
           params:{

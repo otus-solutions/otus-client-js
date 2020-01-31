@@ -253,7 +253,7 @@
     }
 
     function getUserActivityPendencyResource() {
-      return EventResourceFactory.create();
+      return UserActivityPendencyResourceFactory.create();
     }
   }
 }());
