@@ -4,7 +4,7 @@
   describe('OutcomeResourceFactory', function () {
 
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
-    var SUFFIX = '/followup';
+    var SUFFIX = '/followUp';
 
     var DATA = {'data': 'returnPromiseOK'};
     var DATA_CONFIRMATION = 'returnPromiseOK';
@@ -26,9 +26,9 @@
         spyOn(otusRestResourceContext, 'getSecurityToken');
         spyOn(headerBuilderFactory, 'create').and.callThrough();
         httpBackend = _$injector_.get('$httpBackend');
-        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + '/add').respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + '/add').respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + '/list').respond(200, DATA);
-        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + '/update').respond(200, DATA);
+        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + '/update').respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + '/deactivate').respond(200, DATA);
       });
     });

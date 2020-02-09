@@ -8,7 +8,7 @@
 
     var DATA = {'data': 'returnPromiseOK'};
     var DATA_CONFIRMATION = 'returnPromiseOK';
-    var METHOD_POST_VALUE = "POST";
+    var METHOD_PUT_VALUE = "PUT";
     var METHOD_DELETE_VALUE = "DELETE";
 
     var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
@@ -24,7 +24,7 @@
         spyOn(otusRestResourceContext, 'getSecurityToken');
         spyOn(headerBuilderFactory, 'create').and.callThrough();
         httpBackend = _$injector_.get('$httpBackend');
-        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + '/create').respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + '/create').respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + '/remove').respond(200, DATA);
       });
     });
