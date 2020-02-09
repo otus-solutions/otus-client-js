@@ -34,6 +34,8 @@
     'otus.client.UserPermissionResourceFactory',
     'otus.client.ActivityImportationResourceFactory',
     'otus.client.StaticVariableResourceFactory',
+    'otus.client.FollowUpResourceFactory',
+    'otus.client.EventResourceFactory',
     'otus.client.UserActivityPendencyResourceFactory'
   ];
 
@@ -66,6 +68,8 @@
     UserPermissionResourceFactory,
     ActivityImportationResourceFactory,
     StaticVariableResourceFactory,
+    FollowUpResourceFactory,
+    EventResourceFactory,
     UserActivityPendencyResourceFactory
   ) {
     var self = this;
@@ -102,6 +106,9 @@
     self.getPermissionConfigurationResource = getPermissionConfigurationResource;
     self.getUserPermissionResource = getUserPermissionResource;
     self.getStaticVariableResource = getStaticVariableResource;
+    self.getStaticVariableResource = getStaticVariableResource;
+    self.getFollowUpResourceFactory = getFollowUpResourceFactory;
+    self.getEventResourceFactory = getEventResourceFactory;
     self.getActivityImportationResource = getActivityImportationResource;
     self.getUserActivityPendencyResource = getUserActivityPendencyResource;
 
@@ -235,6 +242,14 @@
 
     function getStaticVariableResource() {
       return StaticVariableResourceFactory.create();
+    }
+
+    function getFollowUpResourceFactory() {
+      return FollowUpResourceFactory.create();
+    }
+
+    function getEventResourceFactory() {
+      return EventResourceFactory.create();
     }
 
     function getUserActivityPendencyResource() {
