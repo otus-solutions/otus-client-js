@@ -60,6 +60,16 @@
             'id': '@id'
           }
         },
+
+        getAllPendencies: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/list',
+          headers: headers.json,
+          data: {
+            'searchSettings': '@searchSettings'
+          }
+        },
+
         getAllPendenciesToReceiver: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/list/receiver',
@@ -75,6 +85,7 @@
           url: restPrefix + SUFFIX + '/list/receiver/done',
           headers: headers.json
         },
+
         getAllPendenciesFromRequester: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/list/requester',
@@ -90,7 +101,6 @@
           url: restPrefix + SUFFIX + '/list/requester/done',
           headers: headers.json
         }
-
       });
     }
 
