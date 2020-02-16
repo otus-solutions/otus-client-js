@@ -45,6 +45,14 @@
             'quantity': '@quantity'
           }
         },
+        getById: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/:laboratoryOid',
+          headers: headers.json,
+          params: {
+            'laboratoryOid': '@laboratoryOid'
+          }
+        },
         attache: {
           method: 'POST',
           url: restPrefix + SUFFIX + '/attache/:laboratoryIdentification/:recruitmentNumber',

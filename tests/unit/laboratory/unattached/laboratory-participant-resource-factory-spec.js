@@ -39,6 +39,7 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + "/" + ACRONYM_PARAM + "/" + DESCRIPTOR_NAME_PARAM + "/" + PAGE_PARAM + "/" + QUANTITY_PARAM).respond(200, DATA);
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + ATTACHE_SX + "/" + LABORATORY_IDENTIFICATION + "/" + RECRUITMENT_NUMBER).respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + "/" + LABORATORY_OID_PARAM).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + "/" + LABORATORY_OID_PARAM).respond(200, DATA);
       });
     });
 
@@ -75,31 +76,38 @@
           httpBackend.flush();
         });
 
-        it('initializeMethod check', function () {
+        it('initialize check', function () {
           var initialize = factoryResult.initialize({acronym:ACRONYM_PARAM,descriptorName:DESCRIPTOR_NAME_PARAM});
-          initialize.$promise.then(function (resultInitialize) {
-            expect(resultInitialize.data).toEqual(DATA_CONFIRMATION);
+          initialize.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
-        it('getLaboratorygetByIdMethod check', function () {
+        it('listLaboratories check', function () {
           var listLaboratories = factoryResult.listLaboratories({acronym:ACRONYM_PARAM,descriptorName:DESCRIPTOR_NAME_PARAM,page:PAGE_PARAM,quantity:QUANTITY_PARAM});
-          listLaboratories.$promise.then(function (resultGetLaboratory) {
-            expect(resultGetLaboratory.data).toEqual(DATA_CONFIRMATION);
+          listLaboratories.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
-        it('updateMethod check', function () {
+        it('attache check', function () {
           var attache = factoryResult.attache({laboratoryIdentification:LABORATORY_IDENTIFICATION, recruitmentNumber:RECRUITMENT_NUMBER});
-          attache.$promise.then(function (resultUpdate) {
-            expect(resultUpdate.data).toEqual(DATA_CONFIRMATION);
+          attache.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
-        it('updateTubeCollectionDataMethod check', function () {
+        it('discard check', function () {
           var discard = factoryResult.discard({laboratoryOid:LABORATORY_OID_PARAM});
-          discard.$promise.then(function (resultUpdateTubeCollectionData) {
-            expect(resultUpdateTubeCollectionData.data).toEqual(DATA_CONFIRMATION);
+          discard.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getById check', function () {
+          var getById = factoryResult.getById({laboratoryOid:LABORATORY_OID_PARAM});
+          getById.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
       });
