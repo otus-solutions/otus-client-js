@@ -53,6 +53,14 @@
             'laboratoryOid': '@laboratoryOid'
           }
         },
+        getByIdentification: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/identification/:laboratoryIdentification',
+          headers: headers.json,
+          params: {
+            'laboratoryIdentification': '@laboratoryIdentification'
+          }
+        },
         attache: {
           method: 'POST',
           url: restPrefix + SUFFIX + '/attache/:laboratoryIdentification/:recruitmentNumber',

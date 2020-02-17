@@ -7,6 +7,7 @@
     var SUFFIX = '/unattached-laboratory';
     var CREATE_SX = '/create';
     var ATTACHE_SX = '/attache';
+    var IDENTIFICATION_SX = '/identification';
     var ACRONYM_PARAM = 'acronym';
     var DESCRIPTOR_NAME_PARAM = 'descriptorName';
     var PAGE_PARAM = "1";
@@ -14,6 +15,7 @@
     var LABORATORY_IDENTIFICATION = "5";
     var RECRUITMENT_NUMBER = "20";
     var LABORATORY_OID_PARAM = "laboratoryOid";
+    var IDENTIFICATION_PARAM = "identification";
     var METHOD_GET_VALUE = "GET";
     var METHOD_POST_VALUE = "POST";
     var METHOD_PUT_VALUE = "PUT";
@@ -40,6 +42,7 @@
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + ATTACHE_SX + "/" + LABORATORY_IDENTIFICATION + "/" + RECRUITMENT_NUMBER).respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + "/" + LABORATORY_OID_PARAM).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + "/" + LABORATORY_OID_PARAM).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + IDENTIFICATION_SX + "/" + IDENTIFICATION_PARAM).respond(200, DATA);
       });
     });
 
@@ -88,7 +91,12 @@
           listLaboratories.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
-        });
+        });function getUnattachedById(laboratoryOid) {
+      if (!_configurationRest) {
+        throw new Error('REST resource is no initialized.');
+      }
+      return _unattachedRest.listLaboratories({descriptorName:collectGroupName, acronym:center, page:page, quantity:quantity}).$promise;
+    }
 
         it('attache check', function () {
           var attache = factoryResult.attache({laboratoryIdentification:LABORATORY_IDENTIFICATION, recruitmentNumber:RECRUITMENT_NUMBER});
@@ -106,6 +114,13 @@
 
         it('getById check', function () {
           var getById = factoryResult.getById({laboratoryOid:LABORATORY_OID_PARAM});
+          getById.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getByIdentification check', function () {
+          var getById = factoryResult.getByIdentification({laboratoryIdentification:IDENTIFICATION_PARAM});
           getById.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
