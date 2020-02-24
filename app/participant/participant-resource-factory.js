@@ -38,6 +38,14 @@
                       'participantJson': '@participantJson'
                     }
                 },
+                update: {
+                  method: 'PUT',
+                  url: restPrefix + SUFFIX + "/update",
+                  headers: headers.json,
+                  data:{
+                    'participantJson': '@participantJson'
+                  }
+                },
                 getByRecruitmentNumber: {
                     method: 'GET',
                     url: restPrefix + SUFFIX + '/:rn',
