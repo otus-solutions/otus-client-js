@@ -3,15 +3,15 @@
 
   angular
     .module('otus.client')
-    .factory('otus.client.FollowUpResourceFactory', StaticVariableResourceFactory);
+    .factory('otus.client.FollowUpResourceFactory', FollowUpResourceFactory);
 
-  StaticVariableResourceFactory.$inject = [
+  FollowUpResourceFactory.$inject = [
     '$resource',
     'OtusRestResourceContext',
     'otus.client.HeaderBuilderFactory'
   ];
 
-  function StaticVariableResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+  function FollowUpResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
     var SUFFIX = '/followUp';
     var self = this;
 
