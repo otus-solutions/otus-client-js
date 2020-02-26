@@ -27,11 +27,13 @@
         spyOn(headerBuilderFactory, 'create').and.callThrough();
         httpBackend = _$injector_.get('$httpBackend');
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + '/configuration').respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + '/user-location-points').respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + '/location-points').respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + '/add-user').respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
-        httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + '/remove-user').respond(200, DATA);
+        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + '/remove-user').respond(200, DATA);
       });
     });
 
@@ -110,6 +112,20 @@
           var remove = factoryResult.removeUserLocation();
           remove.$promise.then(function (resultRemove) {
             expect(resultRemove.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('UserlocationPoints check', function () {
+          var result = factoryResult.getUserLocationPoint();
+          result.$promise.then(function (resultGet) {
+            expect(resultGet.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('locationPoints check', function () {
+          var result = factoryResult.getLocationPoints();
+          result.$promise.then(function (resultGet) {
+            expect(resultGet.data).toEqual(DATA_CONFIRMATION);
           });
         });
       });

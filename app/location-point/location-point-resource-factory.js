@@ -64,7 +64,7 @@
           }
         },
         removeUserLocation: {
-          method: 'DELETE',
+          method: 'POST',
           url: restPrefix + SUFFIX + '/remove-user/:locationPointId',
           headers: headers.json,
           params:{
@@ -73,7 +73,17 @@
           data: {
             'user': '@user'
           }
-        }
+        },
+        getUserLocationPoint: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/user-location-points',
+          headers: headers.json
+        },
+        getLocationPoints: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/location-points',
+          headers: headers.json
+        },
       });
     }
     return self;
