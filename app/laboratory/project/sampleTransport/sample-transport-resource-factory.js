@@ -33,6 +33,15 @@
             'locationPointId' : '@locationPointId'
           }
         },
+        getTube: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/tube/:locationPointId/:tubeCode',
+          headers: headers.json,
+          params: {
+            'locationPointId' : '@locationPointId',
+            'tubeCode' : '@tubeCode'
+          }
+        },
         createLot: {
           method: 'POST',
           url: restPrefix + SUFFIX + '/lot',
