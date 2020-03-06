@@ -25,11 +25,6 @@
             var headers = HeaderBuilderFactory.create(token);
 
             return $resource({}, {}, {
-                list: {
-                    method: 'GET',
-                    url: restPrefix + SUFFIX,
-                    headers: headers.json
-                },
                 create: {
                     method: 'POST',
                     url: restPrefix + SUFFIX,
