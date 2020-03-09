@@ -37,6 +37,7 @@
     'otus.client.StaticVariableResourceFactory',
     'otus.client.FollowUpResourceFactory',
     'otus.client.EventResourceFactory',
+    'otus.client.LocationPointResourceFactory',
     'otus.client.UserActivityPendencyResourceFactory'
   ];
 
@@ -72,6 +73,7 @@
     StaticVariableResourceFactory,
     FollowUpResourceFactory,
     EventResourceFactory,
+    LocationPointResourceFactory,
     UserActivityPendencyResourceFactory
   ) {
     var self = this;
@@ -114,6 +116,7 @@
     self.getEventResourceFactory = getEventResourceFactory;
     self.getActivityImportationResource = getActivityImportationResource;
     self.getUserActivityPendencyResource = getUserActivityPendencyResource;
+    self.getLocationPointResource = getLocationPointResource;
 
     function isLogged() {
       return OtusRestResourceContext.hasToken();
@@ -261,6 +264,10 @@
 
     function getUserActivityPendencyResource() {
       return UserActivityPendencyResourceFactory.create();
+    }
+
+    function getLocationPointResource() {
+      return LocationPointResourceFactory.create();
     }
   }
 }());
