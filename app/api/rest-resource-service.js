@@ -21,6 +21,7 @@
     'otus.client.ParticipantResourceFactory',
     'otus.client.LaboratoryParticipantResourceFactory',
     'otus.client.LaboratoryConfigurationResourceFactory',
+    'otus.client.UnattachedLaboratoryResourceFactory',
     'otus.client.DatasourceResourceFactory',
     'otus.client.UploadResourceFactory',
     'otus.client.SampleTransport',
@@ -36,6 +37,7 @@
     'otus.client.StaticVariableResourceFactory',
     'otus.client.FollowUpResourceFactory',
     'otus.client.EventResourceFactory',
+    'otus.client.LocationPointResourceFactory',
     'otus.client.UserActivityPendencyResourceFactory'
   ];
 
@@ -55,6 +57,7 @@
     ParticipantResourceFactory,
     LaboratoryParticipantResourceFactory,
     LaboratoryConfigurationResourceFactory,
+    UnattachedLaboratoryResourceFactory,
     DatasourceResourceFactory,
     UploadResourceFactory,
     SampleTransport,
@@ -70,6 +73,7 @@
     StaticVariableResourceFactory,
     FollowUpResourceFactory,
     EventResourceFactory,
+    LocationPointResourceFactory,
     UserActivityPendencyResourceFactory
   ) {
     var self = this;
@@ -93,6 +97,7 @@
     self.getParticipantResource = getParticipantResource;
     self.getLaboratoryParticipantResource = getLaboratoryParticipantResource;
     self.getLaboratoryConfigurationResource = getLaboratoryConfigurationResource;
+    self.getUnattachedLaboratoryResource = getUnattachedLaboratoryResource;
     self.getDatasourceResourceFactory = getDatasourceResourceFactory;
     self.getFileUploadResourceFactory = getFileUploadResourceFactory;
     self.getSampleTransport = getSampleTransport;
@@ -111,6 +116,7 @@
     self.getEventResourceFactory = getEventResourceFactory;
     self.getActivityImportationResource = getActivityImportationResource;
     self.getUserActivityPendencyResource = getUserActivityPendencyResource;
+    self.getLocationPointResource = getLocationPointResource;
 
     function isLogged() {
       return OtusRestResourceContext.hasToken();
@@ -196,6 +202,10 @@
       return LaboratoryConfigurationResourceFactory.create();
     }
 
+    function getUnattachedLaboratoryResource() {
+      return UnattachedLaboratoryResourceFactory.create();
+    }
+
     function getDatasourceResourceFactory() {
       return DatasourceResourceFactory.create();
     }
@@ -254,6 +264,10 @@
 
     function getUserActivityPendencyResource() {
       return UserActivityPendencyResourceFactory.create();
+    }
+
+    function getLocationPointResource() {
+      return LocationPointResourceFactory.create();
     }
   }
 }());
