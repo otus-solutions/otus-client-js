@@ -85,9 +85,7 @@
 
         it('createMethod check', function () {
           var create = factoryResult.create();
-          console.log(create);
           create.$promise.then(function (resultCreate) {
-            console.log(resultCreate);
             expect(resultCreate.data).toEqual(DATA_CONFIRMATION);
           });
         });
@@ -122,7 +120,6 @@
 
         it('getDonePendenciesToReceiverMethod check', function () {
           var get = factoryResult.getDonePendenciesToReceiver();
-          console.log(get);
           get.$promise.then(function (resultGetAll) {
             expect(resultGetAll.data).toEqual(DATA_CONFIRMATION);
           });
@@ -144,7 +141,6 @@
 
         it('getDonePendenciesRquesterMethod check', function () {
           var get = factoryResult.getDonePendenciesFromRequester();
-          console.log(get);
           get.$promise.then(function (resultGetAll) {
             expect(resultGetAll.data).toEqual(DATA_CONFIRMATION);
           });

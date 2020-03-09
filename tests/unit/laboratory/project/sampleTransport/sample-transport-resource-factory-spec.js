@@ -9,6 +9,7 @@
         var ALIQUOT_SX = '/aliquot';
         var LOTS_SX = '/lots';
         var LOT_SX = '/lot';
+        var TUBE_SX = '/tube';
         var ID_SX = '/1234567';
         var DATA = {'data': 'returnPromiseOK'};
         var ID_PARAMETER = {'id': 1234567};
@@ -34,10 +35,11 @@
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + ALIQUOTS_SX).respond(200, DATA);
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + ALIQUOT_SX).respond(200, DATA);
                 httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LOTS_SX).respond(200, DATA);
+                httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + TUBE_SX).respond(200, DATA);
                 httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + LOT_SX).respond(200, DATA);
                 httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + LOT_SX).respond(200, DATA);
                 httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + LOT_SX + ID_SX).respond(200, DATA);
-                               
+
             });
         });
 
@@ -68,6 +70,7 @@
                 expect(factoryResult.createLot).toBeDefined();
                 expect(factoryResult.updateLot).toBeDefined();
                 expect(factoryResult.deleteLot).toBeDefined();
+                expect(factoryResult.getTube).toBeDefined();
             });
 
             describe('resourceMethods', function () {
@@ -88,9 +91,16 @@
                     getAliquot.$promise.then(function (resultGetAliquot) {
                         expect(resultGetAliquot.data).toEqual(DATA_CONFIRMATION);
                     });
-                });                
+                });
 
-                it('getLotsMethod check', function () {
+              it('getTubeMethod check', function () {
+                var getTube = factoryResult.getTube();
+                getTube.$promise.then(function (resultGetTube) {
+                  expect(resultGetTube.data).toEqual(DATA_CONFIRMATION);
+                });
+              });
+
+              it('getLotsMethod check', function () {
                     var getLots = factoryResult.getLots();
                     getLots.$promise.then(function (resultGetLots) {
                         expect(resultGetLots.data).toEqual(DATA_CONFIRMATION);
