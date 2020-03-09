@@ -5,7 +5,7 @@ describe('RestResourceService', function () {
   var dataExtractionResourceFactory, participantResourceFactory, laboratoryParticipantResourceFactory, laboratoryConfigurationResourceFactory;
   var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory, monitoringResourceFactory;
   var passwordResetResourceFactory, permissionConfigurationResourceFactory, surveyGroupResourceFactory, userPermissionResourceFactory;
-  var laboratoryMonitoringResourceFactory, staticVariableResourceFactory, followUpResourceFactory, eventResourceFactory;
+  var laboratoryMonitoringResourceFactory, locationResourceFactory, staticVariableResourceFactory, followUpResourceFactory, eventResourceFactory;
 
   beforeEach(function () {
     angular.mock.module('otus.client');
@@ -40,6 +40,7 @@ describe('RestResourceService', function () {
       staticVariableResourceFactory = _$injector_.get('otus.client.StaticVariableResourceFactory');
       followUpResourceFactory = _$injector_.get('otus.client.FollowUpResourceFactory');
       eventResourceFactory = _$injector_.get('otus.client.EventResourceFactory');
+      locationResourceFactory = _$injector_.get('otus.client.LocationPointResourceFactory');
 
       spyOn(otusRestResourceContext, 'hasToken').and.callThrough();
       spyOn(otusRestResourceContext, 'reset').and.callThrough();
@@ -75,6 +76,7 @@ describe('RestResourceService', function () {
       spyOn(staticVariableResourceFactory, 'create').and.callThrough();
       spyOn(followUpResourceFactory, 'create').and.callThrough();
       spyOn(eventResourceFactory, 'create').and.callThrough();
+      spyOn(locationResourceFactory, 'create').and.callThrough();
     });
   });
 
@@ -117,6 +119,7 @@ describe('RestResourceService', function () {
       expect(service.getStaticVariableResource).toBeDefined();
       expect(service.getFollowUpResourceFactory).toBeDefined();
       expect(service.getEventResourceFactory).toBeDefined();
+      expect(service.getLocationPointResource).toBeDefined();
     });
 
     describe('serviceMethods', function () {
@@ -291,6 +294,11 @@ describe('RestResourceService', function () {
       it('getStaticVariableResource check', function () {
         service.getStaticVariableResource();
         expect(staticVariableResourceFactory.create).toHaveBeenCalledTimes(1);
+      });
+
+      it('getLocationPointResource check', function () {
+        service.getLocationPointResource();
+        expect(locationResourceFactory.create).toHaveBeenCalledTimes(1);
       });
     });
   });
