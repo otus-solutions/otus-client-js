@@ -62,7 +62,7 @@
         },
 
         getAllPendencies: {
-          method: 'GET',
+          method: 'POST',
           url: restPrefix + SUFFIX + '/list',
           headers: headers.json,
           data: {
