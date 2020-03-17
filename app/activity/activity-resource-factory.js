@@ -35,6 +35,17 @@
             'rn': '@rn'
           }
         },
+        synchronizeOfflineActivities: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/offline',
+          headers: headers.json,
+          data: {
+            'activityList': '@activityList'
+          },
+          params: {
+            'rn': '@rn'
+          }
+        },
         update: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/:id',
