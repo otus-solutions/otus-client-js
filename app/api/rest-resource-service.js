@@ -38,7 +38,8 @@
     'otus.client.FollowUpResourceFactory',
     'otus.client.EventResourceFactory',
     'otus.client.LocationPointResourceFactory',
-    'otus.client.UserActivityPendencyResourceFactory'
+    'otus.client.UserActivityPendencyResourceFactory',
+    'otus.client.OfflineActivityCollectionResourceFactory'
   ];
 
   function OtusRestResourceService(
@@ -74,7 +75,8 @@
     FollowUpResourceFactory,
     EventResourceFactory,
     LocationPointResourceFactory,
-    UserActivityPendencyResourceFactory
+    UserActivityPendencyResourceFactory,
+    OfflineActivityCollectionResourceFactory
   ) {
     var self = this;
 
@@ -117,6 +119,7 @@
     self.getActivityImportationResource = getActivityImportationResource;
     self.getUserActivityPendencyResource = getUserActivityPendencyResource;
     self.getLocationPointResource = getLocationPointResource;
+    self.getOfflineActivityCollectionResourceFactory = getOfflineActivityCollectionResourceFactory;
 
     function isLogged() {
       return OtusRestResourceContext.hasToken();
@@ -268,6 +271,10 @@
 
     function getLocationPointResource() {
       return LocationPointResourceFactory.create();
+    }
+
+    function getOfflineActivityCollectionResourceFactory() {
+      return OfflineActivityCollectionResourceFactory.create();
     }
   }
 }());
