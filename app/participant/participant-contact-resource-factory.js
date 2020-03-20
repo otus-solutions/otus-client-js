@@ -33,31 +33,56 @@
                       'participantJson': '@participantJson'
                     }
                 },
-                updateMainContact: {
+                addNonMainEmail: {
                   method: 'PUT',
-                  url: restPrefix + SUFFIX + "/update-main",
+                  url: restPrefix + SUFFIX + "/add-non-main/email",
                   headers: headers.json,
                   data:{
                     'participantContactDtoJson': '@participantContactDtoJson'
                   }
                 },
-                addSecondaryContact: {
+                addNonMainAddress: {
                   method: 'PUT',
-                  url: restPrefix + SUFFIX + "/add-secondary",
+                  url: restPrefix + SUFFIX + "/add-non-main/address",
                   headers: headers.json,
                   data:{
                     'participantContactDtoJson': '@participantContactDtoJson'
                   }
                 },
-                updateSecondaryContact: {
-                    method: 'PUT',
-                    url: restPrefix + SUFFIX + "/update-secondary",
-                    headers: headers.json,
-                    data:{
-                      'participantContactDtoJson': '@participantContactDtoJson'
-                    }
+                addNonMainPhoneNumber: {
+                  method: 'PUT',
+                  url: restPrefix + SUFFIX + "/add-non-main/phone-number",
+                  headers: headers.json,
+                  data:{
+                    'participantContactDtoJson': '@participantContactDtoJson'
+                  }
                 },
-                swapMainContactWithSecondary: {
+
+                updateEmail: {
+                  method: 'PUT',
+                  url: restPrefix + SUFFIX + "/update/email",
+                  headers: headers.json,
+                  data:{
+                    'participantContactDtoJson': '@participantContactDtoJson'
+                  }
+                },
+                updateAddress: {
+                  method: 'PUT',
+                  url: restPrefix + SUFFIX + "/update/address",
+                  headers: headers.json,
+                  data:{
+                    'participantContactDtoJson': '@participantContactDtoJson'
+                  }
+                },
+                updatePhoneNumber: {
+                  method: 'PUT',
+                  url: restPrefix + SUFFIX + "/update/phone-number",
+                  headers: headers.json,
+                  data:{
+                    'participantContactDtoJson': '@participantContactDtoJson'
+                  }
+                },
+                swapMainContact: {
                     method: 'PUT',
                     url: restPrefix + SUFFIX + "/swap",
                     headers: headers.json,
@@ -73,9 +98,9 @@
                         'id': '@id'
                     }
                 },
-                deleteSecondaryContact: {
+                deleteNonMainContact: {
                     method: 'DELETE',
-                    url: restPrefix + SUFFIX + "/secondary",
+                    url: restPrefix + SUFFIX + "/non-main",
                     headers: headers.json,
                     data:{
                       'participantContactDtoJson': '@participantContactDtoJson'
