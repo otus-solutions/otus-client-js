@@ -12,7 +12,7 @@
     ];
 
     function ParticipantContactResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-        var SUFFIX = '/participant-contacts';
+        var SUFFIX = '/participant/participant-contact';
 
         var self = this;
 
