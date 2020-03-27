@@ -99,7 +99,7 @@
                     }
                 },
                 deleteNonMainContact: {
-                    method: 'DELETE',
+                    method: 'POST',
                     url: restPrefix + SUFFIX + "/non-main",
                     headers: headers.json,
                     data:{
