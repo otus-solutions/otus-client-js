@@ -100,7 +100,7 @@
                 },
                 deleteNonMainContact: {
                     method: 'POST',
-                    url: restPrefix + SUFFIX + "/non-main",
+                    url: restPrefix + SUFFIX + "/delete-non-main",
                     headers: headers.json,
                     data:{
                       'participantContactDtoJson': '@participantContactDtoJson'
