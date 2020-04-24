@@ -12,7 +12,7 @@
     var ADD_NON_MAIN_CONTACT_SUFFIX = '/add-non-main';
     var UPDATE_CONTACT_SUFFIX = '/update';
     var SWAP_MAIN_CONTACT_SUFFIX = '/swap';
-    var DELETE_NON_MAIN_CONTACT_SUFFIX = '/non-main';
+    var DELETE_NON_MAIN_CONTACT_SUFFIX = '/delete-non-main';
     var EMAIL_SUFFIX = '/email';
     var ADDRESS_SUFFIX = '/address';
     var PHONE_NUMBER_SUFFIX = '/phone-number';
