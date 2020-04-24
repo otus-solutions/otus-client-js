@@ -139,6 +139,62 @@
 
 
 (function() {
+  'use strict';
+
+  angular
+    .module('otus.client')
+    .factory('otus.client.OfflineActivityCollectionResourceFactory', OfflineActivityCollectionResourceFactory);
+
+  OfflineActivityCollectionResourceFactory.$inject = [
+    '$resource',
+    'OtusRestResourceContext',
+    'otus.client.HeaderBuilderFactory'
+  ];
+
+  function OfflineActivityCollectionResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+    var SUFFIX = '/offline/activities';
+
+    var self = this;
+
+    /* Public methods */
+    self.create = create;
+
+    function create() {
+      var restPrefix = OtusRestResourceContext.getRestPrefix();
+      var token = OtusRestResourceContext.getSecurityToken();
+      var headers = HeaderBuilderFactory.create(token);
+
+      return $resource({}, {}, {
+        saveOffline: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/collection',
+          headers: headers.json,
+          data: {
+            'offlineActivityCollections': '@offlineActivityCollections'
+          }
+        },
+        fetchOfflineCollections: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/collection',
+          headers: headers.json,
+        },
+        synchronizeOfflineActivities: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/synchronize/:recruitmentNumber/:offlineCollectionId',
+          headers: headers.json,
+          params: {
+            'recruitmentNumber': '@recruitmentNumber',
+            'offlineCollectionId': '@offlineCollectionId'
+          }
+        }
+      });
+    }
+    return self;
+  }
+}());
+
+
+(function() {
     'use strict';
 
     angular
@@ -314,6 +370,7 @@
     'otus.client.EventResourceFactory',
     'otus.client.LocationPointResourceFactory',
     'otus.client.UserActivityPendencyResourceFactory',
+    'otus.client.OfflineActivityCollectionResourceFactory',
     'otus.client.ParticipantContactResourceFactory'
   ];
 
@@ -351,6 +408,7 @@
     EventResourceFactory,
     LocationPointResourceFactory,
     UserActivityPendencyResourceFactory,
+    OfflineActivityCollectionResourceFactory,
     ParticipantContactResourceFactory
   ) {
     var self = this;
@@ -394,6 +452,7 @@
     self.getActivityImportationResource = getActivityImportationResource;
     self.getUserActivityPendencyResource = getUserActivityPendencyResource;
     self.getLocationPointResource = getLocationPointResource;
+    self.getOfflineActivityCollectionResourceFactory = getOfflineActivityCollectionResourceFactory;
     self.getParticipantContactResource = getParticipantContactResource;
 
     function isLogged() {
@@ -546,6 +605,10 @@
 
     function getLocationPointResource() {
       return LocationPointResourceFactory.create();
+    }
+
+    function getOfflineActivityCollectionResourceFactory() {
+      return OfflineActivityCollectionResourceFactory.create();
     }
 
     function getParticipantContactResource() {
@@ -817,57 +880,6 @@
    }
 }());
 
-(function() {
-  'use strict';
-
-  angular
-    .module('otus.client')
-    .factory('otus.client.EventResourceFactory', Factory);
-
-  Factory.$inject = [
-    '$resource',
-    'OtusRestResourceContext',
-    'otus.client.HeaderBuilderFactory'
-  ];
-
-  function Factory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/event';
-    var self = this;
-
-    self.create = create;
-
-    function create() {
-      var restPrefix = OtusRestResourceContext.getRestPrefix();
-      var token = OtusRestResourceContext.getSecurityToken();
-      var headers = HeaderBuilderFactory.create(token);
-
-      return $resource({}, {}, {
-        create: {
-          method: 'PUT',
-          url: restPrefix + SUFFIX + '/create/:id',
-          headers: headers.json,
-          data: {
-              'data': '@data'
-          },
-          params:{
-            'id':'@id'
-          },
-        },
-        deactivate: {
-          method: 'DELETE',
-          url: restPrefix + SUFFIX + '/remove/:id',
-          headers: headers.json,
-          params:{
-            'id':'@id'
-          }
-        }
-      });
-    }
-    return self;
-  }
-
-}());
-
 (function () {
     'use strict';
 
@@ -950,6 +962,57 @@
         };
         return self;
     }
+}());
+
+(function() {
+  'use strict';
+
+  angular
+    .module('otus.client')
+    .factory('otus.client.EventResourceFactory', Factory);
+
+  Factory.$inject = [
+    '$resource',
+    'OtusRestResourceContext',
+    'otus.client.HeaderBuilderFactory'
+  ];
+
+  function Factory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+    var SUFFIX = '/event';
+    var self = this;
+
+    self.create = create;
+
+    function create() {
+      var restPrefix = OtusRestResourceContext.getRestPrefix();
+      var token = OtusRestResourceContext.getSecurityToken();
+      var headers = HeaderBuilderFactory.create(token);
+
+      return $resource({}, {}, {
+        create: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/create/:id',
+          headers: headers.json,
+          data: {
+              'data': '@data'
+          },
+          params:{
+            'id':'@id'
+          },
+        },
+        deactivate: {
+          method: 'DELETE',
+          url: restPrefix + SUFFIX + '/remove/:id',
+          headers: headers.json,
+          params:{
+            'id':'@id'
+          }
+        }
+      });
+    }
+    return self;
+  }
+
 }());
 
 (function() {
@@ -1137,6 +1200,139 @@
 
         return self;
     }
+
+}());
+
+(function () {
+  'use strict';
+
+  angular
+    .module('otus.client')
+    .factory('otus.client.MonitoringResourceFactory', MonitoringResourceFactory);
+
+  MonitoringResourceFactory.$inject = [
+    '$resource',
+    'OtusRestResourceContext',
+    'otus.client.HeaderBuilderFactory'
+  ];
+
+  function MonitoringResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+    var SUFFIX = '/monitoring';
+
+    var self = this;
+    self.create = create;
+
+    function create() {
+      var restPrefix = OtusRestResourceContext.getRestPrefix();
+      var token = OtusRestResourceContext.getSecurityToken();
+      var headers = HeaderBuilderFactory.create(token);
+
+      return $resource({}, {}, {
+        list: {
+          method: 'GET',
+          url: restPrefix + SUFFIX,
+          headers: headers.json
+        },
+        listAcronyms: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/activities",
+          headers: headers.json
+        },
+        find: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/activities/:acronym",
+          headers: headers.json,
+          params: {
+            'acronym': '@acronym'
+          }
+        },
+        listCenters: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/centers",
+          headers: headers.json
+        },
+        getActivitiesProgressReport: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/activities/progress/:center",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
+        },
+
+        /* Exam flag report */
+        getExamsFlagReport: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/laboratory/progress/:center",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
+        },
+        getExamsFlagReportLabels: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + "/laboratory/progress/:center/labels",
+          headers: headers.json,
+          params: {
+            'center': '@center'
+          }
+        },
+
+        /* participant activities monitoring */
+        getStatusOfActivities: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/activities/progress/participant/:rn',
+          headers: headers.json,
+          params: {
+            'rn': '@rn'
+          }
+        },
+        defineActivityWithDoesNotApplies: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/activities/progress/not-apply',
+          headers: headers.json,
+          data: {
+            'data': '@data'
+          }
+        },
+        deleteNotAppliesOfActivity: {
+          method: 'DELETE',
+          url: restPrefix + SUFFIX + '/activities/progress/not-apply/:rn/:acronym',
+          headers: headers.json,
+          params: {
+            'rn': '@rn',
+            'acronym': '@acronym'
+          }
+        },
+        getStatusOfExams: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/exams/progress/participant/:rn',
+          headers: headers.json,
+          params: {
+            'rn': '@rn'
+          }
+        },
+        defineExamWithDoesNotApplies: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/exams/progress/not-apply',
+          headers: headers.json,
+          data: {
+            'data': '@data'
+          }
+        },
+        deleteNotAppliesOfExam: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/exams/progress/not-apply/delete',
+          headers: headers.json,
+           data: {
+            'data': '@data'
+          }
+        }
+      });
+    }
+
+    return self;
+  }
 
 }());
 
@@ -1426,139 +1622,6 @@
 
         return self;
     }
-
-}());
-
-(function () {
-  'use strict';
-
-  angular
-    .module('otus.client')
-    .factory('otus.client.MonitoringResourceFactory', MonitoringResourceFactory);
-
-  MonitoringResourceFactory.$inject = [
-    '$resource',
-    'OtusRestResourceContext',
-    'otus.client.HeaderBuilderFactory'
-  ];
-
-  function MonitoringResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/monitoring';
-
-    var self = this;
-    self.create = create;
-
-    function create() {
-      var restPrefix = OtusRestResourceContext.getRestPrefix();
-      var token = OtusRestResourceContext.getSecurityToken();
-      var headers = HeaderBuilderFactory.create(token);
-
-      return $resource({}, {}, {
-        list: {
-          method: 'GET',
-          url: restPrefix + SUFFIX,
-          headers: headers.json
-        },
-        listAcronyms: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + "/activities",
-          headers: headers.json
-        },
-        find: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + "/activities/:acronym",
-          headers: headers.json,
-          params: {
-            'acronym': '@acronym'
-          }
-        },
-        listCenters: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + "/centers",
-          headers: headers.json
-        },
-        getActivitiesProgressReport: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + "/activities/progress/:center",
-          headers: headers.json,
-          params: {
-            'center': '@center'
-          }
-        },
-
-        /* Exam flag report */
-        getExamsFlagReport: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + "/laboratory/progress/:center",
-          headers: headers.json,
-          params: {
-            'center': '@center'
-          }
-        },
-        getExamsFlagReportLabels: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + "/laboratory/progress/:center/labels",
-          headers: headers.json,
-          params: {
-            'center': '@center'
-          }
-        },
-
-        /* participant activities monitoring */
-        getStatusOfActivities: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/activities/progress/participant/:rn',
-          headers: headers.json,
-          params: {
-            'rn': '@rn'
-          }
-        },
-        defineActivityWithDoesNotApplies: {
-          method: 'PUT',
-          url: restPrefix + SUFFIX + '/activities/progress/not-apply',
-          headers: headers.json,
-          data: {
-            'data': '@data'
-          }
-        },
-        deleteNotAppliesOfActivity: {
-          method: 'DELETE',
-          url: restPrefix + SUFFIX + '/activities/progress/not-apply/:rn/:acronym',
-          headers: headers.json,
-          params: {
-            'rn': '@rn',
-            'acronym': '@acronym'
-          }
-        },
-        getStatusOfExams: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/exams/progress/participant/:rn',
-          headers: headers.json,
-          params: {
-            'rn': '@rn'
-          }
-        },
-        defineExamWithDoesNotApplies: {
-          method: 'PUT',
-          url: restPrefix + SUFFIX + '/exams/progress/not-apply',
-          headers: headers.json,
-          data: {
-            'data': '@data'
-          }
-        },
-        deleteNotAppliesOfExam: {
-          method: 'POST',
-          url: restPrefix + SUFFIX + '/exams/progress/not-apply/delete',
-          headers: headers.json,
-           data: {
-            'data': '@data'
-          }
-        }
-      });
-    }
-
-    return self;
-  }
 
 }());
 
@@ -2310,105 +2373,6 @@
 }());
 
 (function() {
-  'use strict';
-
-  angular
-    .module('otus.client')
-    .factory('otus.client.LaboratoryParticipantResourceFactory', LaboratoryParticipantResourceFactory);
-
-  LaboratoryParticipantResourceFactory.$inject = [
-    '$resource',
-    'OtusRestResourceContext',
-    'otus.client.HeaderBuilderFactory'
-  ];
-
-  function LaboratoryParticipantResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/laboratory-participant';
-
-    var self = this;
-
-    /* Public methods */
-    self.create = create;
-
-    function create() {
-      var restPrefix = OtusRestResourceContext.getRestPrefix();
-      var token = OtusRestResourceContext.getSecurityToken();
-      var headers = HeaderBuilderFactory.create(token);
-
-      return $resource({}, {}, {
-        initialize: {
-          method: 'POST',
-          url: restPrefix + SUFFIX + '/initialize/:rn',
-          headers: headers.json,
-          params: {
-            'rn': '@rn'
-          }
-        },
-        getLaboratory: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/:rn',
-          headers: headers.json,
-          params: {
-            'rn': '@rn'
-          }
-        },
-        update: {
-          method: 'PUT',
-          url: restPrefix + SUFFIX + '/:rn',
-          headers: headers.json,
-          data: {
-            'laboratory': '@laboratory'
-          },
-          params: {
-            'rn': '@rn'
-          }
-        },
-        updateTubeCollectionData: {
-          method: 'PUT',
-          url: restPrefix + SUFFIX + '/tube-collection-data/:rn',
-          headers: headers.json,
-          data: {
-              'tubes': '@tubes'
-          },
-          params: {
-              'rn': '@rn'
-          }
-        },
-        deleteAliquot: {
-          method: 'DELETE',
-          url: restPrefix + SUFFIX + '/aliquot/:code',
-          headers: headers.json,
-          params: {
-            'code' : '@code'
-          }
-        },
-        updateAliquots: {
-          method: 'PUT',
-          url: restPrefix + SUFFIX + '/:rn/tubes/aliquots',
-          headers: headers.json,
-          data: {
-            'updateAliquotsDTO': '@updateAliquotsDTO'
-          },
-          params: {
-            'rn': '@rn'
-          }
-        },
-        convertStorageAliquot: {
-          method: 'PUT',
-          url: restPrefix + SUFFIX + '/convert-aliquot-role',
-          headers: headers.json,
-          data: {
-            'convertedAliquot': '@convertedAliquot'
-          }
-        }
-      });
-    }
-    return self;
-  }
-
-}());
-
-(function() {
    'use strict';
 
    angular
@@ -2520,6 +2484,105 @@
           method: 'GET',
           url: restPrefix + SUFFIX + '/aliquot-descriptors',
           headers: headers.json,
+        }
+      });
+    }
+    return self;
+  }
+
+}());
+
+(function() {
+  'use strict';
+
+  angular
+    .module('otus.client')
+    .factory('otus.client.LaboratoryParticipantResourceFactory', LaboratoryParticipantResourceFactory);
+
+  LaboratoryParticipantResourceFactory.$inject = [
+    '$resource',
+    'OtusRestResourceContext',
+    'otus.client.HeaderBuilderFactory'
+  ];
+
+  function LaboratoryParticipantResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+    var SUFFIX = '/laboratory-participant';
+
+    var self = this;
+
+    /* Public methods */
+    self.create = create;
+
+    function create() {
+      var restPrefix = OtusRestResourceContext.getRestPrefix();
+      var token = OtusRestResourceContext.getSecurityToken();
+      var headers = HeaderBuilderFactory.create(token);
+
+      return $resource({}, {}, {
+        initialize: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/initialize/:rn',
+          headers: headers.json,
+          params: {
+            'rn': '@rn'
+          }
+        },
+        getLaboratory: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/:rn',
+          headers: headers.json,
+          params: {
+            'rn': '@rn'
+          }
+        },
+        update: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/:rn',
+          headers: headers.json,
+          data: {
+            'laboratory': '@laboratory'
+          },
+          params: {
+            'rn': '@rn'
+          }
+        },
+        updateTubeCollectionData: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/tube-collection-data/:rn',
+          headers: headers.json,
+          data: {
+              'tubes': '@tubes'
+          },
+          params: {
+              'rn': '@rn'
+          }
+        },
+        deleteAliquot: {
+          method: 'DELETE',
+          url: restPrefix + SUFFIX + '/aliquot/:code',
+          headers: headers.json,
+          params: {
+            'code' : '@code'
+          }
+        },
+        updateAliquots: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/:rn/tubes/aliquots',
+          headers: headers.json,
+          data: {
+            'updateAliquotsDTO': '@updateAliquotsDTO'
+          },
+          params: {
+            'rn': '@rn'
+          }
+        },
+        convertStorageAliquot: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/convert-aliquot-role',
+          headers: headers.json,
+          data: {
+            'convertedAliquot': '@convertedAliquot'
+          }
         }
       });
     }
@@ -2747,6 +2810,114 @@
 
 }());
 
+(function() {
+  'use strict';
+
+  angular
+    .module('otus.client')
+    .factory('otus.client.SampleTransport', SampleTransport);
+
+  SampleTransport.$inject = [
+    '$resource',
+    'OtusRestResourceContext',
+    'otus.client.HeaderBuilderFactory'
+  ];
+
+  function SampleTransport($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+    var SUFFIX = '/laboratory-project/transportation';
+
+    var self = this;
+
+    /* Public methods */
+    self.create = create;
+
+    function create() {
+      var restPrefix = OtusRestResourceContext.getRestPrefix();
+      var token = OtusRestResourceContext.getSecurityToken();
+      var headers = HeaderBuilderFactory.create(token);
+
+      return $resource({}, {}, {
+        getLots: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/lots/:locationPointId',
+          headers: headers.json,
+          params: {
+            'locationPointId' : '@locationPointId'
+          }
+        },
+        getTube: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/tube/:locationPointId/:tubeCode',
+          headers: headers.json,
+          params: {
+            'locationPointId' : '@locationPointId',
+            'tubeCode' : '@tubeCode'
+          }
+        },
+        createLot: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/lot',
+          headers: headers.json,
+          data: {
+            'sampleLot': '@sampleLot'
+          }
+        },
+        updateLot: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/lot',
+          headers: headers.json,
+          data: {
+            'sampleLot': '@sampleLot'
+          }
+        },
+        getAliquotsByPeriod: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/aliquots/:locationPointId',
+          headers: headers.json,
+          data: {
+            'lotAliquot' : '@lotAliquot'
+          },
+          params: {
+            'locationPointId': '@locationPointId'
+          }
+        },
+        getAliquot: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/aliquot/:locationPointId',
+          headers: headers.json,
+          data: {
+            'lotAliquot' : '@lotAliquot'
+          },
+          params: {
+            'locationPointId': '@locationPointId'
+          }
+        },
+        getAliquotsByLocationPoint: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/aliquot/:locationPointId',
+          headers: headers.json,
+          params: {
+            'locationPointId' : '@locationPointId'
+          },
+          data: {
+            'lotAliquot': '@lotAliquot'
+          }
+        },
+        deleteLot: {
+          method: 'DELETE',
+          url: restPrefix + SUFFIX + '/lot/:id',
+          headers: headers.json,
+          params: {
+            'id': '@id',
+          }
+        }
+      });
+    }
+    return self;
+  }
+
+}());
+
 (function () {
   'use strict';
 
@@ -2900,114 +3071,6 @@
           headers: headers.json,
           params: {
             'id': '@id'
-          }
-        }
-      });
-    }
-    return self;
-  }
-
-}());
-
-(function() {
-  'use strict';
-
-  angular
-    .module('otus.client')
-    .factory('otus.client.SampleTransport', SampleTransport);
-
-  SampleTransport.$inject = [
-    '$resource',
-    'OtusRestResourceContext',
-    'otus.client.HeaderBuilderFactory'
-  ];
-
-  function SampleTransport($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/laboratory-project/transportation';
-
-    var self = this;
-
-    /* Public methods */
-    self.create = create;
-
-    function create() {
-      var restPrefix = OtusRestResourceContext.getRestPrefix();
-      var token = OtusRestResourceContext.getSecurityToken();
-      var headers = HeaderBuilderFactory.create(token);
-
-      return $resource({}, {}, {
-        getLots: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/lots/:locationPointId',
-          headers: headers.json,
-          params: {
-            'locationPointId' : '@locationPointId'
-          }
-        },
-        getTube: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/tube/:locationPointId/:tubeCode',
-          headers: headers.json,
-          params: {
-            'locationPointId' : '@locationPointId',
-            'tubeCode' : '@tubeCode'
-          }
-        },
-        createLot: {
-          method: 'POST',
-          url: restPrefix + SUFFIX + '/lot',
-          headers: headers.json,
-          data: {
-            'sampleLot': '@sampleLot'
-          }
-        },
-        updateLot: {
-          method: 'PUT',
-          url: restPrefix + SUFFIX + '/lot',
-          headers: headers.json,
-          data: {
-            'sampleLot': '@sampleLot'
-          }
-        },
-        getAliquotsByPeriod: {
-          method: 'POST',
-          url: restPrefix + SUFFIX + '/aliquots/:locationPointId',
-          headers: headers.json,
-          data: {
-            'lotAliquot' : '@lotAliquot'
-          },
-          params: {
-            'locationPointId': '@locationPointId'
-          }
-        },
-        getAliquot: {
-          method: 'POST',
-          url: restPrefix + SUFFIX + '/aliquot/:locationPointId',
-          headers: headers.json,
-          data: {
-            'lotAliquot' : '@lotAliquot'
-          },
-          params: {
-            'locationPointId': '@locationPointId'
-          }
-        },
-        getAliquotsByLocationPoint: {
-          method: 'POST',
-          url: restPrefix + SUFFIX + '/aliquot/:locationPointId',
-          headers: headers.json,
-          params: {
-            'locationPointId' : '@locationPointId'
-          },
-          data: {
-            'lotAliquot': '@lotAliquot'
-          }
-        },
-        deleteLot: {
-          method: 'DELETE',
-          url: restPrefix + SUFFIX + '/lot/:id',
-          headers: headers.json,
-          params: {
-            'id': '@id',
           }
         }
       });
