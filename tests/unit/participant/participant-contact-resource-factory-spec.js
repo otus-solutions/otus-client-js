@@ -8,12 +8,14 @@
     var METHOD_PUT_VALUE = 'PUT';
     var METHOD_DELETE_VALUE = 'DELETE';
 
-    var PREFIX = 'http://localhost:8080/otus-rest/v01/participant-contacts';
-    var UPDATE_MAIN_CONTACT_SUFFIX = '/update-main';
-    var ADD_SECONDARY_CONTACT_SUFFIX = '/add-secondary';
-    var UPDATE_SECONDARY_CONTACT_SUFFIX = '/update-secondary';
+    var PREFIX = 'http://localhost:8080/otus-rest/v01/participant/participant-contact';
+    var ADD_NON_MAIN_CONTACT_SUFFIX = '/add-non-main';
+    var UPDATE_CONTACT_SUFFIX = '/update';
     var SWAP_MAIN_CONTACT_SUFFIX = '/swap';
-    var DELETE_SECONDARY_CONTACT_SUFFIX = '/secondary';
+    var DELETE_NON_MAIN_CONTACT_SUFFIX = '/non-main';
+    var EMAIL_SUFFIX = '/email';
+    var ADDRESS_SUFFIX = '/address';
+    var PHONE_NUMBER_SUFFIX = '/phone-number';
     var ID = '5efd';
     var ID_SUFFIX = '/'+ID;
     var ID_PARAMETER = { "id" : ID };
@@ -38,12 +40,15 @@
         spyOn(headerBuilderFactory, 'create').and.callThrough();
         httpBackend = _$injector_.get('$httpBackend');
         httpBackend.when(METHOD_POST_VALUE, PREFIX).respond(200, DATA);
-        httpBackend.when(METHOD_PUT_VALUE, PREFIX + UPDATE_MAIN_CONTACT_SUFFIX).respond(200, DATA);
-        httpBackend.when(METHOD_PUT_VALUE, PREFIX + ADD_SECONDARY_CONTACT_SUFFIX).respond(200, DATA);
-        httpBackend.when(METHOD_PUT_VALUE, PREFIX + UPDATE_SECONDARY_CONTACT_SUFFIX).respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, PREFIX + ADD_NON_MAIN_CONTACT_SUFFIX + EMAIL_SUFFIX).respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, PREFIX + ADD_NON_MAIN_CONTACT_SUFFIX + ADDRESS_SUFFIX).respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, PREFIX + ADD_NON_MAIN_CONTACT_SUFFIX + PHONE_NUMBER_SUFFIX).respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, PREFIX + UPDATE_CONTACT_SUFFIX + EMAIL_SUFFIX).respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, PREFIX + UPDATE_CONTACT_SUFFIX + ADDRESS_SUFFIX).respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, PREFIX + UPDATE_CONTACT_SUFFIX + PHONE_NUMBER_SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, PREFIX + SWAP_MAIN_CONTACT_SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, PREFIX + ID_SUFFIX).respond(200, DATA);
-        httpBackend.when(METHOD_DELETE_VALUE, PREFIX + DELETE_SECONDARY_CONTACT_SUFFIX).respond(200, DATA);
+        httpBackend.when(METHOD_POST_VALUE, PREFIX + DELETE_NON_MAIN_CONTACT_SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, PREFIX + ID_SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, PREFIX + GET_BY_RN_SUFFIX).respond(200, DATA);
       });
@@ -71,12 +76,15 @@
 
       it('methodFactoryExistence check', function () {
         expect(factoryResult.create).toBeDefined();
-        expect(factoryResult.updateMainContact).toBeDefined();
-        expect(factoryResult.addSecondaryContact).toBeDefined();
-        expect(factoryResult.updateSecondaryContact).toBeDefined();
-        expect(factoryResult.swapMainContactWithSecondary).toBeDefined();
+        expect(factoryResult.addNonMainEmail).toBeDefined();
+        expect(factoryResult.addNonMainAddress).toBeDefined();
+        expect(factoryResult.addNonMainPhoneNumber).toBeDefined();
+        expect(factoryResult.updateEmail).toBeDefined();
+        expect(factoryResult.updateAddress).toBeDefined();
+        expect(factoryResult.updatePhoneNumber).toBeDefined();
+        expect(factoryResult.swapMainContact).toBeDefined();
         expect(factoryResult.delete).toBeDefined();
-        expect(factoryResult.deleteSecondaryContact).toBeDefined();
+        expect(factoryResult.deleteNonMainContact).toBeDefined();
         expect(factoryResult.get).toBeDefined();
         expect(factoryResult.getByRecruitmentNumber).toBeDefined();
       });
@@ -88,67 +96,89 @@
         });
 
         it('create check', function () {
-          var create = factoryResult.create();
-          create.$promise.then(function (resultCreate) {
-            expect(resultCreate.data).toEqual(DATA_CONFIRMATION);
-          });
+          factoryResult.create(DTO_JSON_DATA)
+            .$promise.then(function (resultCreate) {
+              expect(resultCreate.data).toEqual(DATA_CONFIRMATION);
+            });
         });
 
-        it('updateMainContact check', function () {
-          var update = factoryResult.updateMainContact(DTO_JSON_DATA);
-          update.$promise.then(function (result) {
+        it('addNonMainEmail check', function () {
+          factoryResult.addNonMainEmail(DTO_JSON_DATA)
+            .$promise.then(function (result) {
+              expect(result.data).toEqual(DATA_CONFIRMATION);
+            });
+        });
+
+        it('addNonMainAddress check', function () {
+          factoryResult.addNonMainAddress(DTO_JSON_DATA)
+            .$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
-        it('addSecondaryContact check', function () {
-          var addSecondaryContact = factoryResult.addSecondaryContact(DTO_JSON_DATA);
-          addSecondaryContact.$promise.then(function (result) {
+        it('addNonMainPhoneNumber check', function () {
+          factoryResult.addNonMainPhoneNumber(DTO_JSON_DATA)
+            .$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
-        it('updateSecondaryContact check', function () {
-          var updateSecondaryContact = factoryResult.updateSecondaryContact(DTO_JSON_DATA);
-          updateSecondaryContact.$promise.then(function (result) {
+        it('updateEmail check', function () {
+          factoryResult.updateEmail(DTO_JSON_DATA)
+            .$promise.then(function (result) {
+              expect(result.data).toEqual(DATA_CONFIRMATION);
+            });
+        });
+
+        it('updateAddress check', function () {
+          factoryResult.updateAddress(DTO_JSON_DATA)
+            .$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
-        it('swapMainContactWithSecondary check', function () {
-          var swapMainContactWithSecondary = factoryResult.swapMainContactWithSecondary(DTO_JSON_DATA);
-          swapMainContactWithSecondary.$promise.then(function (result) {
+        it('updatePhoneNumber check', function () {
+          factoryResult.updatePhoneNumber(DTO_JSON_DATA)
+            .$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
+        });
+
+        it('swapMainContact check', function () {
+          factoryResult.swapMainContact(DTO_JSON_DATA)
+            .$promise.then(function (result) {
+              expect(result.data).toEqual(DATA_CONFIRMATION);
+            });
         });
 
         it('delete check', function () {
-          var deleteMethod = factoryResult.delete(ID_PARAMETER);
-          deleteMethod.$promise.then(function (result) {
-            expect(result.data).toEqual(DATA_CONFIRMATION);
-          });
+          factoryResult.delete(ID_PARAMETER)
+            .$promise.then(function (result) {
+              expect(result.data).toEqual(DATA_CONFIRMATION);
+            });
         });
 
-        it('deleteSecondaryContact check', function () {
-          var deleteSecondaryContact = factoryResult.deleteSecondaryContact(DTO_JSON_DATA);
-          deleteSecondaryContact.$promise.then(function (result) {
-            expect(result.data).toEqual(DATA_CONFIRMATION);
-          });
+        it('deleteNonMainContact check', function () {
+          factoryResult.deleteNonMainContact(DTO_JSON_DATA)
+            .$promise.then(function (result) {
+              expect(result.data).toEqual(DATA_CONFIRMATION);
+            });
         });
 
         it('getMethod check', function () {
-          var get = factoryResult.get(ID_PARAMETER);
-          get.$promise.then(function (result) {
-            expect(result.data).toEqual(DATA_CONFIRMATION);
-          });
+          factoryResult.get(ID_PARAMETER)
+            .$promise.then(function (result) {
+              expect(result.data).toEqual(DATA_CONFIRMATION);
+            });
         });
 
         it('getByRecruitmentNumberMethod check', function () {
-          var getByRecruitmentNumber = factoryResult.getByRecruitmentNumber(RN_PARAMETER);
-          getByRecruitmentNumber.$promise.then(function (result) {
-            expect(result.data).toEqual(DATA_CONFIRMATION);
-          });
+          factoryResult.getByRecruitmentNumber(RN_PARAMETER)
+            .$promise.then(function (result) {
+              expect(result.data).toEqual(DATA_CONFIRMATION);
+            });
         });
+
       });
     });
   });
