@@ -12,7 +12,7 @@
     var ADD_NON_MAIN_CONTACT_SUFFIX = '/add-non-main';
     var UPDATE_CONTACT_SUFFIX = '/update';
     var SWAP_MAIN_CONTACT_SUFFIX = '/swap';
-    var DELETE_NON_MAIN_CONTACT_SUFFIX = '/non-main';
+    var DELETE_NON_MAIN_CONTACT_SUFFIX = '/delete-non-main';
     var EMAIL_SUFFIX = '/email';
     var ADDRESS_SUFFIX = '/address';
     var PHONE_NUMBER_SUFFIX = '/phone-number';
@@ -48,7 +48,7 @@
         httpBackend.when(METHOD_PUT_VALUE, PREFIX + UPDATE_CONTACT_SUFFIX + PHONE_NUMBER_SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, PREFIX + SWAP_MAIN_CONTACT_SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, PREFIX + ID_SUFFIX).respond(200, DATA);
-        httpBackend.when(METHOD_DELETE_VALUE, PREFIX + DELETE_NON_MAIN_CONTACT_SUFFIX).respond(200, DATA);
+        httpBackend.when(METHOD_POST_VALUE, PREFIX + DELETE_NON_MAIN_CONTACT_SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, PREFIX + ID_SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, PREFIX + GET_BY_RN_SUFFIX).respond(200, DATA);
       });
