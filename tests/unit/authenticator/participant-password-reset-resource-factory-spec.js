@@ -57,8 +57,6 @@
 
       it('methodFactoryExistence check', function () {
         expect(factoryResult.requestRecovery).toBeDefined();
-        expect(factoryResult.validationToken).toBeDefined();
-        expect(factoryResult.updatePassword).toBeDefined();
       });
 
       describe('resourceMethods', function () {
@@ -71,20 +69,6 @@
           var requestRecovery = factoryResult.requestRecovery(USER_EMAIL);
           requestRecovery.$promise.then(function (resultRecovery) {
             expect(resultRecovery.data).toEqual(DATA_CONFIRMATION);
-          });
-        });
-
-        it('getValidationTokenMethod check', function () {
-          var validationToken = factoryResult.validationToken(TOKEN);
-          validationToken.$promise.then(function (resultValidate) {
-            expect(resultValidate.data).toEqual(DATA_CONFIRMATION);
-          });
-        })
-
-        it('passwordUpdateMethod check', function () {
-          var updatePassword = factoryResult.updatePassword(PASSWORD);
-          updatePassword.$promise.then(function (resultUpdate) {
-            expect(resultUpdate.data).toEqual(DATA_CONFIRMATION);
           });
         });
       });
