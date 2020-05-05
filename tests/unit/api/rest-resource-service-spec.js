@@ -41,6 +41,8 @@ describe('RestResourceService', function () {
       followUpResourceFactory = _$injector_.get('otus.client.FollowUpResourceFactory');
       eventResourceFactory = _$injector_.get('otus.client.EventResourceFactory');
       locationResourceFactory = _$injector_.get('otus.client.LocationPointResourceFactory');
+      participantPasswordResetResourceFactory = _$injector_.get('otus.client.ParticipantPasswordResetResourceFactory');
+
 
       spyOn(otusRestResourceContext, 'hasToken').and.callThrough();
       spyOn(otusRestResourceContext, 'reset').and.callThrough();
@@ -77,6 +79,8 @@ describe('RestResourceService', function () {
       spyOn(followUpResourceFactory, 'create').and.callThrough();
       spyOn(eventResourceFactory, 'create').and.callThrough();
       spyOn(locationResourceFactory, 'create').and.callThrough();
+      spyOn(participantPasswordResetResourceFactory, 'create').and.callThrough();
+
     });
   });
 
@@ -120,6 +124,8 @@ describe('RestResourceService', function () {
       expect(service.getFollowUpResourceFactory).toBeDefined();
       expect(service.getEventResourceFactory).toBeDefined();
       expect(service.getLocationPointResource).toBeDefined();
+      expect(service.getParticipantPasswordResetResource).toBeDefined();
+
     });
 
     describe('serviceMethods', function () {
@@ -300,6 +306,12 @@ describe('RestResourceService', function () {
         service.getLocationPointResource();
         expect(locationResourceFactory.create).toHaveBeenCalledTimes(1);
       });
+
+      it('getParticipantPasswordResetResourceMethod check', function () {
+        service.getParticipantPasswordResetResource();
+        expect(participantPasswordResetResourceFactory.create).toHaveBeenCalledTimes(1);
+      });
+
     });
   });
 });
