@@ -30,6 +30,10 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + '/list').respond(200, DATA);
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + '/update').respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + '/deactivate').respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + '/list').respond(200, DATA);
+        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + '/participantEvent/add').respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + '/participantEvent/cancel').respond(200, DATA);
+        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + '/createFollowUpActivity').respond(200, DATA);
       });
     });
 
@@ -58,6 +62,10 @@
         expect(factoryResult.update).toBeDefined();
         expect(factoryResult.list).toBeDefined();
         expect(factoryResult.deactivate).toBeDefined();
+        expect(factoryResult.listParticipantsFollowUps).toBeDefined();
+        expect(factoryResult.activateFollowUpEvent).toBeDefined();
+        expect(factoryResult.deactivateFollowUpEvent).toBeDefined();
+        expect(factoryResult.createFollowUpActivity).toBeDefined();
       });
 
 
@@ -83,6 +91,34 @@
 
         it('list check', function () {
           var create = factoryResult.list();
+          create.$promise.then(function (resultCreate) {
+            expect(resultCreate.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('listParticipantsFollowUps check', function () {
+          var create = factoryResult.listParticipantsFollowUps();
+          create.$promise.then(function (resultCreate) {
+            expect(resultCreate.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('activateFollowUpEvent check', function () {
+          var create = factoryResult.activateFollowUpEvent();
+          create.$promise.then(function (resultCreate) {
+            expect(resultCreate.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('deactivateFollowUpEvent check', function () {
+          var create = factoryResult.deactivateFollowUpEvent();
+          create.$promise.then(function (resultCreate) {
+            expect(resultCreate.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('createFollowUpActivity check', function () {
+          var create = factoryResult.createFollowUpActivity();
           create.$promise.then(function (resultCreate) {
             expect(resultCreate.data).toEqual(DATA_CONFIRMATION);
           });
