@@ -78,7 +78,19 @@
           params:{
             'followUpId':'@followUpId'
           }
+        },
+        createFollowUpActivity: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/createFollowUpActivity/:rn',
+          headers: headers.json,
+          params:{
+            'rn':'@rn'
+          },
+          data: {
+            'activity': '@activity'
+          }
         }
+
       });
     }
     return self;
