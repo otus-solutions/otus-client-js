@@ -3,7 +3,7 @@
 
   angular
     .module('otus.client')
-    .factory('otus.client.', ProjectCommunicationResourceFactory);
+    .factory('otus.client.ProjectCommunicationResourceFactory', ProjectCommunicationResourceFactory);
 
   ProjectCommunicationResourceFactory.$inject = [
     '$resource',
@@ -41,7 +41,7 @@
         },
         updateReopen: {
           method: 'PUT',
-          url: restPrefix + SUFFIX + '/issue/:id/reopen/',
+          url: restPrefix + SUFFIX + '/issue/:id/reopen',
           headers: headers.json,
           params:{
             'id':'@id'
