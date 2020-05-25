@@ -32,9 +32,12 @@
           }
         },
         createMessage: {
-          method: 'PUT',
+          method: 'POST',
           url: restPrefix + SUFFIX + '/issue/message/:id',
           headers: headers.json,
+          data: {
+            'data': '@data'
+          },
           params:{
             'id':'@id'
           }

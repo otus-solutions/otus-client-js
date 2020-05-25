@@ -26,7 +26,7 @@
         spyOn(headerBuilderFactory, 'create').and.callThrough();
         httpBackend = _$injector_.get('$httpBackend');
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + '/issue/create').respond(200, DATA);
-        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + '/issue/message/:id').respond(200, DATA);
+        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + '/issue/message/:id').respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + '/issue/:id/reopen').respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + '/issue/:id/close').respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + '/issue/:id/messages').respond(200, DATA);
