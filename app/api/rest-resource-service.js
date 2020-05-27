@@ -129,7 +129,7 @@
     self.getOfflineActivityCollectionResourceFactory = getOfflineActivityCollectionResourceFactory;
     self.getParticipantContactResource = getParticipantContactResource;
     self.getParticipantPasswordResetResource = getParticipantPasswordResetResource;
-    self.getProjectCommunicationResourceFactory = ProjectCommunicationResourceFactory;
+    self.getProjectCommunicationResourceFactory = getProjectCommunicationResourceFactory;
 
     function isLogged() {
       return OtusRestResourceContext.hasToken();
