@@ -17,6 +17,7 @@
 
     var SUFFIX_POST_CREATE_ISSUE = SUFFIX + '/issue/create';
     var SUFFIX_POST_CREATE_MESSAGE = SUFFIX + '/issue/message/1234567';
+    var SUFFIX_POST_FILTER = SUFFIX + '/issue/filter';
     var SUFFIX_PUT_UPDATE_REOPEN = SUFFIX + '/issue/1234567/reopen';
     var SUFFIX_PUT_UPDATE_CLOSE = SUFFIX + '/issue/1234567/close';
     var SUFFIX_GET_MESSAGE_BY_ID = SUFFIX + '/issue/1234567/messages';
@@ -38,6 +39,7 @@
         httpBackend = _$injector_.get('$httpBackend');
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX_POST_CREATE_ISSUE).respond(200, DATA);
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX_POST_CREATE_MESSAGE).respond(200, DATA);
+        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX_POST_FILTER).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX_PUT_UPDATE_REOPEN).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX_PUT_UPDATE_CLOSE).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_MESSAGE_BY_ID).respond(200, DATA);
@@ -69,6 +71,7 @@
       it('methodFactoryExistence check', function () {
         expect(factoryResult.createIssue).toBeDefined();
         expect(factoryResult.createMessage).toBeDefined();
+        expect(factoryResult.filter).toBeDefined();
         expect(factoryResult.updateReopen).toBeDefined();
         expect(factoryResult.updateClose).toBeDefined();
         expect(factoryResult.getMessageById).toBeDefined();
@@ -93,6 +96,13 @@
           var post = factoryResult.createMessage(ID_PARAMETER);
           post.$promise.then(function (resultCreateMessage) {
             expect(resultCreateMessage.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('filter method check', function () {
+          var post = factoryResult.filter();
+          post.$promise.then(function (resultFilter) {
+            expect(resultFilter.data).toEqual(DATA_CONFIRMATION);
           });
         });
 

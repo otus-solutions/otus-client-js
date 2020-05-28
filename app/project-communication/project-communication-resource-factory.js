@@ -42,6 +42,14 @@
             'id':'@id'
           }
         },
+        filter: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/issue/filter',
+          headers: headers.json,
+          data: {
+            'data': '@data'
+          }
+        },
         updateReopen: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/issue/:id/reopen',
