@@ -25,7 +25,7 @@
       return $resource({}, {}, {
         createIssue: {
           method: 'POST',
-          url: restPrefix + SUFFIX + '/issue/create',
+          url: restPrefix + SUFFIX + '/issues',
           headers: headers.json,
           data: {
             'data': '@data'
@@ -33,7 +33,7 @@
         },
         createMessage: {
           method: 'POST',
-          url: restPrefix + SUFFIX + '/issue/message/:id',
+          url: restPrefix + SUFFIX + '/issues/:id/messages',
           headers: headers.json,
           data: {
             'data': '@data'
@@ -44,7 +44,7 @@
         },
         filter: {
           method: 'POST',
-          url: restPrefix + SUFFIX + '/issue/filter',
+          url: restPrefix + SUFFIX + '/issues/filter',
           headers: headers.json,
           data: {
             'data': '@data'
@@ -52,7 +52,7 @@
         },
         updateReopen: {
           method: 'PUT',
-          url: restPrefix + SUFFIX + '/issue/:id/reopen',
+          url: restPrefix + SUFFIX + '/issues/:id/reopen',
           headers: headers.json,
           params:{
             'id':'@id'
@@ -60,15 +60,39 @@
         },
         updateClose: {
           method: 'PUT',
-          url: restPrefix + SUFFIX + '/issue/:id/close',
+          url: restPrefix + SUFFIX + '/issues/:id/close',
           headers: headers.json,
           params:{
             'id':'@id'
           }
         },
+        updateFinalize: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/issues/:id/finalize',
+          headers: headers.json,
+          params:{
+            'id':'@id'
+          }
+        },
+        getSenderById: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/senders/:id',
+          headers: headers.json,
+          params:{
+            'id':'@id'
+          }
+        },
+        getIssuesByRn: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/issues/participant/:rn',
+          headers: headers.json,
+          params:{
+            'rn':'@rn'
+          }
+        },
         getMessageById: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/issue/:id/messages',
+          url: restPrefix + SUFFIX + '/issues/:id/messages',
           headers: headers.json,
           params:{
             'id':'@id'
@@ -76,7 +100,7 @@
         },
         getMessageByIdLimit: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/issue/:id/messages/:limit',
+          url: restPrefix + SUFFIX + '/issues/:id/messages/:limit',
           headers: headers.json,
           params:{
             'id':'@id',
@@ -85,9 +109,17 @@
         },
         listIssue: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/issue/list',
+          url: restPrefix + SUFFIX + '/issues',
           headers: headers.json,
         },
+        getIssuesById: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/issues/:id',
+          headers: headers.json,
+          params:{
+            'id':'@id'
+          },
+        }
       });
     }
     return self;
