@@ -30,6 +30,15 @@
                     data: {
                         'email': '@email'
                     }
+                },
+
+                requestRecoveryLink: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX + '-link',
+                    headers: headers.json,
+                    data: {
+                      'email': '@email'
+                    }
                 }
             });
         }
