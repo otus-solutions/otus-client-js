@@ -7,10 +7,9 @@
     var METHOD_PUT_VALUE = "PUT";
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/participants/password-reset';
+    var SUFFIX_LINK =  SUFFIX +'-link';
     var VALIDATE_TOKEN_SUFFIX = '/validate';
     var USER_EMAIL = 'otus@otus.com';
-    var PASSWORD = 123456;
-    var TOKEN = 123456;
     var DATA = { 'data': 'returnPromiseOK' };
     var DATA_CONFIRMATION = 'returnPromiseOK';
 
@@ -28,6 +27,9 @@
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + VALIDATE_TOKEN_SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
+        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX_LINK).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_LINK + VALIDATE_TOKEN_SUFFIX).respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX_LINK).respond(200, DATA);
         spyOn(otusRestResourceContext, 'getRestPrefix').and.callThrough();
         spyOn(otusRestResourceContext, 'getSecurityToken');
         spyOn(headerBuilderFactory, 'create').and.callThrough();
@@ -68,6 +70,13 @@
         it('getRecoveryMethod check', function () {
           var requestRecovery = factoryResult.requestRecovery(USER_EMAIL);
           requestRecovery.$promise.then(function (resultRecovery) {
+            expect(resultRecovery.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getRecoveryLinkMethod check', function () {
+          var requestRecoveryLink = factoryResult.requestRecoveryLink(USER_EMAIL);
+          requestRecoveryLink.$promise.then(function (resultRecovery) {
             expect(resultRecovery.data).toEqual(DATA_CONFIRMATION);
           });
         });
