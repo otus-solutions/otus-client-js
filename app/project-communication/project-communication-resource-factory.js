@@ -100,17 +100,13 @@
         },
         getMessageByIdLimit: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/issues/:id/messages/:limit',
+          url: restPrefix + SUFFIX + '/issues/:issueId/messages/:skip/:limit',
           headers: headers.json,
           params:{
-            'id':'@id',
+            'issueId': '@issueId',
+            'skip': '@skip',
             'limit':'@limit'
-          },
-        },
-        listIssue: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/issues',
-          headers: headers.json,
+          }
         },
         getIssuesById: {
           method: 'GET',
@@ -118,7 +114,7 @@
           headers: headers.json,
           params:{
             'id':'@id'
-          },
+          }
         }
       });
     }

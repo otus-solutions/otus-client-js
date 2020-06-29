@@ -12,10 +12,12 @@
     var METHOD_POST_VALUE = "POST";
     var METHOD_PUT_VALUE = "PUT";
 
-    var ISSUE_ID_PARAMETER = {'id': "pCD0k3IB_dljxFtpAXfN"};
+    var ISSUE_ID_PARAMETER = { 'id': "pCD0k3IB_dljxFtpAXfN" };
+    var ID_PARAMETER = "pCD0k3IB_dljxFtpAXfN";
     var SENDER_ID_PARAMETER = {'id': "3PGBtn_"};
-    var PARTICIPANT_RN_PARAMETER = {'rn': "1234567"};
-    var LIMIT_PARAMETER = {'limit': 3};
+    var PARTICIPANT_RN_PARAMETER = { 'rn': "1234567" };
+    var SKIP_PARAMETER = "0";
+    var LIMIT_PARAMETER =  "3";
 
     var SUFFIX_POST_CREATE_ISSUE = SUFFIX + '/issues';
     var SUFFIX_POST_CREATE_MESSAGE = SUFFIX + '/issues/pCD0k3IB_dljxFtpAXfN/messages';
@@ -26,8 +28,7 @@
     var SUFFIX_GET_SENDER_BY_ID = SUFFIX + '/senders/3PGBtn_';
     var SUFFIX_GET_ISSUES_BY_RN = SUFFIX + '/issues/participant/1234567';
     var SUFFIX_GET_MESSAGE_BY_ID = SUFFIX + '/issues/pCD0k3IB_dljxFtpAXfN/messages';
-    var SUFFIX_GET_MESSAGE_BY_ID_LIMIT = SUFFIX + '/issues/pCD0k3IB_dljxFtpAXfN/messages/3';
-    var SUFFIX_GET_LIST_ISSUE = SUFFIX + '/issues';
+    var SUFFIX_GET_MESSAGE_BY_ID_LIMIT = SUFFIX + '/issues/pCD0k3IB_dljxFtpAXfN/messages/0/3';
     var SUFFIX_GET_ISSUES_BY_ID = SUFFIX + '/issues/pCD0k3IB_dljxFtpAXfN';
 
     var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
@@ -53,7 +54,6 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_ISSUES_BY_RN).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_MESSAGE_BY_ID).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_MESSAGE_BY_ID_LIMIT).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_LIST_ISSUE).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_ISSUES_BY_ID).respond(200, DATA);
       });
     });
@@ -89,7 +89,6 @@
         expect(factoryResult.getIssuesByRn).toBeDefined();
         expect(factoryResult.getMessageById).toBeDefined();
         expect(factoryResult.getMessageByIdLimit).toBeDefined();
-        expect(factoryResult.listIssue).toBeDefined();
         expect(factoryResult.getIssuesById).toBeDefined();
       });
 
@@ -163,16 +162,9 @@
         });
 
         it('getMessageByIdLimit method check', function () {
-          var get = factoryResult.getMessageByIdLimit(ISSUE_ID_PARAMETER, LIMIT_PARAMETER);
+          var get = factoryResult.getMessageByIdLimit({ issueId: ID_PARAMETER, skip: SKIP_PARAMETER, limit: LIMIT_PARAMETER });
           get.$promise.then(function (resultGetMessageByIdLimit) {
             expect(resultGetMessageByIdLimit.data).toEqual(DATA_CONFIRMATION);
-          });
-        });
-
-        it('listIssue method check', function () {
-          var get = factoryResult.listIssue();
-          get.$promise.then(function (resultListIssue) {
-            expect(resultListIssue.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
