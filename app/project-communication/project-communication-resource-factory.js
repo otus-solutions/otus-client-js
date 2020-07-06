@@ -100,12 +100,13 @@
         },
         getMessageByIdLimit: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/issues/:issueId/messages/:skip/:limit',
+          url: restPrefix + SUFFIX + '/issues/:issueId/messages/:skip/:limit/:order',
           headers: headers.json,
           params:{
             'issueId': '@issueId',
             'skip': '@skip',
-            'limit':'@limit'
+            'limit': '@limit',
+            'order': "order?"
           }
         },
         getIssuesById: {
