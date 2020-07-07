@@ -106,7 +106,7 @@
             'issueId': '@issueId',
             'skip': '@skip',
             'limit': '@limit',
-            'order': "order?"
+            'order': "@order"
           }
         },
         getIssuesById: {
