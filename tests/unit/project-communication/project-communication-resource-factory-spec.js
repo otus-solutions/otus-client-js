@@ -16,8 +16,10 @@
     var ID_PARAMETER = "pCD0k3IB_dljxFtpAXfN";
     var SENDER_ID_PARAMETER = {'id': "3PGBtn_"};
     var PARTICIPANT_RN_PARAMETER = { 'rn': "1234567" };
+    var ORDER_PARAMETER = "desc";
     var SKIP_PARAMETER = "0";
-    var LIMIT_PARAMETER =  "3";
+    var LIMIT_PARAMETER = "3";
+    var ORDER = "/desc";
 
     var SUFFIX_POST_CREATE_ISSUE = SUFFIX + '/issues';
     var SUFFIX_POST_CREATE_MESSAGE = SUFFIX + '/issues/pCD0k3IB_dljxFtpAXfN/messages';
@@ -53,7 +55,7 @@
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_SENDER_BY_ID).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_ISSUES_BY_RN).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_MESSAGE_BY_ID).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_MESSAGE_BY_ID_LIMIT).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_MESSAGE_BY_ID_LIMIT + ORDER).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_GET_ISSUES_BY_ID).respond(200, DATA);
       });
     });
@@ -162,7 +164,7 @@
         });
 
         it('getMessageByIdLimit method check', function () {
-          var get = factoryResult.getMessageByIdLimit({ issueId: ID_PARAMETER, skip: SKIP_PARAMETER, limit: LIMIT_PARAMETER });
+          var get = factoryResult.getMessageByIdLimit({ issueId: ID_PARAMETER, skip: SKIP_PARAMETER, limit: LIMIT_PARAMETER, order: ORDER_PARAMETER});
           get.$promise.then(function (resultGetMessageByIdLimit) {
             expect(resultGetMessageByIdLimit.data).toEqual(DATA_CONFIRMATION);
           });
