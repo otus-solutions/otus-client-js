@@ -6,6 +6,7 @@ describe('RestResourceService', function () {
   var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory, monitoringResourceFactory;
   var passwordResetResourceFactory, permissionConfigurationResourceFactory, surveyGroupResourceFactory, userPermissionResourceFactory;
   var laboratoryMonitoringResourceFactory, locationResourceFactory, staticVariableResourceFactory, followUpResourceFactory, eventResourceFactory;
+  var participantPasswordResetResourceFactory, projectCommunicationResourceFactory;
 
   beforeEach(function () {
     angular.mock.module('otus.client');
@@ -42,7 +43,7 @@ describe('RestResourceService', function () {
       eventResourceFactory = _$injector_.get('otus.client.EventResourceFactory');
       locationResourceFactory = _$injector_.get('otus.client.LocationPointResourceFactory');
       participantPasswordResetResourceFactory = _$injector_.get('otus.client.ParticipantPasswordResetResourceFactory');
-
+      projectCommunicationResourceFactory = _$injector_.get('otus.client.ProjectCommunicationResourceFactory');
 
       spyOn(otusRestResourceContext, 'hasToken').and.callThrough();
       spyOn(otusRestResourceContext, 'reset').and.callThrough();
@@ -80,6 +81,7 @@ describe('RestResourceService', function () {
       spyOn(eventResourceFactory, 'create').and.callThrough();
       spyOn(locationResourceFactory, 'create').and.callThrough();
       spyOn(participantPasswordResetResourceFactory, 'create').and.callThrough();
+      spyOn(projectCommunicationResourceFactory, 'create').and.callThrough();
 
     });
   });
@@ -310,6 +312,11 @@ describe('RestResourceService', function () {
       it('getParticipantPasswordResetResourceMethod check', function () {
         service.getParticipantPasswordResetResource();
         expect(participantPasswordResetResourceFactory.create).toHaveBeenCalledTimes(1);
+      });
+
+      it('getProjectCommunicationResourceFactory check', function () {
+        service.getProjectCommunicationResourceFactory();
+        expect(projectCommunicationResourceFactory.create).toHaveBeenCalledTimes(1);
       });
 
     });
