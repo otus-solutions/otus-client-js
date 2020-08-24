@@ -42,7 +42,8 @@
     'otus.client.OfflineActivityCollectionResourceFactory',
     'otus.client.ParticipantContactResourceFactory',
     'otus.client.ParticipantPasswordResetResourceFactory',
-    'otus.client.ProjectCommunicationResourceFactory'
+    'otus.client.ProjectCommunicationResourceFactory',
+    'otus.client.ActivitySharingResourceFactory'
   ];
 
   function OtusRestResourceService(
@@ -82,7 +83,8 @@
     OfflineActivityCollectionResourceFactory,
     ParticipantContactResourceFactory,
     ParticipantPasswordResetResourceFactory,
-    ProjectCommunicationResourceFactory
+    ProjectCommunicationResourceFactory,
+    ActivitySharingResourceFactory
 
 ) {
     var self = this;
@@ -130,6 +132,7 @@
     self.getParticipantContactResource = getParticipantContactResource;
     self.getParticipantPasswordResetResource = getParticipantPasswordResetResource;
     self.getProjectCommunicationResourceFactory = getProjectCommunicationResourceFactory;
+    self.ActivitySharingResourceFactory = getActivitySharingResourceFactory;
 
     function isLogged() {
       return OtusRestResourceContext.hasToken();
@@ -297,6 +300,10 @@
 
     function getProjectCommunicationResourceFactory() {
       return ProjectCommunicationResourceFactory.create();
+    }
+
+    function getActivitySharingResourceFactory() {
+      return ActivitySharingResourceFactory.create();
     }
   }
 }());
