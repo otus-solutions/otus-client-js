@@ -25,7 +25,7 @@
       var headers = HeaderBuilderFactory.create(token);
 
       return $resource({}, {}, {
-        getSharedLink: {
+        getSharedURL: {
           method: 'GET',
           url: restPrefix + SUFFIX + '/:id',
           headers: headers.json,
@@ -33,7 +33,7 @@
             'id': '@id'
           }
         },
-        recreateSharedLink: {
+        renovateSharedURL: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/:id',
           headers: headers.json,
@@ -41,7 +41,7 @@
             'id': '@id'
           }
         },
-        deleteSharedLink: {
+        deleteSharedURL: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/:id',
           headers: headers.json,

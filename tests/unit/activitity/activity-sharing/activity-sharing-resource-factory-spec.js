@@ -9,7 +9,6 @@
     var METHOD_DELETE_VALUE = "DELETE";
     var ID_PARAMETER = { "id" : 1234567};
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
-    var SUFFIX = '/activity-sharing';
     var SUFFIX_WITH_ID = '/activity-sharing/1234567';
     var DATA_CONFIRMATION = 'returnPromiseOK';
 
@@ -53,9 +52,9 @@
       });
 
       it('methodFactoryExistence check', function () {
-        expect(factoryResult.getSharedLink).toBeDefined();
-        expect(factoryResult.recreateSharedLink).toBeDefined();
-        expect(factoryResult.deleteSharedLink).toBeDefined();
+        expect(factoryResult.getSharedURL).toBeDefined();
+        expect(factoryResult.renovateSharedURL).toBeDefined();
+        expect(factoryResult.deleteSharedURL).toBeDefined();
       });
 
       describe('resourceMethods', function () {
@@ -64,23 +63,23 @@
           httpBackend.flush();
         });
 
-        it('getSharedLinkMethod check', function () {
-          var getSharedLink = factoryResult.getSharedLink(ID_PARAMETER);
-          getSharedLink.$promise.then(function (resultGet) {
+        it('getSharedURLMethod check', function () {
+          var getSharedURL = factoryResult.getSharedURL(ID_PARAMETER);
+          getSharedURL.$promise.then(function (resultGet) {
             expect(resultGet.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
-        it('recreateSharedLinkMethod check', function () {
-          var recreateSharedLink = factoryResult.recreateSharedLink(ID_PARAMETER);
-          recreateSharedLink.$promise.then(function (resultUpdate) {
+        it('renovateSharedURLMethod check', function () {
+          var renovateSharedURL = factoryResult.renovateSharedURL(ID_PARAMETER);
+          renovateSharedURL.$promise.then(function (resultUpdate) {
             expect(resultUpdate.data).toEqual(DATA_CONFIRMATION);
           });
         });
 
-        it('deleteSharedLink check', function () {
-          var deleteSharedLink = factoryResult.deleteSharedLink(ID_PARAMETER);
-          deleteSharedLink.$promise.then(function (resultDeleteById) {
+        it('deleteSharedURL check', function () {
+          var deleteSharedURL = factoryResult.deleteSharedURL(ID_PARAMETER);
+          deleteSharedURL.$promise.then(function (resultDeleteById) {
             expect(resultDeleteById.data).toEqual(DATA_CONFIRMATION);
           });
         });
