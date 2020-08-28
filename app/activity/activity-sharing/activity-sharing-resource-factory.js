@@ -42,7 +42,7 @@
           }
         },
         deleteSharedURL: {
-          method: 'PUT',
+          method: 'DELETE',
           url: restPrefix + SUFFIX + '/:id',
           headers: headers.json,
           params: {
