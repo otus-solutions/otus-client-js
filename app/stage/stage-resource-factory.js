@@ -35,9 +35,11 @@
           method: 'PUT',
           url: restPrefix + SUFFIX + '/:id',
           headers: headers.json,
+          data: {
+            'stage': '@stage'
+          },
           params:{
-            'id':'@id',
-            'data': '@data'
+            'id':'@id'
           }
         },
         delete: {
