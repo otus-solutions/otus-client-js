@@ -20,7 +20,6 @@
     'otus.client.DataExtractionResourceFactory',
     'otus.client.ParticipantResourceFactory',
     'otus.client.LaboratoryParticipantResourceFactory',
-    'otus.client.LaboratoryTubesResourceFactory',
     'otus.client.LaboratoryConfigurationResourceFactory',
     'otus.client.UnattachedLaboratoryResourceFactory',
     'otus.client.DatasourceResourceFactory',
@@ -62,7 +61,6 @@
     DataExtractionResourceFactory,
     ParticipantResourceFactory,
     LaboratoryParticipantResourceFactory,
-    LaboratoryTubesResourceFactory,
     LaboratoryConfigurationResourceFactory,
     UnattachedLaboratoryResourceFactory,
     DatasourceResourceFactory,
@@ -109,7 +107,6 @@
     self.getExtractionResource = getExtractionResource;
     self.getParticipantResource = getParticipantResource;
     self.getLaboratoryParticipantResource = getLaboratoryParticipantResource;
-    self.getLaboratoryTubesResourceFactory = getLaboratoryTubesResourceFactory;
     self.getLaboratoryConfigurationResource = getLaboratoryConfigurationResource;
     self.getUnattachedLaboratoryResource = getUnattachedLaboratoryResource;
     self.getDatasourceResourceFactory = getDatasourceResourceFactory;
@@ -215,9 +212,6 @@
 
     function getLaboratoryParticipantResource() {
       return LaboratoryParticipantResourceFactory.create();
-    }
-    function getLaboratoryTubesResourceFactory() {
-      return LaboratoryTubesResourceFactory.create();
     }
 
     function getLaboratoryConfigurationResource() {

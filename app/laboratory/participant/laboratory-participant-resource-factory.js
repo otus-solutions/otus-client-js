@@ -41,6 +41,14 @@
             'rn': '@rn'
           }
         },
+        getLaboratoryByTube: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/by-tube' + '/:tubeCode',
+          headers: headers.json,
+          params: {
+            'tubeCode': '@tubeCode'
+          }
+        },
         update: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/:rn',

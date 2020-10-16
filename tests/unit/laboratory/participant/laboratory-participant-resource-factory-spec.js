@@ -9,12 +9,15 @@
     var TUBE_COLLECTION_DATA_SX = '/tube-collection-data';
     var UPDATE_ALIQUOTS = '/tubes/aliquots';
     var CONVERT_ALIQUOT_ROLE = '/convert-aliquot-role';
+    var LABORATORY_BY_TUBE = '/by-tube'
+    var TUBE_SX = '/1234567'
     var RN_SX = '/1234567';
     var ALIQUOT_SX = '/aliquot';
     var ALIQUOT_CODE_SX = '/314000010';
     var DATA = {'data': 'returnPromiseOK'};
     var DATA_CONFIRMATION = 'returnPromiseOK';
     var RN_PARAMETER = {'rn': 1234567};
+    var TUBE_PARAMETER = {'tubeCode': 1234567};
     var ALIQUOT_PARAMETER = {'code': 314000010};
     var METHOD_GET_VALUE = "GET";
     var METHOD_POST_VALUE = "POST";
@@ -36,6 +39,7 @@
         httpBackend = _$injector_.get('$httpBackend');
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + INITIALIZE_SX + RN_SX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + RN_SX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LABORATORY_BY_TUBE + TUBE_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + RN_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + TUBE_COLLECTION_DATA_SX + RN_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + RN_SX + UPDATE_ALIQUOTS).respond(200, DATA);
@@ -67,6 +71,7 @@
       it('methodFactoryExistence check', function () {
         expect(factoryResult.initialize).toBeDefined();
         expect(factoryResult.getLaboratory).toBeDefined();
+        expect(factoryResult.getLaboratoryByTube).toBeDefined();
         expect(factoryResult.update).toBeDefined();
         expect(factoryResult.updateTubeCollectionData).toBeDefined();
         expect(factoryResult.deleteAliquot).toBeDefined();
@@ -90,6 +95,12 @@
         it('getLaboratorygetByIdMethod check', function () {
           var getLaboratory = factoryResult.getLaboratory(RN_PARAMETER);
           getLaboratory.$promise.then(function (resultGetLaboratory) {
+            expect(resultGetLaboratory.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+        it('getLaboratoryByTube check', function () {
+          var getLaboratoryByTube = factoryResult.getLaboratoryByTube(TUBE_PARAMETER);
+          getLaboratoryByTube.$promise.then(function (resultGetLaboratory) {
             expect(resultGetLaboratory.data).toEqual(DATA_CONFIRMATION);
           });
         });
