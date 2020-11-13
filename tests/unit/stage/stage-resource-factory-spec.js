@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  fdescribe('StageResourceFactory', function () {
+  describe('StageResourceFactory', function () {
 
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/stage';
