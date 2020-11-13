@@ -1,6 +1,7 @@
 (function () {
   'use strict';
-  describe('StageResourceFactory', function () {
+
+  fdescribe('StageResourceFactory', function () {
 
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/stage';
@@ -17,6 +18,8 @@
     var STAGE_ID_PARAMETER = { 'id': STAGE_ID};
 
     var SUFFIX_WITH_ID = SUFFIX + '/' + STAGE_ID;
+    var SUFFIX_SURVEY_ACRONYMS_OF_STAGE = '/update-surveys-of-stage';
+    var SUFFIX_STAGE_OF_SURVEY_ACRONYMS = '/update-stages-with-survey';
 
     var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
     var httpBackend;
@@ -37,6 +40,8 @@
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX_WITH_ID).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX_WITH_ID).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX).respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + SUFFIX_SURVEY_ACRONYMS_OF_STAGE).respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + SUFFIX_STAGE_OF_SURVEY_ACRONYMS).respond(200, DATA);
       });
     });
 
@@ -62,6 +67,8 @@
         expect(factoryResult.delete).toBeDefined();
         expect(factoryResult.getByID).toBeDefined();
         expect(factoryResult.getAll).toBeDefined();
+        expect(factoryResult.updateSurveyAcronymsOfStage).toBeDefined();
+        expect(factoryResult.updateStagesOfSurveyAcronym).toBeDefined();
       });
 
       describe('resourceMethods', function () {
@@ -101,6 +108,20 @@
         it('getAll method check', function () {
           var req = factoryResult.getAll();
           req.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('updateSurveyAcronymsOfStage method check', function () {
+          var put = factoryResult.updateSurveyAcronymsOfStage();
+          put.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('updateStagesOfSurveyAcronym method check', function () {
+          var put = factoryResult.updateStagesOfSurveyAcronym();
+          put.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
