@@ -63,6 +63,22 @@
           url: restPrefix + SUFFIX,
           headers: headers.json
         },
+        updateSurveyAcronymsOfStage: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/update-surveys-of-stage',
+          headers: headers.json,
+          data: {
+            'stageJson': '@stageJson'
+          }
+        },
+        updateStagesOfSurveyAcronym: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/update-stages-with-survey',
+          headers: headers.json,
+          data: {
+            'stageDtoJson': '@stageDtoJson'
+          }
+        }
       });
     }
     return self;
