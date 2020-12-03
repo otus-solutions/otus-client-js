@@ -97,6 +97,14 @@
           data: {
             'convertedAliquot': '@convertedAliquot'
           }
+        },
+        updateTubeCustomMetadata: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/tube/custom-metadata',
+          headers: headers.json,
+          data: {
+            'tube': '@tube'
+          }
         }
       });
     }
