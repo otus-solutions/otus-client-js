@@ -41,12 +41,14 @@
                         'id': '@id'
                     }
                 },
-                findAllByRn: {
+                findByRnByContactTypeByPosition: {
                     method: 'GET',
-                    url: restPrefix + SUFFIX + '/rn/:rn',
+                    url: restPrefix + SUFFIX + '/:rn/:contactType/:position',
                     headers: headers.json,
                     params:{
-                      'rn': '@rn'
+                      'rn': '@rn',
+                      'contactType': '@contactType',
+                      'position': '@position'
                     }
                 },
                 findMetadataAttemptByObjectType: {

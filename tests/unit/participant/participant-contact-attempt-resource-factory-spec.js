@@ -14,8 +14,10 @@
     var ID_SUFFIX = '/'+ID;
     var ID_PARAMETER = { "id" : ID };
     var RN = '1234567';
-    var GET_BY_RN_SUFFIX = '/rn/'+RN;
-    var RN_PARAMETER = {'rn': RN};
+    var CONTACT_TYPE = 'address';
+    var POSITION = 'main';
+    var GET_BY_RN_BY_CONTACTYPE_BY_POSITION_SUFFIX = '/'+ RN + '/' + CONTACT_TYPE + '/' + POSITION;
+    var RN_CONTACTTYPE_POSITION_PARAMETER = {'rn': RN, 'contactType': CONTACT_TYPE, 'position': POSITION};
     var OBJTYPE_PARAMETER = {'objectType': METADATA_ADDRESS}
     var DTO_JSON_DATA = {};
     var DATA_CONFIRMATION = 'returnPromiseOK';
@@ -36,7 +38,7 @@
         httpBackend = _$injector_.get('$httpBackend');
         httpBackend.when(METHOD_POST_VALUE, PREFIX).respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, PREFIX + ID_SUFFIX).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, PREFIX + GET_BY_RN_SUFFIX).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, PREFIX + GET_BY_RN_BY_CONTACTYPE_BY_POSITION_SUFFIX).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, PREFIX + FIND_METADATA_ATTEMPT_SUFFIX).respond(200, DATA);
       });
     });
@@ -65,7 +67,7 @@
         expect(factoryResult.create).toBeDefined();
         expect(factoryResult.delete).toBeDefined();
         expect(factoryResult.findMetadataAttemptByObjectType).toBeDefined();
-        expect(factoryResult.findAllByRn).toBeDefined();
+        expect(factoryResult.findByRnByContactTypeByPosition).toBeDefined();
       });
 
       describe('resourceMethods', function () {
@@ -95,8 +97,8 @@
             });
         });
 
-        it('findAllByRn check', function () {
-          factoryResult.findAllByRn(RN_PARAMETER)
+        it('findByRnByContactTypeByPosition check', function () {
+          factoryResult.findByRnByContactTypeByPosition(RN_CONTACTTYPE_POSITION_PARAMETER)
             .$promise.then(function (result) {
               expect(result.data).toEqual(DATA_CONFIRMATION);
             });
