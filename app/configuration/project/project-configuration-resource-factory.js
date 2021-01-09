@@ -41,6 +41,14 @@
                   'permission': '@permission'
                 }
             },
+            addressCensusRequired: {
+               method: 'PUT',
+               url: restPrefix + SUFFIX + '/participant/addressCensusRequired/:permission',
+               headers: headers.json,
+               params: {
+                 'permission': '@permission'
+               }
+             },
             getProjectConfiguration: {
                method: 'GET',
                url: restPrefix + SUFFIX,
