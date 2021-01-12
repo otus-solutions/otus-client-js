@@ -51,9 +51,9 @@
                       'position': '@position'
                     }
                 },
-                findMetadataAttemptByObjectType: {
+                findAttemptConfigurationByObjectType: {
                   method: 'GET',
-                  url: restPrefix + SUFFIX + '/metadata-status/:objectType',
+                  url: restPrefix + SUFFIX + '/attempt-configuration/:objectType',
                   headers: headers.json,
                   params:{
                     'objectType': '@objectType'

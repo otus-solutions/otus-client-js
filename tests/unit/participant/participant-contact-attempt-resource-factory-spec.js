@@ -9,7 +9,7 @@
 
     var PREFIX = 'http://localhost:8080/otus-rest/v01/participant/participant-contact-attempt';
     var METADATA_ADDRESS = 'metadata_for_address'
-    var FIND_METADATA_ATTEMPT_SUFFIX = '/metadata-status/' + METADATA_ADDRESS;
+    var FIND_METADATA_ATTEMPT_SUFFIX = '/attempt-configuration/' + METADATA_ADDRESS;
     var ID = '5efd';
     var ID_SUFFIX = '/'+ID;
     var ID_PARAMETER = { "id" : ID };
@@ -66,7 +66,7 @@
       it('methodFactoryExistence check', function () {
         expect(factoryResult.create).toBeDefined();
         expect(factoryResult.delete).toBeDefined();
-        expect(factoryResult.findMetadataAttemptByObjectType).toBeDefined();
+        expect(factoryResult.findAttemptConfigurationByObjectType).toBeDefined();
         expect(factoryResult.findByRnByContactTypeByPosition).toBeDefined();
       });
 
@@ -91,7 +91,7 @@
         });
 
         it('findMetadataAttemptByObjectType check', function () {
-          factoryResult.findMetadataAttemptByObjectType(OBJTYPE_PARAMETER)
+          factoryResult.findAttemptConfigurationByObjectType(OBJTYPE_PARAMETER)
             .$promise.then(function (result) {
               expect(result.data).toEqual(DATA_CONFIRMATION);
             });
