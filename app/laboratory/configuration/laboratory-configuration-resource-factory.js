@@ -44,6 +44,11 @@
           method: 'GET',
           url: restPrefix + SUFFIX + '/aliquot-descriptors',
           headers: headers.json,
+        },
+        getTubeMedataDataByType: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/tube-custom-metadata/:type',
+          headers: headers.json,
         }
       });
     }

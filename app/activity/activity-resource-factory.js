@@ -99,6 +99,23 @@
           data: {
             'checkerUpdated': '@checkerUpdated'
           }
+        },
+        getAllByStageGroup: {
+          method: 'GET',
+          url: restPrefix + SUFFIX +'/by-stage',
+          headers: headers.json,
+          params: {
+            'rn': '@rn'
+          }
+        },
+        discard: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/discard' + '/:id',
+          headers: headers.json,
+          params: {
+            'id': '@id',
+            'rn': '@rn'
+          }
         }
       });
     }
