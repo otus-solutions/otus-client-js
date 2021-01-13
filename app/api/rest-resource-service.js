@@ -41,6 +41,7 @@
     'otus.client.UserActivityPendencyResourceFactory',
     'otus.client.OfflineActivityCollectionResourceFactory',
     'otus.client.ParticipantContactResourceFactory',
+    'otus.client.ParticipantContactAttemptResourceFactory',
     'otus.client.ParticipantPasswordResetResourceFactory',
     'otus.client.ProjectCommunicationResourceFactory',
     'otus.client.ActivitySharingResourceFactory',
@@ -85,6 +86,7 @@
     UserActivityPendencyResourceFactory,
     OfflineActivityCollectionResourceFactory,
     ParticipantContactResourceFactory,
+    ParticipantContactAttemptResourceFactory,
     ParticipantPasswordResetResourceFactory,
     ProjectCommunicationResourceFactory,
     ActivitySharingResourceFactory,
@@ -134,6 +136,7 @@
     self.getLocationPointResource = getLocationPointResource;
     self.getOfflineActivityCollectionResourceFactory = getOfflineActivityCollectionResourceFactory;
     self.getParticipantContactResource = getParticipantContactResource;
+    self.getParticipantContactAttemptResource = getParticipantContactAttemptResource;
     self.getParticipantPasswordResetResource = getParticipantPasswordResetResource;
     self.getProjectCommunicationResourceFactory = getProjectCommunicationResourceFactory;
     self.getActivitySharingResourceFactory = getActivitySharingResourceFactory;
@@ -297,6 +300,10 @@
 
     function getParticipantContactResource() {
       return ParticipantContactResourceFactory.create();
+    }
+
+    function getParticipantContactAttemptResource() {
+      return ParticipantContactAttemptResourceFactory.create();
     }
 
     function getParticipantPasswordResetResource() {
