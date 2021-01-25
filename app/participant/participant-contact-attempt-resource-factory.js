@@ -58,6 +58,29 @@
                   params:{
                     'objectType': '@objectType'
                   }
+                },
+                updateAttemptAddress: {
+                  method: 'PUT',
+                  url: restPrefix + SUFFIX + '/update-address/:rn/:contactType/:position',
+                  headers: headers.json,
+                  params:{
+                    'rn': '@rn',
+                    'contactType': '@contactType',
+                    'position': '@position'
+                  },
+                  data: {
+                    'addressJson': "@addressJson"
+                  }
+                },
+                changeAttemptAddress: {
+                  method: 'PUT',
+                  url: restPrefix + SUFFIX + '/change-address/:rn/:contactType/:position',
+                  headers: headers.json,
+                  params:{
+                    'rn': '@rn',
+                    'contactType': '@contactType',
+                    'position': '@position'
+                  }
                 }
             });
         }
