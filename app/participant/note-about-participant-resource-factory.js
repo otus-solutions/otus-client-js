@@ -59,7 +59,7 @@
                     }
                 },
                 getAll: {
-                    method: 'GET',
+                    method: 'POST',
                     url: restPrefix + SUFFIX + "/:rn",
                     headers: headers.json,
                     data: {
