@@ -9,15 +9,19 @@
     var ALIQUOT_SX = '/aliquot';
     var LOTS_SX = '/lots';
     var LOT_SX = '/lot';
+    var CODE_SX = '/123';
     var TUBE_SX = '/tube';
+    var RECEIPT_SX = '/receipt';
     var ID_SX = '/1234567';
     var DATA = {'data': 'returnPromiseOK'};
     var ID_PARAMETER = {'id': 1234567};
+    var CODE_PARAMETER = {'code': 1234567};
     var DATA_CONFIRMATION = 'returnPromiseOK';
     var METHOD_GET_VALUE = "GET";
     var METHOD_POST_VALUE = "POST";
     var METHOD_PUT_VALUE = "PUT";
     var METHOD_DELETE_VALUE = "DELETE";
+
 
     var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
     var httpBackend;
@@ -39,7 +43,7 @@
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + LOT_SX).respond(200, DATA);
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + LOT_SX).respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + LOT_SX + ID_SX).respond(200, DATA);
-
+        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + LOT_SX + RECEIPT_SX + CODE_SX).respond(200, DATA);
       });
     });
 
@@ -71,6 +75,7 @@
         expect(factoryResult.updateLot).toBeDefined();
         expect(factoryResult.deleteLot).toBeDefined();
         expect(factoryResult.getTube).toBeDefined();
+        expect(factoryResult.updateLotReceipt).toBeDefined();
       });
 
       describe('resourceMethods', function () {
