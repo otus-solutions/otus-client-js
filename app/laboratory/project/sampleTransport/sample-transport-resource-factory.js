@@ -98,6 +98,14 @@
           params: {
             'id': '@id',
           }
+        },
+        updateLotReceipt: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/lot/receipt/:code',
+          headers: headers.json,
+          params: {
+            'code': '@code'
+          }
         }
       });
     }
