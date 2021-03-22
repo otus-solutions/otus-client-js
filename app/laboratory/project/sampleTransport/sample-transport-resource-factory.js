@@ -25,12 +25,29 @@
       var headers = HeaderBuilderFactory.create(token);
 
       return $resource({}, {}, {
-        getLots: {
+        getLotsByOrigin: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/lots/:locationPointId',
+          url: restPrefix + SUFFIX + '/lots/from/:originLocationPointId',
           headers: headers.json,
           params: {
-            'locationPointId' : '@locationPointId'
+            'originLocationPointId': '@originLocationPointId'
+          }
+        },
+        getLotsByDestination: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/lots/to/:destinationLocationPointId',
+          headers: headers.json,
+          params: {
+            'destinationLocationPointId': '@destinationLocationPointId'
+          }
+        },
+        getLots: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/lots/:originLocationPointId/:destinationLocationPointId',
+          headers: headers.json,
+          params: {
+            'originLocationPointId': '@originLocationPointId',
+            'destinationLocationPointId': '@destinationLocationPointId'
           }
         },
         getTube: {
