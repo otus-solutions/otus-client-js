@@ -49,6 +49,11 @@
           method: 'GET',
           url: restPrefix + SUFFIX + '/tube-custom-metadata/:type',
           headers: headers.json,
+        },
+        getLotReceiptMetadata: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/lot-receipt-custom-metadata',
+          headers: headers.json
         }
       });
     }
