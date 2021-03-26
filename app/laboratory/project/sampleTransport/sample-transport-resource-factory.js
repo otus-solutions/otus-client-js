@@ -123,6 +123,30 @@
           params: {
             'code': '@code'
           }
+        },
+        receiveMaterial: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/lot/:id/receive-material',
+          headers: headers.json,
+          params: {
+            'id': '@id'
+          }
+        },
+        getMetadataOptions: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/lot/receive-material-metadata-options/:materialType',
+          headers: headers.json,
+          params: {
+            'materialType': '@materialType'
+          }
+        },
+        getMaterialTrackingList: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/material/tracking/:materialCode',
+          headers: headers.json,
+          params: {
+            'materialCode': '@materialCode'
+          }
         }
       });
     }

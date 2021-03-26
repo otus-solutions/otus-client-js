@@ -12,9 +12,16 @@
     var CODE_SX = '/123';
     var TUBE_SX = '/tube';
     var RECEIPT_SX = '/receipt';
+    var RECEIVE_MATERIAL_SX = '/receive-material';
+    var MATERIAL_SX = '/material';
+    var TRACKING_SX = '/tracking';
+    var RECEIVE_MATERIAL_METADATA_SX = '/receive-material-metadata-options';
+    var MATERIAL_TYPE_SX = '/DBS';
     var ID_SX = '/1234567';
     var DATA = {'data': 'returnPromiseOK'};
     var ID_PARAMETER = {'id': 1234567};
+    var MATERIAL_TYPE_PARAMETER = {'materialType': "DBS"};
+    var MATERIAL_CODE_PARAMETER = {"materialCode": 1234567};
     var CODE_PARAMETER = {'code': 1234567};
     var DATA_CONFIRMATION = 'returnPromiseOK';
     var METHOD_GET_VALUE = "GET";
@@ -44,6 +51,9 @@
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + LOT_SX).respond(200, DATA);
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + LOT_SX + ID_SX).respond(200, DATA);
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + LOT_SX + RECEIPT_SX + CODE_SX).respond(200, DATA);
+        httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + LOT_SX + ID_SX + RECEIVE_MATERIAL_SX ).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LOT_SX + RECEIVE_MATERIAL_METADATA_SX + MATERIAL_TYPE_SX ).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + MATERIAL_SX + TRACKING_SX + ID_SX ).respond(200, DATA);
       });
     });
 
@@ -76,6 +86,9 @@
         expect(factoryResult.deleteLot).toBeDefined();
         expect(factoryResult.getTube).toBeDefined();
         expect(factoryResult.updateLotReceipt).toBeDefined();
+        expect(factoryResult.receiveMaterial).toBeDefined();
+        expect(factoryResult.getMetadataOptions).toBeDefined();
+        expect(factoryResult.getMaterialTrackingList).toBeDefined();
       });
 
       describe('resourceMethods', function () {
@@ -130,6 +143,27 @@
           var deleteLot = factoryResult.deleteLot(ID_PARAMETER);
           deleteLot.$promise.then(function (resultDeleteLot) {
             expect(resultDeleteLot.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('receiveMaterialMethod check', function () {
+          var receiveMaterial = factoryResult.receiveMaterial(ID_PARAMETER);
+          receiveMaterial.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getMetadataOptionsMethod check', function () {
+          var request = factoryResult.getMetadataOptions(MATERIAL_TYPE_PARAMETER);
+          request.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getMaterialTrackingMethod check', function () {
+          var request = factoryResult.getMaterialTrackingList(MATERIAL_CODE_PARAMETER);
+          request.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
       });
