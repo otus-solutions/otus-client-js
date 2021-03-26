@@ -105,7 +105,7 @@
         });
 
         it('getAliquotMethod check', function () {
-          var getAliquot = factoryResult.getAliquot();
+          var getAliquot = factoryResult.getAliquot()
           getAliquot.$promise.then(function (resultGetAliquot) {
             expect(resultGetAliquot.data).toEqual(DATA_CONFIRMATION);
           });
