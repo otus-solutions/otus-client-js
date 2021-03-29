@@ -123,6 +123,22 @@
           params: {
             'code': '@code'
           }
+        },
+        receiveMaterial: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/lot/:id/receive-material',
+          headers: headers.json,
+          params: {
+            'id': '@id'
+          }
+        },
+        getMaterialTrackingList: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/material/tracking/:materialCode',
+          headers: headers.json,
+          params: {
+            'materialCode': '@materialCode'
+          }
         }
       });
     }

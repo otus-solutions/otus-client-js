@@ -54,7 +54,15 @@
           method: 'GET',
           url: restPrefix + SUFFIX + '/lot-receipt-custom-metadata',
           headers: headers.json
-        }
+        },
+        getMaterialMetadataOptions: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/lot/receive-material-metadata-options/:materialType',
+          headers: headers.json,
+          params: {
+            'materialType': '@materialType'
+          }
+        },
       });
     }
     return self;
