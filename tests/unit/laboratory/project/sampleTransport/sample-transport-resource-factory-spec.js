@@ -52,7 +52,6 @@
         httpBackend.when(METHOD_DELETE_VALUE, REST_PREFIX + SUFFIX + LOT_SX + ID_SX).respond(200, DATA);
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + LOT_SX + RECEIPT_SX + CODE_SX).respond(200, DATA);
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + LOT_SX + ID_SX + RECEIVE_MATERIAL_SX ).respond(200, DATA);
-        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LOT_SX + RECEIVE_MATERIAL_METADATA_SX + MATERIAL_TYPE_SX ).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + MATERIAL_SX + TRACKING_SX + ID_SX ).respond(200, DATA);
       });
     });
@@ -87,7 +86,6 @@
         expect(factoryResult.getTube).toBeDefined();
         expect(factoryResult.updateLotReceipt).toBeDefined();
         expect(factoryResult.receiveMaterial).toBeDefined();
-        expect(factoryResult.getMetadataOptions).toBeDefined();
         expect(factoryResult.getMaterialTrackingList).toBeDefined();
       });
 
@@ -149,13 +147,6 @@
         it('receiveMaterialMethod check', function () {
           var receiveMaterial = factoryResult.receiveMaterial(ID_PARAMETER);
           receiveMaterial.$promise.then(function (result) {
-            expect(result.data).toEqual(DATA_CONFIRMATION);
-          });
-        });
-
-        it('getMetadataOptionsMethod check', function () {
-          var request = factoryResult.getMetadataOptions(MATERIAL_TYPE_PARAMETER);
-          request.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
         });
