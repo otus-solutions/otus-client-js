@@ -128,6 +128,23 @@
           data: {
             'checkerUpdated': '@checkerUpdated'
           }
+        },
+        getAllByStageGroup: {
+          method: 'GET',
+          url: restPrefix + SUFFIX +'/by-stage',
+          headers: headers.json,
+          params: {
+            'rn': '@rn'
+          }
+        },
+        discard: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/discard' + '/:id',
+          headers: headers.json,
+          params: {
+            'id': '@id',
+            'rn': '@rn'
+          }
         }
       });
     }
@@ -372,9 +389,12 @@
     'otus.client.UserActivityPendencyResourceFactory',
     'otus.client.OfflineActivityCollectionResourceFactory',
     'otus.client.ParticipantContactResourceFactory',
+    'otus.client.ParticipantContactAttemptResourceFactory',
     'otus.client.ParticipantPasswordResetResourceFactory',
     'otus.client.ProjectCommunicationResourceFactory',
-    'otus.client.ActivitySharingResourceFactory'
+    'otus.client.ActivitySharingResourceFactory',
+    'otus.client.StageResourceFactory',
+    'otus.client.NoteAboutParticipantResourceFactory'
   ];
 
   function OtusRestResourceService(
@@ -413,11 +433,13 @@
     UserActivityPendencyResourceFactory,
     OfflineActivityCollectionResourceFactory,
     ParticipantContactResourceFactory,
+    ParticipantContactAttemptResourceFactory,
     ParticipantPasswordResetResourceFactory,
     ProjectCommunicationResourceFactory,
-    ActivitySharingResourceFactory
-
-) {
+    ActivitySharingResourceFactory,
+    StageResourceFactory,
+    NoteAboutParticipantResourceFactory
+  ) {
     var self = this;
 
     self.resetConnectionData = resetConnectionData;
@@ -461,9 +483,12 @@
     self.getLocationPointResource = getLocationPointResource;
     self.getOfflineActivityCollectionResourceFactory = getOfflineActivityCollectionResourceFactory;
     self.getParticipantContactResource = getParticipantContactResource;
+    self.getParticipantContactAttemptResource = getParticipantContactAttemptResource;
     self.getParticipantPasswordResetResource = getParticipantPasswordResetResource;
     self.getProjectCommunicationResourceFactory = getProjectCommunicationResourceFactory;
     self.getActivitySharingResourceFactory = getActivitySharingResourceFactory;
+    self.getStageResourceFactory = getStageResourceFactory;
+    self.getNoteAboutParticipantResourceFactory = getNoteAboutParticipantResourceFactory;
 
     function isLogged() {
       return OtusRestResourceContext.hasToken();
@@ -625,6 +650,10 @@
       return ParticipantContactResourceFactory.create();
     }
 
+    function getParticipantContactAttemptResource() {
+      return ParticipantContactAttemptResourceFactory.create();
+    }
+
     function getParticipantPasswordResetResource() {
       return ParticipantPasswordResetResourceFactory.create();
     }
@@ -635,6 +664,14 @@
 
     function getActivitySharingResourceFactory() {
       return ActivitySharingResourceFactory.create();
+    }
+
+    function getStageResourceFactory() {
+      return StageResourceFactory.create();
+    }
+
+    function getNoteAboutParticipantResourceFactory() {
+      return NoteAboutParticipantResourceFactory.create();
     }
   }
 }());
@@ -1236,99 +1273,6 @@
 }());
 
 (function() {
-  'use strict';
-
-  angular
-    .module('otus.client')
-    .factory('otus.client.LocationPointResourceFactory', LocationPointResourceFactory);
-
-  LocationPointResourceFactory.$inject = [
-    '$resource',
-    'OtusRestResourceContext',
-    'otus.client.HeaderBuilderFactory'
-  ];
-
-  function LocationPointResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/laboratory-project/transport-location-point';
-    var self = this;
-
-    self.create = create;
-
-    function create() {
-      var restPrefix = OtusRestResourceContext.getRestPrefix();
-      var token = OtusRestResourceContext.getSecurityToken();
-      var headers = HeaderBuilderFactory.create(token);
-
-      return $resource({}, {}, {
-        getConfiguration: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/configuration',
-          headers: headers.json
-        },
-        createLocationPoint: {
-          method: 'PUT',
-          url: restPrefix + SUFFIX + '/:locationName',
-          headers: headers.json,
-          params: {
-            'locationName': '@locationName'
-          }
-        },
-        updateLocationPoint: {
-          method: 'POST',
-          url: restPrefix + SUFFIX,
-          headers: headers.json,
-          data: {
-            'data': '@data'
-          }
-        },
-        deleteLocationPoint: {
-          method: 'DELETE',
-          url: restPrefix + SUFFIX + '/:locationPointId',
-          headers: headers.json,
-          params:{
-            'locationPointId':'@locationPointId'
-          }
-        },
-        saveUserLocation: {
-          method: 'POST',
-          url: restPrefix + SUFFIX + '/add-user/:locationPointId',
-          headers: headers.json,
-          params:{
-            'locationPointId':'@locationPointId'
-          },
-          data: {
-            'user': '@user'
-          }
-        },
-        removeUserLocation: {
-          method: 'POST',
-          url: restPrefix + SUFFIX + '/remove-user/:locationPointId',
-          headers: headers.json,
-          params:{
-            'locationPointId':'@locationPointId'
-          },
-          data: {
-            'user': '@user'
-          }
-        },
-        getUserLocationPoint: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/user-location-points',
-          headers: headers.json
-        },
-        getLocationPoints: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/location-points',
-          headers: headers.json
-        },
-      });
-    }
-    return self;
-  }
-
-}());
-
-(function() {
     'use strict';
 
     angular
@@ -1508,6 +1452,270 @@
 
     return self;
   }
+
+}());
+
+(function() {
+  'use strict';
+
+  angular
+    .module('otus.client')
+    .factory('otus.client.LocationPointResourceFactory', LocationPointResourceFactory);
+
+  LocationPointResourceFactory.$inject = [
+    '$resource',
+    'OtusRestResourceContext',
+    'otus.client.HeaderBuilderFactory'
+  ];
+
+  function LocationPointResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+    var SUFFIX = '/laboratory-project/transport-location-point';
+    var self = this;
+
+    self.create = create;
+
+    function create() {
+      var restPrefix = OtusRestResourceContext.getRestPrefix();
+      var token = OtusRestResourceContext.getSecurityToken();
+      var headers = HeaderBuilderFactory.create(token);
+
+      return $resource({}, {}, {
+        getConfiguration: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/configuration',
+          headers: headers.json
+        },
+        createLocationPoint: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/:locationName',
+          headers: headers.json,
+          params: {
+            'locationName': '@locationName'
+          }
+        },
+        updateLocationPoint: {
+          method: 'POST',
+          url: restPrefix + SUFFIX,
+          headers: headers.json,
+          data: {
+            'data': '@data'
+          }
+        },
+        deleteLocationPoint: {
+          method: 'DELETE',
+          url: restPrefix + SUFFIX + '/:locationPointId',
+          headers: headers.json,
+          params:{
+            'locationPointId':'@locationPointId'
+          }
+        },
+        saveUserLocation: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/add-user/:locationPointId',
+          headers: headers.json,
+          params:{
+            'locationPointId':'@locationPointId'
+          },
+          data: {
+            'user': '@user'
+          }
+        },
+        removeUserLocation: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/remove-user/:locationPointId',
+          headers: headers.json,
+          params:{
+            'locationPointId':'@locationPointId'
+          },
+          data: {
+            'user': '@user'
+          }
+        },
+        getUserLocationPoint: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/user-location-points',
+          headers: headers.json
+        },
+        getLocationPoints: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/location-points',
+          headers: headers.json
+        },
+      });
+    }
+    return self;
+  }
+
+}());
+
+(function() {
+    'use strict';
+
+    angular
+        .module('otus.client')
+        .factory('otus.client.NoteAboutParticipantResourceFactory', NotepAboutParticipantResourceFactory);
+
+    NotepAboutParticipantResourceFactory.$inject = [
+        '$resource',
+        'OtusRestResourceContext',
+        'otus.client.HeaderBuilderFactory'
+    ];
+
+    function NotepAboutParticipantResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+        var SUFFIX = '/participant/note-about';
+
+        var self = this;
+
+        /* Public methods */
+        self.create = create;
+
+        function create() {
+            var restPrefix = OtusRestResourceContext.getRestPrefix();
+            var token = OtusRestResourceContext.getSecurityToken();
+            var headers = HeaderBuilderFactory.create(token);
+
+            return $resource({}, {}, {
+                create: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX,
+                    headers: headers.json,
+                    data:{
+                      'noteAboutParticipantJson': '@noteAboutParticipantJson'
+                    }
+                },
+                update: {
+                  method: 'PUT',
+                  url: restPrefix + SUFFIX,
+                  headers: headers.json,
+                  data:{
+                    'noteAboutParticipantJson': '@noteAboutParticipantJson'
+                  }
+                },
+                updateStarred: {
+                  method: 'PUT',
+                  url: restPrefix + SUFFIX + "/update-starred/:id/:starred",
+                  headers: headers.json,
+                  params:{
+                    'id': '@id',
+                    'starred': '@starred'
+                  }
+                },
+                delete: {
+                    method: 'DELETE',
+                    url: restPrefix + SUFFIX + "/:id",
+                    headers: headers.json,
+                    params:{
+                        'id': '@id'
+                    }
+                },
+                getAll: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX + "/:rn",
+                    headers: headers.json,
+                    data: {
+                        'searchSettings': '@searchSettings'
+                    },
+                    params: {
+                      'rn': '@rn'
+                    }
+                }
+            });
+        }
+
+        return self;
+    }
+
+}());
+
+(function() {
+    'use strict';
+
+    angular
+        .module('otus.client')
+        .factory('otus.client.ParticipantContactAttemptResourceFactory', ParticipantContactAttemptResourceFactory);
+
+    ParticipantContactAttemptResourceFactory.$inject = [
+        '$resource',
+        'OtusRestResourceContext',
+        'otus.client.HeaderBuilderFactory'
+    ];
+
+    function ParticipantContactAttemptResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+        var SUFFIX = '/participant/participant-contact-attempt';
+
+        var self = this;
+
+        /* Public methods */
+        self.create = create;
+
+        function create() {
+            var restPrefix = OtusRestResourceContext.getRestPrefix();
+            var token = OtusRestResourceContext.getSecurityToken();
+            var headers = HeaderBuilderFactory.create(token);
+
+            return $resource({}, {}, {
+                create: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX,
+                    headers: headers.json,
+                    data:{
+                      'attemptJson': '@attemptJson'
+                    }
+                },
+                delete: {
+                    method: 'DELETE',
+                    url: restPrefix + SUFFIX + "/:id",
+                    headers: headers.json,
+                    params:{
+                        'id': '@id'
+                    }
+                },
+                findByRnByContactTypeByPosition: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + '/:rn/:contactType/:position',
+                    headers: headers.json,
+                    params:{
+                      'rn': '@rn',
+                      'contactType': '@contactType',
+                      'position': '@position'
+                    }
+                },
+                findAttemptConfigurationByObjectType: {
+                  method: 'GET',
+                  url: restPrefix + SUFFIX + '/attempt-configuration/:objectType',
+                  headers: headers.json,
+                  params:{
+                    'objectType': '@objectType'
+                  }
+                },
+                updateAttemptAddress: {
+                  method: 'PUT',
+                  url: restPrefix + SUFFIX + '/update-address/:rn/:contactType/:position',
+                  headers: headers.json,
+                  params:{
+                    'rn': '@rn',
+                    'contactType': '@contactType',
+                    'position': '@position'
+                  },
+                  data: {
+                    'addressJson': "@addressJson"
+                  }
+                },
+                changeAttemptAddress: {
+                  method: 'PUT',
+                  url: restPrefix + SUFFIX + '/change-address/:rn/:contactType/:position',
+                  headers: headers.json,
+                  params:{
+                    'rn': '@rn',
+                    'contactType': '@contactType',
+                    'position': '@position'
+                  }
+                }
+            });
+        }
+
+        return self;
+    }
 
 }());
 
@@ -2162,6 +2370,94 @@
 
   angular
     .module('otus.client')
+    .factory('otus.client.StageResourceFactory', StageResourceFactory);
+
+  StageResourceFactory.$inject = [
+    '$resource',
+    'OtusRestResourceContext',
+    'otus.client.HeaderBuilderFactory'
+  ];
+
+  function StageResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+    var SUFFIX = '/stage';
+    var self = this;
+
+    self.create = create;
+
+    function create() {
+      var restPrefix = OtusRestResourceContext.getRestPrefix();
+      var token = OtusRestResourceContext.getSecurityToken();
+      var headers = HeaderBuilderFactory.create(token);
+
+      return $resource({}, {}, {
+        create: {
+          method: 'POST',
+          url: restPrefix + SUFFIX ,
+          headers: headers.json,
+          data: {
+            'data': '@data'
+          }
+        },
+        update: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/:id',
+          headers: headers.json,
+          data: {
+            'stage': '@stage'
+          },
+          params:{
+            'id':'@id'
+          }
+        },
+        delete: {
+          method: 'DELETE',
+          url: restPrefix + SUFFIX + '/:id',
+          headers: headers.json,
+          params:{
+            'id':'@id'
+          }
+        },
+        getByID: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/:id',
+          headers: headers.json,
+          params:{
+            'id':'@id'
+          }
+        },
+        getAll: {
+          method: 'GET',
+          url: restPrefix + SUFFIX,
+          headers: headers.json
+        },
+        updateSurveyAcronymsOfStage: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/update-surveys-of-stage',
+          headers: headers.json,
+          data: {
+            'stageJson': '@stageJson'
+          }
+        },
+        updateStagesOfSurveyAcronym: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/update-stages-with-survey',
+          headers: headers.json,
+          data: {
+            'stageDtoJson': '@stageDtoJson'
+          }
+        }
+      });
+    }
+    return self;
+  }
+
+}());
+
+(function() {
+  'use strict';
+
+  angular
+    .module('otus.client')
     .factory('otus.client.StaticVariableResourceFactory', StaticVariableResourceFactory);
 
   StaticVariableResourceFactory.$inject = [
@@ -2481,6 +2777,51 @@
 }());
 
 (function() {
+    'use strict';
+
+    angular
+        .module('otus.client')
+        .factory('otus.client.UserCommentResourceFactory', UserCommentResourceFactory);
+
+    UserCommentResourceFactory.$inject = [
+        '$resource',
+        'OtusRestResourceContext',
+        'otus.client.HeaderBuilderFactory'
+    ];
+
+    function UserCommentResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+        var SUFFIX = '/user';
+
+        var self = this;
+
+        /* Public methods */
+        self.create = create;
+
+        function create() {
+            var restPrefix = OtusRestResourceContext.getRestPrefix();
+            var token = OtusRestResourceContext.getSecurityToken();
+            var headers = HeaderBuilderFactory.create(token);
+
+            return $resource({}, {}, {
+                create: {
+                    method: 'POST',
+                    url: restPrefix + SUFFIX,
+                    headers: headers.json
+                },
+                getAllComment: {
+                    method: 'GET',
+                    url: restPrefix + SUFFIX + '/list',
+                    headers: headers.json
+                }
+            });
+        }
+
+        return self;
+    }
+
+}());
+
+(function() {
   'use strict';
 
   angular
@@ -2710,6 +3051,14 @@
                   'permission': '@permission'
                 }
             },
+            addressCensusRequired: {
+               method: 'PUT',
+               url: restPrefix + SUFFIX + '/participant/addressCensusRequired/:permission',
+               headers: headers.json,
+               params: {
+                 'permission': '@permission'
+               }
+             },
             getProjectConfiguration: {
                method: 'GET',
                url: restPrefix + SUFFIX,
@@ -2779,6 +3128,11 @@
           method: 'GET',
           url: restPrefix + SUFFIX + '/aliquot-descriptors',
           headers: headers.json,
+        },
+        getTubeMedataDataByType: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/tube-custom-metadata/:type',
+          headers: headers.json,
         }
       });
     }
@@ -2830,6 +3184,14 @@
             'rn': '@rn'
           }
         },
+        getLaboratoryByTube: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/by-tube' + '/:tubeCode',
+          headers: headers.json,
+          params: {
+            'tubeCode': '@tubeCode'
+          }
+        },
         update: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/:rn',
@@ -2877,6 +3239,14 @@
           headers: headers.json,
           data: {
             'convertedAliquot': '@convertedAliquot'
+          }
+        },
+        updateTubeCustomMetadata: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/tube/custom-metadata',
+          headers: headers.json,
+          data: {
+            'tube': '@tube'
           }
         }
       });

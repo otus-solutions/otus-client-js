@@ -41,9 +41,12 @@
     'otus.client.UserActivityPendencyResourceFactory',
     'otus.client.OfflineActivityCollectionResourceFactory',
     'otus.client.ParticipantContactResourceFactory',
+    'otus.client.ParticipantContactAttemptResourceFactory',
     'otus.client.ParticipantPasswordResetResourceFactory',
     'otus.client.ProjectCommunicationResourceFactory',
-    'otus.client.ActivitySharingResourceFactory'
+    'otus.client.ActivitySharingResourceFactory',
+    'otus.client.StageResourceFactory',
+    'otus.client.NoteAboutParticipantResourceFactory'
   ];
 
   function OtusRestResourceService(
@@ -82,11 +85,13 @@
     UserActivityPendencyResourceFactory,
     OfflineActivityCollectionResourceFactory,
     ParticipantContactResourceFactory,
+    ParticipantContactAttemptResourceFactory,
     ParticipantPasswordResetResourceFactory,
     ProjectCommunicationResourceFactory,
-    ActivitySharingResourceFactory
-
-) {
+    ActivitySharingResourceFactory,
+    StageResourceFactory,
+    NoteAboutParticipantResourceFactory
+  ) {
     var self = this;
 
     self.resetConnectionData = resetConnectionData;
@@ -130,9 +135,12 @@
     self.getLocationPointResource = getLocationPointResource;
     self.getOfflineActivityCollectionResourceFactory = getOfflineActivityCollectionResourceFactory;
     self.getParticipantContactResource = getParticipantContactResource;
+    self.getParticipantContactAttemptResource = getParticipantContactAttemptResource;
     self.getParticipantPasswordResetResource = getParticipantPasswordResetResource;
     self.getProjectCommunicationResourceFactory = getProjectCommunicationResourceFactory;
     self.getActivitySharingResourceFactory = getActivitySharingResourceFactory;
+    self.getStageResourceFactory = getStageResourceFactory;
+    self.getNoteAboutParticipantResourceFactory = getNoteAboutParticipantResourceFactory;
 
     function isLogged() {
       return OtusRestResourceContext.hasToken();
@@ -294,6 +302,10 @@
       return ParticipantContactResourceFactory.create();
     }
 
+    function getParticipantContactAttemptResource() {
+      return ParticipantContactAttemptResourceFactory.create();
+    }
+
     function getParticipantPasswordResetResource() {
       return ParticipantPasswordResetResourceFactory.create();
     }
@@ -304,6 +316,14 @@
 
     function getActivitySharingResourceFactory() {
       return ActivitySharingResourceFactory.create();
+    }
+
+    function getStageResourceFactory() {
+      return StageResourceFactory.create();
+    }
+
+    function getNoteAboutParticipantResourceFactory() {
+      return NoteAboutParticipantResourceFactory.create();
     }
   }
 }());

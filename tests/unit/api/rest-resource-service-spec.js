@@ -6,7 +6,7 @@ describe('RestResourceService', function () {
   var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory, monitoringResourceFactory;
   var passwordResetResourceFactory, permissionConfigurationResourceFactory, surveyGroupResourceFactory, userPermissionResourceFactory;
   var laboratoryMonitoringResourceFactory, locationResourceFactory, staticVariableResourceFactory, followUpResourceFactory, eventResourceFactory;
-  var participantPasswordResetResourceFactory, projectCommunicationResourceFactory;
+  var participantPasswordResetResourceFactory, projectCommunicationResourceFactory, stageResourceFactory;
 
   beforeEach(function () {
     angular.mock.module('otus.client');
@@ -44,6 +44,7 @@ describe('RestResourceService', function () {
       locationResourceFactory = _$injector_.get('otus.client.LocationPointResourceFactory');
       participantPasswordResetResourceFactory = _$injector_.get('otus.client.ParticipantPasswordResetResourceFactory');
       projectCommunicationResourceFactory = _$injector_.get('otus.client.ProjectCommunicationResourceFactory');
+      stageResourceFactory = _$injector_.get('otus.client.StageResourceFactory');
 
       spyOn(otusRestResourceContext, 'hasToken').and.callThrough();
       spyOn(otusRestResourceContext, 'reset').and.callThrough();
@@ -82,6 +83,7 @@ describe('RestResourceService', function () {
       spyOn(locationResourceFactory, 'create').and.callThrough();
       spyOn(participantPasswordResetResourceFactory, 'create').and.callThrough();
       spyOn(projectCommunicationResourceFactory, 'create').and.callThrough();
+      spyOn(stageResourceFactory, 'create').and.callThrough();
 
     });
   });
@@ -127,6 +129,7 @@ describe('RestResourceService', function () {
       expect(service.getEventResourceFactory).toBeDefined();
       expect(service.getLocationPointResource).toBeDefined();
       expect(service.getParticipantPasswordResetResource).toBeDefined();
+      expect(service.getStageResourceFactory).toBeDefined();
 
     });
 
@@ -317,6 +320,11 @@ describe('RestResourceService', function () {
       it('getProjectCommunicationResourceFactory check', function () {
         service.getProjectCommunicationResourceFactory();
         expect(projectCommunicationResourceFactory.create).toHaveBeenCalledTimes(1);
+      });
+
+      it('getStageResourceFactory check', function () {
+        service.getStageResourceFactory();
+        expect(stageResourceFactory.create).toHaveBeenCalledTimes(1);
       });
 
     });

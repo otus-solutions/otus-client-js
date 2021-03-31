@@ -41,6 +41,14 @@
             'rn': '@rn'
           }
         },
+        getLaboratoryByTube: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/by-tube' + '/:tubeCode',
+          headers: headers.json,
+          params: {
+            'tubeCode': '@tubeCode'
+          }
+        },
         update: {
           method: 'PUT',
           url: restPrefix + SUFFIX + '/:rn',
@@ -88,6 +96,14 @@
           headers: headers.json,
           data: {
             'convertedAliquot': '@convertedAliquot'
+          }
+        },
+        updateTubeCustomMetadata: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/tube/custom-metadata',
+          headers: headers.json,
+          data: {
+            'tube': '@tube'
           }
         }
       });

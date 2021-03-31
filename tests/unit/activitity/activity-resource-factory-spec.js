@@ -7,7 +7,7 @@
     var METHOD_POST_VALUE = "POST";
     var METHOD_GET_VALUE = "GET";
     var METHOD_PUT_VALUE = "PUT";
-    var ID_PARAMETER = { "id" : 1234567};
+    var ID_PARAMETER = { "id": 1234567 };
     var PARAMETER_ACTIVITY_ID = {"id" : "5c41c6b316da48006573a500"};
     var REST_PREFIX = 'http://localhost:8080/otus-rest/v01';
     var SUFFIX = '/participants/activities';
@@ -15,6 +15,8 @@
     var UPDATE_CHECKER = '/participants/activities/update-checker-activity'
     var ACTIVITY_REVISION = '/revision';
     var ACTIVITY_REVISION_WITH_ID = '/5c41c6b316da48006573a500';
+    var ACTIVITY_STAGE = '/by-stage';
+    var ACTIVITY_DISCARD = '/discard/5c41c6b316da48006573a500';
     var DATA_CONFIRMATION = 'returnPromiseOK';
 
     var factory, factoryResult, otusRestResourceContext, headerBuilderFactory;
@@ -37,6 +39,8 @@
         httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + UPDATE_CHECKER).respond(200, DATA);
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REVISION).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_REVISION + ACTIVITY_REVISION_WITH_ID).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_STAGE ).respond(200, DATA);
+        httpBackend.when(METHOD_PUT_VALUE, REST_PREFIX + SUFFIX + ACTIVITY_DISCARD).respond(200, DATA);
       });
     });
 
@@ -66,6 +70,8 @@
         expect(factoryResult.listAll).toBeDefined();
         expect(factoryResult.getById).toBeDefined();
         expect(factoryResult.deleteById).toBeDefined();
+        expect(factoryResult.getAllByStageGroup).toBeDefined();
+        expect(factoryResult.discard).toBeDefined();
       });
 
       describe('resourceMethods', function () {
@@ -127,6 +133,20 @@
           var getActivityRevisions = factoryResult.getActivityRevisions(PARAMETER_ACTIVITY_ID);
           getActivityRevisions.$promise.then(function (resultGetActivityRevision) {
             expect(resultGetActivityRevision.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('getAllByStageGroupMethod check', function () {
+          var getAllByStageGroup = factoryResult.getAllByStageGroup();
+          getAllByStageGroup.$promise.then(function (resultGetAllByStageGroup) {
+            expect(resultGetAllByStageGroup.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('discardMethod check', function () {
+          var discard = factoryResult.discard(PARAMETER_ACTIVITY_ID);
+          discard.$promise.then(function (resultDiscard) {
+            expect(resultDiscard.data).toEqual(DATA_CONFIRMATION);
           });
         });
       });
