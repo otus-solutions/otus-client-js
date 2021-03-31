@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -29,32 +29,32 @@
                     method: 'POST',
                     url: restPrefix + SUFFIX,
                     headers: headers.json,
-                    data:{
-                      'noteAboutParticipantJson': '@noteAboutParticipantJson'
+                    data: {
+                        'noteAboutParticipantJson': '@noteAboutParticipantJson'
                     }
                 },
                 update: {
-                  method: 'PUT',
-                  url: restPrefix + SUFFIX,
-                  headers: headers.json,
-                  data:{
-                    'noteAboutParticipantJson': '@noteAboutParticipantJson'
-                  }
+                    method: 'PUT',
+                    url: restPrefix + SUFFIX,
+                    headers: headers.json,
+                    data: {
+                        'noteAboutParticipantJson': '@noteAboutParticipantJson'
+                    }
                 },
                 updateStarred: {
-                  method: 'PUT',
-                  url: restPrefix + SUFFIX + "/update-starred/:id/:starred",
-                  headers: headers.json,
-                  params:{
-                    'id': '@id',
-                    'starred': '@starred'
-                  }
+                    method: 'PUT',
+                    url: restPrefix + SUFFIX + "/update-starred/:id/:starred",
+                    headers: headers.json,
+                    params: {
+                        'id': '@id',
+                        'starred': '@starred'
+                    }
                 },
                 delete: {
                     method: 'DELETE',
                     url: restPrefix + SUFFIX + "/:id",
                     headers: headers.json,
-                    params:{
+                    params: {
                         'id': '@id'
                     }
                 },
@@ -66,7 +66,7 @@
                         'searchSettings': '@searchSettings'
                     },
                     params: {
-                      'rn': '@rn'
+                        'rn': '@rn'
                     }
                 }
             });

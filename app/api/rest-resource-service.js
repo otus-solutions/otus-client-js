@@ -91,7 +91,7 @@
     ActivitySharingResourceFactory,
     StageResourceFactory,
     NoteAboutParticipantResourceFactory
-  ) {
+) {
     var self = this;
 
     self.resetConnectionData = resetConnectionData;

@@ -439,7 +439,7 @@
     ActivitySharingResourceFactory,
     StageResourceFactory,
     NoteAboutParticipantResourceFactory
-  ) {
+) {
     var self = this;
 
     self.resetConnectionData = resetConnectionData;
@@ -987,6 +987,57 @@
 
 }());
 
+(function() {
+  'use strict';
+
+  angular
+    .module('otus.client')
+    .factory('otus.client.EventResourceFactory', Factory);
+
+  Factory.$inject = [
+    '$resource',
+    'OtusRestResourceContext',
+    'otus.client.HeaderBuilderFactory'
+  ];
+
+  function Factory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+    var SUFFIX = '/event';
+    var self = this;
+
+    self.create = create;
+
+    function create() {
+      var restPrefix = OtusRestResourceContext.getRestPrefix();
+      var token = OtusRestResourceContext.getSecurityToken();
+      var headers = HeaderBuilderFactory.create(token);
+
+      return $resource({}, {}, {
+        create: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/create/:id',
+          headers: headers.json,
+          data: {
+              'data': '@data'
+          },
+          params:{
+            'id':'@id'
+          },
+        },
+        deactivate: {
+          method: 'DELETE',
+          url: restPrefix + SUFFIX + '/remove/:id',
+          headers: headers.json,
+          params:{
+            'id':'@id'
+          }
+        }
+      });
+    }
+    return self;
+  }
+
+}());
+
 (function () {
     'use strict';
 
@@ -1069,57 +1120,6 @@
         };
         return self;
     }
-}());
-
-(function() {
-  'use strict';
-
-  angular
-    .module('otus.client')
-    .factory('otus.client.EventResourceFactory', Factory);
-
-  Factory.$inject = [
-    '$resource',
-    'OtusRestResourceContext',
-    'otus.client.HeaderBuilderFactory'
-  ];
-
-  function Factory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/event';
-    var self = this;
-
-    self.create = create;
-
-    function create() {
-      var restPrefix = OtusRestResourceContext.getRestPrefix();
-      var token = OtusRestResourceContext.getSecurityToken();
-      var headers = HeaderBuilderFactory.create(token);
-
-      return $resource({}, {}, {
-        create: {
-          method: 'PUT',
-          url: restPrefix + SUFFIX + '/create/:id',
-          headers: headers.json,
-          data: {
-              'data': '@data'
-          },
-          params:{
-            'id':'@id'
-          },
-        },
-        deactivate: {
-          method: 'DELETE',
-          url: restPrefix + SUFFIX + '/remove/:id',
-          headers: headers.json,
-          params:{
-            'id':'@id'
-          }
-        }
-      });
-    }
-    return self;
-  }
-
 }());
 
 (function() {
@@ -1322,6 +1322,99 @@
 
 }());
 
+(function() {
+  'use strict';
+
+  angular
+    .module('otus.client')
+    .factory('otus.client.LocationPointResourceFactory', LocationPointResourceFactory);
+
+  LocationPointResourceFactory.$inject = [
+    '$resource',
+    'OtusRestResourceContext',
+    'otus.client.HeaderBuilderFactory'
+  ];
+
+  function LocationPointResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
+    var SUFFIX = '/laboratory-project/transport-location-point';
+    var self = this;
+
+    self.create = create;
+
+    function create() {
+      var restPrefix = OtusRestResourceContext.getRestPrefix();
+      var token = OtusRestResourceContext.getSecurityToken();
+      var headers = HeaderBuilderFactory.create(token);
+
+      return $resource({}, {}, {
+        getConfiguration: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/configuration',
+          headers: headers.json
+        },
+        createLocationPoint: {
+          method: 'PUT',
+          url: restPrefix + SUFFIX + '/:locationName',
+          headers: headers.json,
+          params: {
+            'locationName': '@locationName'
+          }
+        },
+        updateLocationPoint: {
+          method: 'POST',
+          url: restPrefix + SUFFIX,
+          headers: headers.json,
+          data: {
+            'data': '@data'
+          }
+        },
+        deleteLocationPoint: {
+          method: 'DELETE',
+          url: restPrefix + SUFFIX + '/:locationPointId',
+          headers: headers.json,
+          params:{
+            'locationPointId':'@locationPointId'
+          }
+        },
+        saveUserLocation: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/add-user/:locationPointId',
+          headers: headers.json,
+          params:{
+            'locationPointId':'@locationPointId'
+          },
+          data: {
+            'user': '@user'
+          }
+        },
+        removeUserLocation: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/remove-user/:locationPointId',
+          headers: headers.json,
+          params:{
+            'locationPointId':'@locationPointId'
+          },
+          data: {
+            'user': '@user'
+          }
+        },
+        getUserLocationPoint: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/user-location-points',
+          headers: headers.json
+        },
+        getLocationPoints: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/location-points',
+          headers: headers.json
+        },
+      });
+    }
+    return self;
+  }
+
+}());
+
 (function () {
   'use strict';
 
@@ -1455,100 +1548,7 @@
 
 }());
 
-(function() {
-  'use strict';
-
-  angular
-    .module('otus.client')
-    .factory('otus.client.LocationPointResourceFactory', LocationPointResourceFactory);
-
-  LocationPointResourceFactory.$inject = [
-    '$resource',
-    'OtusRestResourceContext',
-    'otus.client.HeaderBuilderFactory'
-  ];
-
-  function LocationPointResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/laboratory-project/transport-location-point';
-    var self = this;
-
-    self.create = create;
-
-    function create() {
-      var restPrefix = OtusRestResourceContext.getRestPrefix();
-      var token = OtusRestResourceContext.getSecurityToken();
-      var headers = HeaderBuilderFactory.create(token);
-
-      return $resource({}, {}, {
-        getConfiguration: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/configuration',
-          headers: headers.json
-        },
-        createLocationPoint: {
-          method: 'PUT',
-          url: restPrefix + SUFFIX + '/:locationName',
-          headers: headers.json,
-          params: {
-            'locationName': '@locationName'
-          }
-        },
-        updateLocationPoint: {
-          method: 'POST',
-          url: restPrefix + SUFFIX,
-          headers: headers.json,
-          data: {
-            'data': '@data'
-          }
-        },
-        deleteLocationPoint: {
-          method: 'DELETE',
-          url: restPrefix + SUFFIX + '/:locationPointId',
-          headers: headers.json,
-          params:{
-            'locationPointId':'@locationPointId'
-          }
-        },
-        saveUserLocation: {
-          method: 'POST',
-          url: restPrefix + SUFFIX + '/add-user/:locationPointId',
-          headers: headers.json,
-          params:{
-            'locationPointId':'@locationPointId'
-          },
-          data: {
-            'user': '@user'
-          }
-        },
-        removeUserLocation: {
-          method: 'POST',
-          url: restPrefix + SUFFIX + '/remove-user/:locationPointId',
-          headers: headers.json,
-          params:{
-            'locationPointId':'@locationPointId'
-          },
-          data: {
-            'user': '@user'
-          }
-        },
-        getUserLocationPoint: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/user-location-points',
-          headers: headers.json
-        },
-        getLocationPoints: {
-          method: 'GET',
-          url: restPrefix + SUFFIX + '/location-points',
-          headers: headers.json
-        },
-      });
-    }
-    return self;
-  }
-
-}());
-
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -1579,32 +1579,32 @@
                     method: 'POST',
                     url: restPrefix + SUFFIX,
                     headers: headers.json,
-                    data:{
-                      'noteAboutParticipantJson': '@noteAboutParticipantJson'
+                    data: {
+                        'noteAboutParticipantJson': '@noteAboutParticipantJson'
                     }
                 },
                 update: {
-                  method: 'PUT',
-                  url: restPrefix + SUFFIX,
-                  headers: headers.json,
-                  data:{
-                    'noteAboutParticipantJson': '@noteAboutParticipantJson'
-                  }
+                    method: 'PUT',
+                    url: restPrefix + SUFFIX,
+                    headers: headers.json,
+                    data: {
+                        'noteAboutParticipantJson': '@noteAboutParticipantJson'
+                    }
                 },
                 updateStarred: {
-                  method: 'PUT',
-                  url: restPrefix + SUFFIX + "/update-starred/:id/:starred",
-                  headers: headers.json,
-                  params:{
-                    'id': '@id',
-                    'starred': '@starred'
-                  }
+                    method: 'PUT',
+                    url: restPrefix + SUFFIX + "/update-starred/:id/:starred",
+                    headers: headers.json,
+                    params: {
+                        'id': '@id',
+                        'starred': '@starred'
+                    }
                 },
                 delete: {
                     method: 'DELETE',
                     url: restPrefix + SUFFIX + "/:id",
                     headers: headers.json,
-                    params:{
+                    params: {
                         'id': '@id'
                     }
                 },
@@ -1616,7 +1616,7 @@
                         'searchSettings': '@searchSettings'
                     },
                     params: {
-                      'rn': '@rn'
+                        'rn': '@rn'
                     }
                 }
             });
@@ -1626,7 +1626,6 @@
     }
 
 }());
-
 (function() {
     'use strict';
 
@@ -2776,7 +2775,7 @@
 
 }());
 
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -2820,7 +2819,6 @@
     }
 
 }());
-
 (function() {
   'use strict';
 
@@ -3133,7 +3131,20 @@
           method: 'GET',
           url: restPrefix + SUFFIX + '/tube-custom-metadata/:type',
           headers: headers.json,
-        }
+        },
+        getLotReceiptMetadata: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/lot-receipt-custom-metadata',
+          headers: headers.json
+        },
+        getMaterialMetadataOptions: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/lot/receive-material-metadata-options/:materialType',
+          headers: headers.json,
+          params: {
+            'materialType': '@materialType'
+          }
+        },
       });
     }
     return self;
@@ -3664,12 +3675,29 @@
       var headers = HeaderBuilderFactory.create(token);
 
       return $resource({}, {}, {
-        getLots: {
+        getLotsByOrigin: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/lots/:locationPointId',
+          url: restPrefix + SUFFIX + '/lots/from/:originLocationPointId',
           headers: headers.json,
           params: {
-            'locationPointId' : '@locationPointId'
+            'originLocationPointId': '@originLocationPointId'
+          }
+        },
+        getLotsByDestination: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/lots/to/:destinationLocationPointId',
+          headers: headers.json,
+          params: {
+            'destinationLocationPointId': '@destinationLocationPointId'
+          }
+        },
+        getLots: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/lots/:originLocationPointId/:destinationLocationPointId',
+          headers: headers.json,
+          params: {
+            'originLocationPointId': '@originLocationPointId',
+            'destinationLocationPointId': '@destinationLocationPointId'
           }
         },
         getTube: {
@@ -3736,6 +3764,30 @@
           headers: headers.json,
           params: {
             'id': '@id',
+          }
+        },
+        updateLotReceipt: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/lot/receipt/:code',
+          headers: headers.json,
+          params: {
+            'code': '@code'
+          }
+        },
+        receiveMaterial: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/lot/:id/receive-material',
+          headers: headers.json,
+          params: {
+            'id': '@id'
+          }
+        },
+        getMaterialTrackingList: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/material/tracking/:materialCode',
+          headers: headers.json,
+          params: {
+            'materialCode': '@materialCode'
           }
         }
       });

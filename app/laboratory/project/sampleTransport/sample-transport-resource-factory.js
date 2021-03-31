@@ -25,12 +25,29 @@
       var headers = HeaderBuilderFactory.create(token);
 
       return $resource({}, {}, {
-        getLots: {
+        getLotsByOrigin: {
           method: 'GET',
-          url: restPrefix + SUFFIX + '/lots/:locationPointId',
+          url: restPrefix + SUFFIX + '/lots/from/:originLocationPointId',
           headers: headers.json,
           params: {
-            'locationPointId' : '@locationPointId'
+            'originLocationPointId': '@originLocationPointId'
+          }
+        },
+        getLotsByDestination: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/lots/to/:destinationLocationPointId',
+          headers: headers.json,
+          params: {
+            'destinationLocationPointId': '@destinationLocationPointId'
+          }
+        },
+        getLots: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/lots/:originLocationPointId/:destinationLocationPointId',
+          headers: headers.json,
+          params: {
+            'originLocationPointId': '@originLocationPointId',
+            'destinationLocationPointId': '@destinationLocationPointId'
           }
         },
         getTube: {
@@ -97,6 +114,30 @@
           headers: headers.json,
           params: {
             'id': '@id',
+          }
+        },
+        updateLotReceipt: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/lot/receipt/:code',
+          headers: headers.json,
+          params: {
+            'code': '@code'
+          }
+        },
+        receiveMaterial: {
+          method: 'POST',
+          url: restPrefix + SUFFIX + '/lot/:id/receive-material',
+          headers: headers.json,
+          params: {
+            'id': '@id'
+          }
+        },
+        getMaterialTrackingList: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/material/tracking/:materialCode',
+          headers: headers.json,
+          params: {
+            'materialCode': '@materialCode'
           }
         }
       });
