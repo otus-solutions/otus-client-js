@@ -38,6 +38,7 @@
                 httpBackend.when(METHOD_POST_VALUE, PREFIX).respond(200, DATA);
                 httpBackend.when(METHOD_PUT_VALUE, PREFIX).respond(200, DATA);
                 httpBackend.when(METHOD_POST_VALUE, PREFIX + GET_BY_RN_SUFFIX).respond(200, DATA);
+                httpBackend.when(METHOD_GET_VALUE, PREFIX).respond(200, DATA);
             });
         });
 
@@ -94,6 +95,12 @@
                         });
                 });
 
+              it('get occupational check', function () {
+                factoryResult.getOccupational()
+                  .$promise.then(function (result) {
+                    expect(result.data).toEqual(DATA_CONFIRMATION);
+                  });
+              });
             });
         });
     });
