@@ -7,7 +7,7 @@
         var METHOD_POST_VALUE = 'POST';
         var METHOD_PUT_VALUE = 'PUT';
 
-        var PREFIX = 'http://localhost:8080/otus-rest/v01/participant/profile';
+        var PREFIX = 'http://localhost:8080/otus-rest/v01/participant-profile';
 
         var RN = '1234567';
 

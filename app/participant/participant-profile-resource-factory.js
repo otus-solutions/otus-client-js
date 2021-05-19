@@ -12,7 +12,7 @@
   ];
 
   function ParticipantProfileResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
-    var SUFFIX = '/participant/profile';
+    var SUFFIX = '/participant-profile';
 
     var self = this;
 
