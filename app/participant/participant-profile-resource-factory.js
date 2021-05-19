@@ -51,7 +51,7 @@
         },
         getEmploymentStatusReference: {
           method: 'GET',
-          url: restPrefix + SUFFIX,
+          url: restPrefix + SUFFIX + "/employments",
           headers: headers.json
         }
 

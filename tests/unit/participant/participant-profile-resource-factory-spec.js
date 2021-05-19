@@ -34,7 +34,7 @@
                 httpBackend.when(METHOD_POST_VALUE, PREFIX).respond(200, DATA);
                 httpBackend.when(METHOD_PUT_VALUE, PREFIX).respond(200, DATA);
                 httpBackend.when(METHOD_GET_VALUE, PREFIX + GET_BY_RN_SUFFIX).respond(200, DATA);
-                httpBackend.when(METHOD_GET_VALUE, PREFIX).respond(200, DATA);
+                httpBackend.when(METHOD_GET_VALUE, PREFIX + "/employments").respond(200, DATA);
             });
         });
 
