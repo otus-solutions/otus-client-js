@@ -9,14 +9,10 @@
 
         var PREFIX = 'http://localhost:8080/otus-rest/v01/participant/profile';
 
-        var ID = '5efd';
-        var STARRED = 'true';
         var RN = '1234567';
 
-        var ID_SUFFIX = '/' + ID;
         var GET_BY_RN_SUFFIX = '/' + RN;
 
-        var ID_PARAMETER = { "id": ID };
         var RN_PARAMETER = { 'rn': RN };
         var JSON_DATA = {};
         var DATA_CONFIRMATION = 'returnPromiseOK';
@@ -37,7 +33,7 @@
                 httpBackend = _$injector_.get('$httpBackend');
                 httpBackend.when(METHOD_POST_VALUE, PREFIX).respond(200, DATA);
                 httpBackend.when(METHOD_PUT_VALUE, PREFIX).respond(200, DATA);
-                httpBackend.when(METHOD_POST_VALUE, PREFIX + GET_BY_RN_SUFFIX).respond(200, DATA);
+                httpBackend.when(METHOD_GET_VALUE, PREFIX + GET_BY_RN_SUFFIX).respond(200, DATA);
                 httpBackend.when(METHOD_GET_VALUE, PREFIX).respond(200, DATA);
             });
         });

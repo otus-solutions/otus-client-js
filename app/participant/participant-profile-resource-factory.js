@@ -42,7 +42,7 @@
           }
         },
         get: {
-          method: 'POST',
+          method: 'GET',
           url: restPrefix + SUFFIX + "/:rn",
           headers: headers.json,
           data: {
