@@ -92,7 +92,7 @@
                 });
 
               it('get occupational check', function () {
-                factoryResult.getEmploymentStatusReference()
+                factoryResult.getOccupational()
                   .$promise.then(function (result) {
                     expect(result.data).toEqual(DATA_CONFIRMATION);
                   });
