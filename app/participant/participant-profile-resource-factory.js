@@ -45,20 +45,14 @@
           method: 'GET',
           url: restPrefix + SUFFIX + "/:rn",
           headers: headers.json,
-          data: {
-            'selectedParticipant': '@selectedParticipant'
-          },
           params: {
             'rn': '@rn'
           }
         },
-        getOccupational: {
+        getEmploymentStatusReference: {
           method: 'GET',
           url: restPrefix + SUFFIX,
-          headers: headers.json,
-          data: {
-            'occupational': '@occupational'
-          }
+          headers: headers.json
         }
 
       });
