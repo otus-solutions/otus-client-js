@@ -52,7 +52,7 @@
             'rn': '@rn'
           }
         },
-        getOccupational: {
+        getEmploymentStatusReference: {
           method: 'GET',
           url: restPrefix + SUFFIX,
           headers: headers.json,
