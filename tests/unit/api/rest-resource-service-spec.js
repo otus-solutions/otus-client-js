@@ -6,7 +6,7 @@ describe('RestResourceService', function () {
   var datasourceResourceFactory, uploadResourceFactory, sampleTransport, examLot, examUpload, reportResourceFactory, monitoringResourceFactory;
   var passwordResetResourceFactory, permissionConfigurationResourceFactory, surveyGroupResourceFactory, userPermissionResourceFactory;
   var laboratoryMonitoringResourceFactory, locationResourceFactory, staticVariableResourceFactory, followUpResourceFactory, eventResourceFactory;
-  var participantPasswordResetResourceFactory, projectCommunicationResourceFactory, stageResourceFactory;
+  var participantPasswordResetResourceFactory, projectCommunicationResourceFactory, stageResourceFactory, participantProfileResourceFactory, participantConfigurationResourceFactory;
 
   beforeEach(function () {
     angular.mock.module('otus.client');
@@ -45,6 +45,8 @@ describe('RestResourceService', function () {
       participantPasswordResetResourceFactory = _$injector_.get('otus.client.ParticipantPasswordResetResourceFactory');
       projectCommunicationResourceFactory = _$injector_.get('otus.client.ProjectCommunicationResourceFactory');
       stageResourceFactory = _$injector_.get('otus.client.StageResourceFactory');
+      participantProfileResourceFactory = _$injector_.get('otus.client.ParticipantProfileResourceFactory');
+      participantConfigurationResourceFactory = _$injector_.get('otus.client.ParticipantConfigurationResourceFactory');
 
       spyOn(otusRestResourceContext, 'hasToken').and.callThrough();
       spyOn(otusRestResourceContext, 'reset').and.callThrough();
@@ -84,7 +86,8 @@ describe('RestResourceService', function () {
       spyOn(participantPasswordResetResourceFactory, 'create').and.callThrough();
       spyOn(projectCommunicationResourceFactory, 'create').and.callThrough();
       spyOn(stageResourceFactory, 'create').and.callThrough();
-
+      spyOn(participantProfileResourceFactory, 'create').and.callThrough();
+      spyOn(participantConfigurationResourceFactory, 'create').and.callThrough();
     });
   });
 
@@ -130,7 +133,8 @@ describe('RestResourceService', function () {
       expect(service.getLocationPointResource).toBeDefined();
       expect(service.getParticipantPasswordResetResource).toBeDefined();
       expect(service.getStageResourceFactory).toBeDefined();
-
+      expect(service.getParticipantProfileResourceFactory).toBeDefined();
+      expect(service.getParticipantConfigurationResourceFactory).toBeDefined();
     });
 
     describe('serviceMethods', function () {
@@ -327,6 +331,15 @@ describe('RestResourceService', function () {
         expect(stageResourceFactory.create).toHaveBeenCalledTimes(1);
       });
 
+      it('getParticipantProfileResourceFactory check', function () {
+        service.getParticipantProfileResourceFactory();
+        expect(participantProfileResourceFactory.create).toHaveBeenCalledTimes(1);
+      });
+
+      it('getParticipantConfigurationResourceFactory check', function () {
+        service.getParticipantConfigurationResourceFactory();
+        expect(participantConfigurationResourceFactory.create).toHaveBeenCalledTimes(1);
+      });
     });
   });
 });
