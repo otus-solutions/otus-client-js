@@ -47,6 +47,7 @@ describe('RestResourceService', function () {
       stageResourceFactory = _$injector_.get('otus.client.StageResourceFactory');
       participantProfileResourceFactory = _$injector_.get('otus.client.ParticipantProfileResourceFactory');
       participantConfigurationResourceFactory = _$injector_.get('otus.client.ParticipantConfigurationResourceFactory');
+      referenceContactResourceFactory = _$injector_.get('otus.client.ReferenceContactResourceFactory');
 
       spyOn(otusRestResourceContext, 'hasToken').and.callThrough();
       spyOn(otusRestResourceContext, 'reset').and.callThrough();
@@ -88,6 +89,7 @@ describe('RestResourceService', function () {
       spyOn(stageResourceFactory, 'create').and.callThrough();
       spyOn(participantProfileResourceFactory, 'create').and.callThrough();
       spyOn(participantConfigurationResourceFactory, 'create').and.callThrough();
+      spyOn(referenceContactResourceFactory, 'create').and.callThrough();
     });
   });
 
@@ -135,6 +137,7 @@ describe('RestResourceService', function () {
       expect(service.getStageResourceFactory).toBeDefined();
       expect(service.getParticipantProfileResourceFactory).toBeDefined();
       expect(service.getParticipantConfigurationResourceFactory).toBeDefined();
+      expect(service.getReferenceContactResourceFactory).toBeDefined();
     });
 
     describe('serviceMethods', function () {
@@ -339,6 +342,11 @@ describe('RestResourceService', function () {
       it('getParticipantConfigurationResourceFactory check', function () {
         service.getParticipantConfigurationResourceFactory();
         expect(participantConfigurationResourceFactory.create).toHaveBeenCalledTimes(1);
+      });
+
+      it('getReferenceContactResourceFactory check', function () {
+        service.getReferenceContactResourceFactory();
+        expect(referenceContactResourceFactory.create).toHaveBeenCalledTimes(1);
       });
     });
   });
