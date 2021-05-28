@@ -13,6 +13,7 @@
 
   function ParticipantProfileResourceFactory($resource, OtusRestResourceContext, HeaderBuilderFactory) {
     var SUFFIX = '/participant-configuration';
+    var SUB_SUFFIX = '/employment-reference';
 
     var self = this;
 
@@ -27,7 +28,7 @@
       return $resource({}, {}, {
         create: {
           method: 'POST',
-          url: restPrefix + SUFFIX,
+          url: restPrefix + SUFFIX + SUB_SUFFIX,
           headers: headers.json,
           data: {
             'participantConfigurationJson': '@participantConfigurationJson'
@@ -35,7 +36,7 @@
         },
         update: {
           method: 'PUT',
-          url: restPrefix + SUFFIX,
+          url: restPrefix + SUFFIX + SUB_SUFFIX,
           headers: headers.json,
           data: {
             'participantConfigurationJson': '@participantConfigurationJson'
@@ -43,7 +44,7 @@
         },
         get: {
           method: 'GET',
-          url: restPrefix + SUFFIX,
+          url: restPrefix + SUFFIX + SUB_SUFFIX,
           headers: headers.json
         }
       });
