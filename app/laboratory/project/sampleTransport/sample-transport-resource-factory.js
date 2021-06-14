@@ -75,6 +75,14 @@
             'sampleLot': '@sampleLot'
           }
         },
+        findByCode: {
+          method: 'GET',
+          url: restPrefix + SUFFIX + '/lot/:code',
+          headers: headers.json,
+          params: {
+            'code': '@code'
+          }
+        },
         getAliquotsByPeriod: {
           method: 'POST',
           url: restPrefix + SUFFIX + '/aliquots/:locationPointId',
