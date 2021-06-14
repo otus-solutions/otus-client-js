@@ -22,7 +22,7 @@
     var ID_PARAMETER = {'id': 1234567};
     var MATERIAL_TYPE_PARAMETER = {'materialType': "DBS"};
     var MATERIAL_CODE_PARAMETER = {"materialCode": 1234567};
-    var CODE_PARAMETER = {'code': 1234567};
+    var CODE_PARAMETER = {'code': 123};
     var DATA_CONFIRMATION = 'returnPromiseOK';
     var METHOD_GET_VALUE = "GET";
     var METHOD_POST_VALUE = "POST";
@@ -53,6 +53,7 @@
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + LOT_SX + RECEIPT_SX + CODE_SX).respond(200, DATA);
         httpBackend.when(METHOD_POST_VALUE, REST_PREFIX + SUFFIX + LOT_SX + ID_SX + RECEIVE_MATERIAL_SX ).respond(200, DATA);
         httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + MATERIAL_SX + TRACKING_SX + ID_SX ).respond(200, DATA);
+        httpBackend.when(METHOD_GET_VALUE, REST_PREFIX + SUFFIX + LOT_SX + CODE_SX ).respond(200, DATA);
       });
     });
 
@@ -87,6 +88,7 @@
         expect(factoryResult.updateLotReceipt).toBeDefined();
         expect(factoryResult.receiveMaterial).toBeDefined();
         expect(factoryResult.getMaterialTrackingList).toBeDefined();
+        expect(factoryResult.findByCode).toBeDefined();
       });
 
       describe('resourceMethods', function () {
@@ -153,6 +155,13 @@
 
         it('getMaterialTrackingMethod check', function () {
           var request = factoryResult.getMaterialTrackingList(MATERIAL_CODE_PARAMETER);
+          request.$promise.then(function (result) {
+            expect(result.data).toEqual(DATA_CONFIRMATION);
+          });
+        });
+
+        it('findByCode check', function () {
+          var request = factoryResult.findByCode(CODE_PARAMETER);
           request.$promise.then(function (result) {
             expect(result.data).toEqual(DATA_CONFIRMATION);
           });
