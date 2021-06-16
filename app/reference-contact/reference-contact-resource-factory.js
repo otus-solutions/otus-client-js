@@ -30,7 +30,7 @@
           url: restPrefix + SUFFIX,
           headers: headers.json,
           data: {
-            'ReferenceContactJson': '@ReferenceContactJson'
+            'referenceContactJson': '@referenceContactJson'
           }
         },
         updateReferenceContact: {
@@ -38,7 +38,7 @@
           url: restPrefix + SUFFIX,
           headers: headers.json,
           data: {
-            'ReferenceContactJson': '@ReferenceContactJson'
+            'referenceContactJson': '@referenceContactJson'
           }
         },
         getAllReferenceContacts: {
